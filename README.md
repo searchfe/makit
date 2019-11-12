@@ -1,4 +1,4 @@
-# Makefile.js Done Right
+# makit
 
 Purposes and Principles:
 
@@ -9,11 +9,20 @@ Purposes and Principles:
 
 Write a makefile.js containing the following contents:
 
-
 ```javascript
-const { writeFileSync } = require('fs')
+rule('all', ['a1.min.js'])  // default rule
 
-rule('a.min.js', ['a.js'], function () {
-    writeFileSync(this.target)
+rule('a1.min.js', ['a.js'], function () {
+    const src = readFileSync(this.dependencies[0], 'utf8')
+    const dst = UglifyJS.minify(src).code
+    writeFileSync(this.target, dst)
 })
 ```
+
+See [/demo](https://github.com/searchfe/makit/tree/master/demo) directory for details.
+
+## Async (Promise & Callbacks)
+
+## Dynamic Dependencies
+
+## Advanced Utils
