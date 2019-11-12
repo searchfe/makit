@@ -1,0 +1,19 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "bulid": "makit",
+    "clean": "makit clean"
+  },
+  "author": "harttle<yangjvn@126.com>",
+  "devDependencies": {
+    "uglify-js": "^3.6.8"
+  },
+  "dependencies": {
+    "md5": "^2.2.1",
+    "rimraf": "^3.0.0"
+  }
+}
