@@ -101,7 +101,8 @@ rule(<span class="hljs-string">'a1.min.js'</span>, [<span class="hljs-string">'a
     <span class="hljs-keyword">const</span> dst = UglifyJS.minify(src).code
     writeFileSync(<span class="hljs-keyword">this</span>.target, dst)
 })</code></pre>
-				<p>See <a href="https://github.com/searchfe/makit/tree/master/demo">/demo</a> directory for details.</p>
+				<p>See <a href="https://github.com/searchfe/makit/tree/master/demo">/demo</a> directory for details.
+				More details see the typedoc for <a href="https://searchfe.github.io/makit/modules/_index_.html#rule.">.rule()</a></p>
 				<a href="#async-promise-amp-callbacks" id="async-promise-amp-callbacks" style="color: inherit; text-decoration: none;">
 					<h2>Async (Promise &amp; Callbacks)</h2>
 				</a>
@@ -128,6 +129,22 @@ rule(<span class="hljs-string">'*.js.md5'</span>, ctx =&gt; ctx.target.replace(<
     <span class="hljs-keyword">await</span> <span class="hljs-keyword">this</span>.writeTarget(md5(src))
 })</code></pre>
 				<p>The prerequisites function can also return a <code>Promise&lt;string&gt;</code> or <code>Promise&lt;string[]&gt;</code>.</p>
+				<a href="#writing-makefilejs" id="writing-makefilejs" style="color: inherit; text-decoration: none;">
+					<h2>writing makefile.js</h2>
+				</a>
+				<p>All exported methods <code>.rule()</code>, <code>.make()</code>, <code>.setRoot()</code> are available in makefile.js:</p>
+				<pre><code class="language-javascript"><span class="hljs-comment">// file: makefile.js</span>
+<span class="hljs-keyword">const</span> { rule, make } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'makit'</span>)
+
+rule(<span class="hljs-string">'a.min.js'</span>, <span class="hljs-string">'a.js'</span>, minify)
+
+rule(<span class="hljs-regexp">/\.md5\.out$/</span>, ctx =&gt; ctx.targetPath().replace(ctx.match[<span class="hljs-number">0</span>], <span class="hljs-string">'.js'</span>), md5)
+
+rule(<span class="hljs-string">'bundle.js'</span>, [<span class="hljs-string">'a.min.js'</span>], <span class="hljs-keyword">async</span> () =&gt; {
+    <span class="hljs-comment">// do bundle</span>
+    <span class="hljs-keyword">await</span> make(<span class="hljs-string">'bundle.js.md5'</span>)
+})</code></pre>
+				<p>More details please refer to <a href="https://searchfe.github.io/makit/modules/_index_.html">https://searchfe.github.io/makit/modules/_index_.html</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

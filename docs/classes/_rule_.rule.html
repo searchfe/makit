@@ -90,11 +90,11 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_rule_.rule.html#isglob" class="tsd-kind-icon">is<wbr>Glob</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_rule_.rule.html#prerequisites" class="tsd-kind-icon">prerequisites</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_rule_.rule.html#rtarget" class="tsd-kind-icon">r<wbr>Target</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_rule_.rule.html#recipe" class="tsd-kind-icon">recipe</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_rule_.rule.html#target" class="tsd-kind-icon">target</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_rule_.rule.html#targettype" class="tsd-kind-icon">target<wbr>Type</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -102,6 +102,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_rule_.rule.html#getprerequisites" class="tsd-kind-icon">get<wbr>Prerequisites</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_rule_.rule.html#match" class="tsd-kind-icon">match</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_rule_.rule.html#targetisfilepath" class="tsd-kind-icon">target<wbr>IsFile<wbr>Path</a></li>
 							</ul>
 						</section>
 					</div>
@@ -113,22 +114,22 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Rule<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, prerequisites<span class="tsd-signature-symbol">: </span><a href="../modules/_rule_.html#prerequisitesdeclaration" class="tsd-signature-type">prerequisitesDeclaration</a>, recipe<span class="tsd-signature-symbol">: </span><a href="_recipe_.recipe.html" class="tsd-signature-type">Recipe</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_rule_.rule.html" class="tsd-signature-type">Rule</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Rule<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="../modules/_rule_.html#targetdeclaration" class="tsd-signature-type">TargetDeclaration</a>, prerequisites<span class="tsd-signature-symbol">: </span><a href="../modules/_rule_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a>, recipe<span class="tsd-signature-symbol">: </span><a href="_recipe_.recipe.html" class="tsd-signature-type">Recipe</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_rule_.rule.html" class="tsd-signature-type">Rule</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/fac41af/src/rule.ts#L20">rule.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/rule.ts#L26">rule.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>target: <span class="tsd-signature-type">string</span></h5>
+									<h5>target: <a href="../modules/_rule_.html#targetdeclaration" class="tsd-signature-type">TargetDeclaration</a></h5>
 								</li>
 								<li>
-									<h5>prerequisites: <a href="../modules/_rule_.html#prerequisitesdeclaration" class="tsd-signature-type">prerequisitesDeclaration</a></h5>
+									<h5>prerequisites: <a href="../modules/_rule_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a></h5>
 								</li>
 								<li>
 									<h5>recipe: <a href="_recipe_.recipe.html" class="tsd-signature-type">Recipe</a></h5>
@@ -141,23 +142,13 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="isglob" class="tsd-anchor"></a>
-					<h3>is<wbr>Glob</h3>
-					<div class="tsd-signature tsd-kind-icon">is<wbr>Glob<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/fac41af/src/rule.ts#L15">rule.ts:15</a></li>
-						</ul>
-					</aside>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="prerequisites" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> prerequisites</h3>
-					<div class="tsd-signature tsd-kind-icon">prerequisites<span class="tsd-signature-symbol">:</span> <a href="../modules/_rule_.html#prerequisitesdeclaration" class="tsd-signature-type">prerequisitesDeclaration</a></div>
+					<div class="tsd-signature tsd-kind-icon">prerequisites<span class="tsd-signature-symbol">:</span> <a href="../modules/_rule_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/fac41af/src/rule.ts#L20">rule.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/rule.ts#L26">rule.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -167,7 +158,7 @@
 					<div class="tsd-signature tsd-kind-icon">r<wbr>Target<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/fac41af/src/rule.ts#L19">rule.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/rule.ts#L25">rule.ts:25</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -177,17 +168,27 @@
 					<div class="tsd-signature tsd-kind-icon">recipe<span class="tsd-signature-symbol">:</span> <a href="_recipe_.recipe.html" class="tsd-signature-type">Recipe</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/fac41af/src/rule.ts#L17">rule.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/rule.ts#L23">rule.ts:23</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="target" class="tsd-anchor"></a>
 					<h3>target</h3>
-					<div class="tsd-signature tsd-kind-icon">target<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<div class="tsd-signature tsd-kind-icon">target<span class="tsd-signature-symbol">:</span> <a href="../modules/_rule_.html#targetdeclaration" class="tsd-signature-type">TargetDeclaration</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/fac41af/src/rule.ts#L16">rule.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/rule.ts#L22">rule.ts:22</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="targettype" class="tsd-anchor"></a>
+					<h3>target<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">target<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../enums/_rule_.targettype.html" class="tsd-signature-type">TargetType</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/rule.ts#L21">rule.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -204,7 +205,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/fac41af/src/rule.ts#L34">rule.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/rule.ts#L48">rule.ts:48</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -221,13 +222,13 @@
 					<a name="match" class="tsd-anchor"></a>
 					<h3>match</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">match<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">match<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RegExpExecArray</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/fac41af/src/rule.ts#L38">rule.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/rule.ts#L52">rule.ts:52</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -236,6 +237,23 @@
 									<h5>target: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">RegExpExecArray</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="targetisfilepath" class="tsd-anchor"></a>
+					<h3>target<wbr>IsFile<wbr>Path</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">target<wbr>IsFile<wbr>Path<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/rule.ts#L44">rule.ts:44</a></li>
+								</ul>
+							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
@@ -273,6 +291,9 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_rule_.targettype.html" class="tsd-kind-icon">Target<wbr>Type</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
@@ -280,9 +301,6 @@
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="_rule_.rule.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_rule_.rule.html#isglob" class="tsd-kind-icon">is<wbr>Glob</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_rule_.rule.html#prerequisites" class="tsd-kind-icon">prerequisites</a>
@@ -296,18 +314,27 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_rule_.rule.html#target" class="tsd-kind-icon">target</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_rule_.rule.html#targettype" class="tsd-kind-icon">target<wbr>Type</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_rule_.rule.html#getprerequisites" class="tsd-kind-icon">get<wbr>Prerequisites</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_rule_.rule.html#match" class="tsd-kind-icon">match</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_rule_.rule.html#targetisfilepath" class="tsd-kind-icon">target<wbr>IsFile<wbr>Path</a>
+							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_rule_.html#prerequisitesdeclaration" class="tsd-kind-icon">prerequisites<wbr>Declaration</a>
+						<a href="../modules/_rule_.html#prerequisitesdeclaration" class="tsd-kind-icon">Prerequisites<wbr>Declaration</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_rule_.html#targetdeclaration" class="tsd-kind-icon">Target<wbr>Declaration</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="../modules/_rule_.html#prerequisitesitem" class="tsd-kind-icon">prerequisites<wbr>Item</a>
