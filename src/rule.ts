@@ -9,25 +9,26 @@ const debug = debugFactory('makit:rule')
 type prerequisitesResolver = (context: Context) => (string[] | string)
 type prerequisitesItem = string | prerequisitesResolver
 
+export type TargetDeclaration = string | RegExp
 export type prerequisitesDeclaration = string | prerequisitesResolver | (string | prerequisitesResolver)[]
 
 export class Rule {
     public isGlob: boolean
-    public target: string
+    public target: TargetDeclaration
     public recipe: Recipe
 
     private rTarget: RegExp
     private prerequisites: prerequisitesDeclaration
 
     constructor (
-        target: string,
+        target: TargetDeclaration,
         prerequisites: prerequisitesDeclaration,
         recipe: Recipe
     ) {
         this.target = target
         this.prerequisites = prerequisites
         this.recipe = recipe
-        this.rTarget = makeRe(target)
+        this.rTarget = typeof target === 'string' ? makeRe(target) : target
         this.isGlob = isGlob(target)
     }
 
@@ -37,7 +38,7 @@ export class Rule {
 
     public match (target: string) {
         debug('matching', target, 'against', this.rTarget)
-        return this.rTarget.test(target)
+        return this.rTarget.exec(target)
     }
 }
 

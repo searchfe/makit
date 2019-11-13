@@ -1,7 +1,9 @@
 import { Makefile } from '../../src/index'
-import { readFileSync, writeFileSync } from 'fs'
+import { removeSync, readFileSync, writeFileSync } from 'fs-extra'
 
 describe('simple', function () {
+    beforeEach(() => removeSync('test/e2e/name.out'))
+
     it('should build simple transform', async function () {
         const mk = new Makefile(__dirname)
 

@@ -4,10 +4,13 @@ import { writeFile, writeFileSync, readFile, readFileSync } from 'fs-extra'
 export class Context {
     public readonly target: string
     public dependencies: string[]
+    public readonly match
+
     private readonly root: string
 
-    constructor ({ target, root, dependencies = [] }) {
+    constructor ({ target, match, root, dependencies = [] }) {
         this.root = root
+        this.match = match
         this.target = target
         this.dependencies = dependencies
     }

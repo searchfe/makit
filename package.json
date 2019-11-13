@@ -11,10 +11,10 @@
     "build": "tsc && chmod a+x dist/bin/*",
     "watch": "tsc --watch",
     "unit": "jest test/unit",
+    "e2e": "jest test/e2e",
+    "test": "jest test",
     "coveralls": "jest --coverage && cat coverage/lcov.info | coveralls",
-    "test": "jest",
     "version": "npm run build && npm run docs",
-    "e2e": "rm -f test/e2e/*.out && jest test/e2e/*.spec.ts",
     "semantic-release": "semantic-release"
   },
   "repository": {
@@ -72,6 +72,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "jasmine-core": "^2.99.0",
     "jest": "^24.9.0",
+    "md5": "^2.2.1",
     "semantic-release": "^15.13.30",
     "typedoc": "^0.15.0"
   },

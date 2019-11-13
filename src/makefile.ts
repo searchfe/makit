@@ -1,4 +1,4 @@
-import { Rule, prerequisitesDeclaration } from './rule'
+import { Rule, TargetDeclaration, prerequisitesDeclaration } from './rule'
 import { Context } from './context'
 import { cwd } from 'process'
 import { Recipe, recipeDeclaration } from './recipe'
@@ -19,7 +19,7 @@ export class Makefile {
     }
 
     public addRule (
-        target: string,
+        target: TargetDeclaration,
         prerequisites: prerequisitesDeclaration,
         recipe: recipeDeclaration = defaultRecipe
     ) {
@@ -41,10 +41,10 @@ export class Makefile {
     }
 
     public async doMake (target: string): Promise<string> {
-        const rule = this.findRule(target)
+        const [rule, match] = this.findRule(target)
 
         if (rule) {
-            const context = new Context({ target, root: this.root })
+            const context = new Context({ target, match, root: this.root })
             context.dependencies = await rule.getPrerequisites(context)
             await Promise.all(context.dependencies.map(dep => this.make(dep)))
 
@@ -78,14 +78,16 @@ export class Makefile {
 
     private findRule (target: string) {
         if (this.ruleMap.has(target)) {
-            return this.ruleMap.get(target)
+            return [this.ruleMap.get(target), target]
         }
         for (let i = this.ruleList.length - 1; i >= 0; i--) {
             const rule = this.ruleList[i]
-            if (rule.match(target)) {
-                return rule
+            const match = rule.match(target)
+            if (match) {
+                return [rule, match]
             }
         }
+        return [null, null]
     }
 
     private findFirstTarget () {
