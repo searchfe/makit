@@ -38,6 +38,7 @@ rule('a1.min.js', ['a.js'], function () {
 ```
 
 See [/demo](https://github.com/searchfe/makit/tree/master/demo) directory for details.
+More details see the typedoc for [.rule()](https://searchfe.github.io/makit/modules/_index_.html#rule.)
 
 ## Async (Promise & Callbacks)
 
@@ -92,3 +93,5 @@ rule('bundle.js', ['a.min.js'], async () => {
     await make('bundle.js.md5')
 })
 ```
+
+More details please refer to <https://searchfe.github.io/makit/modules/_index_.html>
