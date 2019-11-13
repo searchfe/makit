@@ -12,14 +12,14 @@ export class Recipe {
     }
 
     public async make (context: Context) {
-        return new Promise((resolve, reject) => {
-            const ret = this.fn.call(context, context, (err, data) => {
-                if (err) reject(err)
-                else resolve(data)
+        if (this.fn.length >= 2) {
+            return new Promise((resolve, reject) => {
+                this.fn.call(context, context, (err, data) => {
+                    if (err) reject(err)
+                    else resolve(data)
+                })
             })
-            if (ret && typeof ret.then === 'function') {
-                ret.then(resolve, reject)
-            }
-        })
+        }
+        return this.fn.call(context, context)
     }
 }

@@ -12,6 +12,7 @@ export class Makefile {
 
     private ruleMap: Map<string, Rule> = new Map()
     private ruleList: Rule[] = []
+    private making: Map<string, Promise<string>> = new Map()
 
     constructor (root?) {
         this.root = root || cwd()
@@ -31,18 +32,26 @@ export class Makefile {
         if (!target) {
             target = this.findFirstTargetOrThrow()
         }
+        if (this.making.has(target)) {
+            return this.making.get(target)
+        }
+        const pending = this.doMake(target)
+        this.making.set(target, pending)
+        return pending
+    }
+
+    public async doMake (target: string): Promise<string> {
         const rule = this.findRule(target)
 
         if (rule) {
             const context = new Context({ target, root: this.root })
-            const deps = await rule.getPrerequisites(context)
-            context.dependencies = deps
+            context.dependencies = await rule.getPrerequisites(context)
+            await Promise.all(context.dependencies.map(dep => this.make(dep)))
 
-            for (const dep of deps) {
-                await this.make(dep)
+            if (await this.isValid(target, context.dependencies)) {
+                return target
             }
-            if (await this.isValid(target, deps)) return target
-            rule.recipe.make(context)
+            await rule.recipe.make(context)
         } else {
             if (await this.isValid(target, [])) return target
             throw new Error(`no rule matched target: "${target}"`)
