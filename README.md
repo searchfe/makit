@@ -74,3 +74,21 @@ rule('*.js.md5', ctx => ctx.target.replace('.md5', ''), async function () {
 ```
 
 The prerequisites function can also return a `Promise<string>` or `Promise<string[]>`.
+
+## writing makefile.js
+
+All exported methods `.rule()`, `.make()`, `.setRoot()` are available in makefile.js:
+
+```javascript
+// file: makefile.js
+const { rule, make } = require('makit')
+
+rule('a.min.js', 'a.js', minify)
+
+rule(/\.md5\.out$/, ctx => ctx.targetPath().replace(ctx.match[0], '.js'), md5)
+
+rule('bundle.js', ['a.min.js'], async () => {
+    // do bundle
+    await make('bundle.js.md5')
+})
+```

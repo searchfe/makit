@@ -15,6 +15,22 @@ export class Context {
         this.dependencies = dependencies
     }
 
+    async writeSync (filepath: string) {
+        return writeFileSync(this.toFullPath(filepath))
+    }
+
+    async write (filepath: string) {
+        return writeFile(this.toFullPath(filepath))
+    }
+
+    async readSync (filepath: string) {
+        return readFileSync(this.toFullPath(filepath))
+    }
+
+    async read (filepath: string) {
+        return readFile(this.toFullPath(filepath))
+    }
+
     async readDependency (i: number = 0) {
         if (i >= this.dependencies.length) throw new Error(`cannot get ${i}th dependency,dependencieshis.deps.length} dependencies in total`)
         return readFile(this.dependencyFullPath(i), 'utf8')

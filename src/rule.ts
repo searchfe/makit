@@ -6,30 +6,43 @@ import debugFactory from 'debug'
 const isGlob = require('is-glob')
 const debug = debugFactory('makit:rule')
 
-type prerequisitesResolver = (context: Context) => (string[] | string)
+type prerequisitesResolver = (context: Context) => (string[] | string | Promise<string | string[]>)
 type prerequisitesItem = string | prerequisitesResolver
 
 export type TargetDeclaration = string | RegExp
-export type prerequisitesDeclaration = string | prerequisitesResolver | (string | prerequisitesResolver)[]
+export type PrerequisitesDeclaration = string | prerequisitesResolver | (string | prerequisitesResolver)[]
+export enum TargetType {
+    glob,
+    regexp,
+    filepath
+}
 
 export class Rule {
-    public isGlob: boolean
+    public targetType: TargetType
     public target: TargetDeclaration
     public recipe: Recipe
 
     private rTarget: RegExp
-    private prerequisites: prerequisitesDeclaration
+    private prerequisites: PrerequisitesDeclaration
 
     constructor (
         target: TargetDeclaration,
-        prerequisites: prerequisitesDeclaration,
+        prerequisites: PrerequisitesDeclaration,
         recipe: Recipe
     ) {
         this.target = target
         this.prerequisites = prerequisites
         this.recipe = recipe
         this.rTarget = typeof target === 'string' ? makeRe(target) : target
-        this.isGlob = isGlob(target)
+        this.targetType = target instanceof RegExp
+            ? TargetType.regexp
+            : (
+                isGlob(target) ? TargetType.glob : TargetType.filepath
+            )
+    }
+
+    public targetIsFilePath (): this is {target: string} {
+        return this.targetType === TargetType.filepath
     }
 
     public getPrerequisites (context: Context) {
@@ -42,7 +55,7 @@ export class Rule {
     }
 }
 
-async function getPrerequisitesFromDeclaration (ctx: Context, decl: prerequisitesDeclaration) {
+async function getPrerequisitesFromDeclaration (ctx: Context, decl: PrerequisitesDeclaration) {
     if (!Array.isArray(decl)) {
         decl = [decl]
     }

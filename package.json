@@ -1,7 +1,7 @@
 {
   "name": "makit",
   "version": "0.0.0-development",
-  "description": "Make in JavaScript done right",
+  "description": "Make in JavaScript done right!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

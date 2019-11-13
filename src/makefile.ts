@@ -1,4 +1,4 @@
-import { Rule, TargetDeclaration, prerequisitesDeclaration } from './rule'
+import { Rule, TargetType, TargetDeclaration, PrerequisitesDeclaration } from './rule'
 import { Context } from './context'
 import { cwd } from 'process'
 import { Recipe, recipeDeclaration } from './recipe'
@@ -20,11 +20,13 @@ export class Makefile {
 
     public addRule (
         target: TargetDeclaration,
-        prerequisites: prerequisitesDeclaration,
+        prerequisites: PrerequisitesDeclaration,
         recipe: recipeDeclaration = defaultRecipe
     ) {
         const rule = new Rule(target, prerequisites, new Recipe(recipe, this.root))
-        this.ruleMap.set(target, rule)
+        if (rule.targetIsFilePath()) {
+            this.ruleMap.set(rule.target, rule)
+        }
         this.ruleList.push(rule)
     }
 
@@ -40,7 +42,7 @@ export class Makefile {
         return pending
     }
 
-    public async doMake (target: string): Promise<string> {
+    private async doMake (target: string): Promise<string> {
         const [rule, match] = this.findRule(target)
 
         if (rule) {
@@ -76,9 +78,12 @@ export class Makefile {
         return stat(filepath).catch(() => null)
     }
 
-    private findRule (target: string) {
+    private findRule (target: string): [Rule, RegExpExecArray] {
         if (this.ruleMap.has(target)) {
-            return [this.ruleMap.get(target), target]
+            const match: RegExpExecArray = [target] as RegExpExecArray
+            match.input = target
+            match.index = 0
+            return [this.ruleMap.get(target), match]
         }
         for (let i = this.ruleList.length - 1; i >= 0; i--) {
             const rule = this.ruleList[i]
@@ -90,9 +95,9 @@ export class Makefile {
         return [null, null]
     }
 
-    private findFirstTarget () {
+    private findFirstTarget (): string {
         for (const rule of this.ruleList) {
-            if (!rule.isGlob) return rule.target
+            if (rule.targetIsFilePath()) return rule.target
         }
     }
 
