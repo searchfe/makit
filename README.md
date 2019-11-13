@@ -19,7 +19,7 @@ Purposes and Principles:
 
 ## Get Started
 
-Basically, the syntax is as simple as Makefile, a rule is consisted by 3 parts:
+Basically, the syntax is as simple as Makefile, a rule consists of 3 parts:
 
 * **target**: either a filepath string, a glob string, or a RegExp object
 * **prerequisites**: list of filepath strings, a function that returns a list of strings, or list of strings and functions, async functions are also supported
