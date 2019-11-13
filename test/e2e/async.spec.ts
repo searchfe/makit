@@ -23,7 +23,7 @@ describe('async', function () {
         mk.addRule('count.out', 'a.js', ctx => {
             return ctx.writeTarget('' + (count++))
         })
-        await Promise.all([mk.make('count.out'), mk.make('a.count.out')])
+        await Promise.all([mk.make('count.out'), mk.make('count.out')])
 
         expect(readFileSync('test/e2e/count.out', 'utf8')).toEqual('0')
     })
