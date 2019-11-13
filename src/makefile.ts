@@ -1,4 +1,4 @@
-import { Rule, TargetType, TargetDeclaration, PrerequisitesDeclaration } from './rule'
+import { Rule, TargetDeclaration, PrerequisitesDeclaration } from './rule'
 import { Context } from './context'
 import { cwd } from 'process'
 import { Recipe, recipeDeclaration } from './recipe'
