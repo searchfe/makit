@@ -1,6 +1,6 @@
 {
   "name": "makit",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Make in JavaScript done right",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/searchfe/makit.git"
+    "url": "https://github.com/searchfe/makit.git"
   },
   "keywords": [
     "Make",
@@ -72,7 +72,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "jasmine-core": "^2.99.0",
     "jest": "^24.9.0",
-    "semantic-release": "^15.13.27",
+    "semantic-release": "^15.13.30",
     "typedoc": "^0.15.0"
   },
   "dependencies": {
