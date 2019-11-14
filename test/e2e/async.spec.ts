@@ -3,16 +3,16 @@ import { removeSync, readFileSync } from 'fs-extra'
 
 describe('async', function () {
     it('should support async', async function () {
-        removeSync('test/e2e/name.out')
+        removeSync('test/e2e/async.out')
 
         const mk = new Makefile(__dirname)
 
-        mk.addRule('name.out', 'a.js', async function () {
+        mk.addRule('async.out', 'a.js', async function () {
             return this.writeTarget(this.dependencyPath())
         })
-        await mk.make('name.out')
+        await mk.make('async.out')
 
-        expect(readFileSync('test/e2e/name.out', 'utf8')).toEqual('a.js')
+        expect(readFileSync('test/e2e/async.out', 'utf8')).toEqual('a.js')
     })
 
     it('should make one file only once', async function () {

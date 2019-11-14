@@ -3,24 +3,24 @@ import { removeSync, readFileSync } from 'fs-extra'
 
 describe('recursive', function () {
     it('should recursively resolve prerequisites', async function () {
-        removeSync('test/e2e/a.out')
-        removeSync('test/e2e/b.out')
+        removeSync('test/e2e/recursive.a.out')
+        removeSync('test/e2e/recursive.b.out')
 
         const mk = new Makefile(__dirname)
 
-        mk.addRule('a.out', 'a.js', async ctx => ctx.writeTarget('A'))
-        mk.addRule('b.out', 'a.out', async ctx => ctx.writeTarget(await ctx.readDependency()))
+        mk.addRule('recursive.a.out', 'a.js', async ctx => ctx.writeTarget('A'))
+        mk.addRule('recursive.b.out', 'recursive.a.out', async ctx => ctx.writeTarget(await ctx.readDependency()))
 
-        await mk.make('b.out')
+        await mk.make('recursive.b.out')
 
-        expect(readFileSync('test/e2e/b.out', 'utf8')).toEqual('A')
+        expect(readFileSync('test/e2e/recursive.b.out', 'utf8')).toEqual('A')
     })
 
     it('should not rebuild if required twice', async function () {
-        removeSync('test/e2e/a.out')
-        removeSync('test/e2e/b.out')
-        removeSync('test/e2e/c.out')
-        removeSync('test/e2e/d.out')
+        removeSync('test/e2e/recursive.a.out')
+        removeSync('test/e2e/recursive.b.out')
+        removeSync('test/e2e/recursive.c.out')
+        removeSync('test/e2e/recursive.d.out')
 
         const mk = new Makefile(__dirname)
         const a = jest.fn()
@@ -28,12 +28,12 @@ describe('recursive', function () {
         const a2c = jest.fn()
         const bc2d = jest.fn()
 
-        mk.addRule('a.out', 'a.js', a)
-        mk.addRule('b.out', 'a.out', a2b)
-        mk.addRule('c.out', 'a.out', a2c)
-        mk.addRule('d.out', ['b.out', 'c.out'], bc2d)
+        mk.addRule('recursive.a.out', 'a.js', a)
+        mk.addRule('recursive.b.out', 'recursive.a.out', a2b)
+        mk.addRule('recursive.c.out', 'recursive.a.out', a2c)
+        mk.addRule('recursive.d.out', ['recursive.b.out', 'recursive.c.out'], bc2d)
 
-        await mk.make('d.out')
+        await mk.make('recursive.d.out')
 
         expect(a).toHaveBeenCalledTimes(1)
         expect(a2b).toHaveBeenCalledTimes(1)
