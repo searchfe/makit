@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;index&quot; | makit</title>
+	<title>&quot;index&quot; | make.js</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">makit</a>
+					<a href="../index.html" class="title">make.js</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -81,6 +81,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#make" class="tsd-kind-icon">make</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#rule" class="tsd-kind-icon">rule</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#setquiet" class="tsd-kind-icon">set<wbr>Quiet</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#setroot" class="tsd-kind-icon">set<wbr>Root</a></li>
 							</ul>
 						</section>
@@ -95,7 +96,7 @@
 					<div class="tsd-signature tsd-kind-icon">makefile<span class="tsd-signature-symbol">:</span> <a href="../classes/_makefile_.makefile.html" class="tsd-signature-type">Makefile</a><span class="tsd-signature-symbol"> =&nbsp;global[&#x27;makit&#x27;] &#x3D; new Makefile()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/index.ts#L5">index.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/b8795f9/src/index.ts#L5">index.ts:5</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -112,7 +113,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/index.ts#L15">index.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/b8795f9/src/index.ts#L19">index.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -135,7 +136,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/index.ts#L11">index.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/b8795f9/src/index.ts#L15">index.ts:15</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -155,6 +156,29 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="setquiet" class="tsd-anchor"></a>
+					<h3>set<wbr>Quiet</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Quiet<span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/b8795f9/src/index.ts#L7">index.ts:7</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> val: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
 					<a name="setroot" class="tsd-anchor"></a>
 					<h3>set<wbr>Root</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
@@ -164,7 +188,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/index.ts#L7">index.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/b8795f9/src/index.ts#L11">index.ts:11</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -194,6 +218,9 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_file_.html">"file"</a>
 					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_graph_.html">"graph"</a>
+					</li>
 					<li class="current tsd-kind-external-module">
 						<a href="_index_.html">"index"</a>
 					</li>
@@ -218,6 +245,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_index_.html#rule" class="tsd-kind-icon">rule</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_index_.html#setquiet" class="tsd-kind-icon">set<wbr>Quiet</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_index_.html#setroot" class="tsd-kind-icon">set<wbr>Root</a>

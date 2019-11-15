@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/searchfe/makit/compare/v1.1.0...v1.2.0) (2019-11-15)
+
+
+### Features
+
+* dependency graph and make trace ([e5cce8e](https://github.com/searchfe/makit/commit/e5cce8ec317102ab3291f241e8c1075e00f3f73f))
+* quiet argument to disable trace ([b8795f9](https://github.com/searchfe/makit/commit/b8795f9788caddbb2fab7ab93c92a92432c33c8e))
+
 # [1.1.0](https://github.com/searchfe/makit/compare/v1.0.0...v1.1.0) (2019-11-13)
 
 

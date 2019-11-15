@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;bin/makit&quot; | makit</title>
+	<title>&quot;bin/makit&quot; | make.js</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">makit</a>
+					<a href="../index.html" class="title">make.js</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -81,6 +81,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_bin_makit_.html#makefile" class="tsd-kind-icon">makefile</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_bin_makit_.html#makit" class="tsd-kind-icon">makit</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_bin_makit_.html#quiet" class="tsd-kind-icon">quiet</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_bin_makit_.html#targets" class="tsd-kind-icon">targets</a></li>
 							</ul>
 						</section>
@@ -101,7 +102,7 @@
 					<div class="tsd-signature tsd-kind-icon">Option<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/bin/makit.ts#L8">bin/makit.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/b8795f9/src/bin/makit.ts#L8">bin/makit.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -114,7 +115,7 @@
 					<div class="tsd-signature tsd-kind-icon">makefile<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;resolve(yargs.argv.config as string)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/bin/makit.ts#L18">bin/makit.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/b8795f9/src/bin/makit.ts#L31">bin/makit.ts:31</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -124,7 +125,17 @@
 					<div class="tsd-signature tsd-kind-icon">makit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;global[&#x27;makit&#x27;]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/bin/makit.ts#L25">bin/makit.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/b8795f9/src/bin/makit.ts#L39">bin/makit.ts:39</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="quiet" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> quiet</h3>
+					<div class="tsd-signature tsd-kind-icon">quiet<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;yargs.argv.quiet as boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/b8795f9/src/bin/makit.ts#L32">bin/makit.ts:32</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -134,7 +145,7 @@
 					<div class="tsd-signature tsd-kind-icon">targets<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;yargs.argv._</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/bin/makit.ts#L17">bin/makit.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/b8795f9/src/bin/makit.ts#L30">bin/makit.ts:30</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -151,7 +162,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/98771a7/src/bin/makit.ts#L27">bin/makit.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/b8795f9/src/bin/makit.ts#L42">bin/makit.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -174,6 +185,9 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_file_.html">"file"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_graph_.html">"graph"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_index_.html">"index"</a>
@@ -199,6 +213,9 @@
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_bin_makit_.html#makit" class="tsd-kind-icon">makit</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_bin_makit_.html#quiet" class="tsd-kind-icon">quiet</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_bin_makit_.html#targets" class="tsd-kind-icon">targets</a>
