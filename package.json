@@ -1,6 +1,6 @@
 {
   "name": "makit",
-  "version": "0.0.0-development",
+  "version": "1.2.0",
   "description": "Make in JavaScript done right!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -99,6 +99,7 @@
         "@semantic-release/git",
         {
           "assets": [
+            "pacakge.json",
             "docs",
             "CHANGELOG.md"
           ],
