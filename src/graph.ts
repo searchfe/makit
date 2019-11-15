@@ -43,7 +43,7 @@ export class DirectedGraph<T> {
 
         this.preOrder(begin, (node, path, visited) => {
             if (visited.has(node)) {
-                circularPath = [...path, node].reverse().join(' <- ')
+                circularPath = [...path, node].reverse()
             }
         })
         return circularPath
@@ -61,7 +61,7 @@ export class DirectedGraph<T> {
             if (!parents || !parents.size) break
             vertex = parents.values().next().value
         }
-        return [...seen].join(' <- ')
+        return [...seen]
     }
 
     public getRoots () {

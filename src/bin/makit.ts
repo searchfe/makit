@@ -14,6 +14,12 @@ yargs.usage('$0 <TARGET>...')
         default: 'makefile.js',
         description: 'makefile path'
     })
+    .option('quiet', {
+        alias: 'q',
+        type: 'boolean',
+        default: false,
+        description: 'do not output trace'
+    })
     .option('graph', {
         alias: 'g',
         type: 'boolean',
@@ -23,6 +29,7 @@ yargs.usage('$0 <TARGET>...')
 
 const targets = yargs.argv._
 const makefile = resolve(yargs.argv.config as string)
+const quiet = yargs.argv.quiet as boolean
 
 if (!existsSync(makefile)) {
     throw new Error('makefile.js not found')
@@ -30,6 +37,7 @@ if (!existsSync(makefile)) {
 console.log(chalk['cyan']('conf'), makefile)
 require(makefile)
 const makit = global['makit']
+makit.quiet = quiet
 
 async function main () {
     if (targets.length) {
