@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;recipe&quot; | makit</title>
+	<title>&quot;graph&quot; | makit</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_recipe_.html">&quot;recipe&quot;</a>
+					<a href="_graph_.html">&quot;graph&quot;</a>
 				</li>
 			</ul>
-			<h1>External module &quot;recipe&quot;</h1>
+			<h1>External module &quot;graph&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -70,53 +70,87 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
-							<h3>Classes</h3>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Enumerations</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_recipe_.recipe.html" class="tsd-kind-icon">Recipe</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-external-module tsd-is-not-exported"><a href="../enums/_graph_.vertextype.html" class="tsd-kind-icon">Vertex<wbr>Type</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
+							<h3>Classes</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter"><a href="../classes/_graph_.directedgraph.html" class="tsd-kind-icon">Directed<wbr>Graph</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_recipe_.html#recipedeclaration" class="tsd-kind-icon">recipe<wbr>Declaration</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported"><a href="_graph_.html#tree" class="tsd-kind-icon">Tree</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported"><a href="_graph_.html#visitor" class="tsd-kind-icon">Visitor</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Type aliases</h2>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
-					<a name="recipedeclaration" class="tsd-anchor"></a>
-					<h3>recipe<wbr>Declaration</h3>
-					<div class="tsd-signature tsd-kind-icon">recipe<wbr>Declaration<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="tree" class="tsd-anchor"></a>
+					<h3>Tree</h3>
+					<div class="tsd-signature tsd-kind-icon">Tree<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/138ea69/src/recipe.ts#L3">recipe.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/138ea69/src/graph.ts#L4">graph.ts:4</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="_graph_.html#tree" class="tsd-signature-type">Tree</a></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
+					<a name="visitor" class="tsd-anchor"></a>
+					<h3>Visitor</h3>
+					<div class="tsd-signature tsd-kind-icon">Visitor&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/138ea69/src/graph.ts#L3">graph.ts:3</a></li>
+						</ul>
+					</aside>
+					<h4 class="tsd-type-parameters-title">Type parameters</h4>
+					<ul class="tsd-type-parameters">
+						<li>
+							<h4>T</h4>
+						</li>
+					</ul>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="../classes/_context_.context.html" class="tsd-signature-type">Context</a>, ctx<span class="tsd-signature-symbol">: </span><a href="../classes/_context_.context.html" class="tsd-signature-type">Context</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>vertex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, stack<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span>, visited<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Set</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>this: <a href="../classes/_context_.context.html" class="tsd-signature-type">Context</a></h5>
+												<h5>vertex: <span class="tsd-signature-type">T</span></h5>
 											</li>
 											<li>
-												<h5>ctx: <a href="../classes/_context_.context.html" class="tsd-signature-type">Context</a></h5>
+												<h5>stack: <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span></h5>
+											</li>
+											<li>
+												<h5>visited: <span class="tsd-signature-type">Set</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
 											</li>
 										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">false</span>
 											<span class="tsd-signature-symbol"> | </span>
-											<span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span>
+											<span class="tsd-signature-type">void</span>
 										</h4>
 									</li>
 								</ul>
@@ -141,7 +175,7 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_file_.html">"file"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="_graph_.html">"graph"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -150,7 +184,7 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_makefile_.html">"makefile"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="_recipe_.html">"recipe"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -160,11 +194,17 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_recipe_.recipe.html" class="tsd-kind-icon">Recipe</a>
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../enums/_graph_.vertextype.html" class="tsd-kind-icon">Vertex<wbr>Type</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="_recipe_.html#recipedeclaration" class="tsd-kind-icon">recipe<wbr>Declaration</a>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../classes/_graph_.directedgraph.html" class="tsd-kind-icon">Directed<wbr>Graph</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_graph_.html#tree" class="tsd-kind-icon">Tree</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
+						<a href="_graph_.html#visitor" class="tsd-kind-icon">Visitor</a>
 					</li>
 				</ul>
 			</nav>
