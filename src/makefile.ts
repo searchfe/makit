@@ -1,6 +1,8 @@
 import { Rule, TargetDeclaration, PrerequisitesDeclaration } from './rule'
+import chalk from 'chalk'
 import { Context } from './context'
 import { cwd } from 'process'
+import { DirectedGraph } from './graph'
 import { Recipe, recipeDeclaration } from './recipe'
 import { resolve } from 'path'
 import { stat } from 'fs-extra'
@@ -13,9 +15,10 @@ export class Makefile {
     private ruleMap: Map<string, Rule> = new Map()
     private ruleList: Rule[] = []
     private making: Map<string, Promise<string>> = new Map()
+    private graph: DirectedGraph<string> = new DirectedGraph()
 
-    constructor (root?) {
-        this.root = root || cwd()
+    constructor (root = cwd()) {
+        this.root = root
     }
 
     public addRule (
@@ -30,10 +33,19 @@ export class Makefile {
         this.ruleList.push(rule)
     }
 
-    public async make (target?: string): Promise<string> {
+    public async make (target?: string, parent?: string): Promise<string> {
         if (!target) {
             target = this.findFirstTargetOrThrow()
         }
+
+        if (parent) this.graph.addEdge(parent, target)
+        else this.graph.addVertex(target)
+
+        const circle = this.graph.checkCircular(target)
+        if (circle) {
+            throw new Error(`Circular detected while making ${circle}`)
+        }
+
         if (this.making.has(target)) {
             return this.making.get(target)
         }
@@ -42,17 +54,24 @@ export class Makefile {
         return pending
     }
 
+    public printGraph () {
+        console.log(chalk['cyan']('deps'))
+        console.log(this.graph.toString())
+    }
+
     private async doMake (target: string): Promise<string> {
         const [rule, match] = this.findRule(target)
 
         if (rule) {
             const context = new Context({ target, match, root: this.root })
             context.dependencies = await rule.getPrerequisites(context)
-            await Promise.all(context.dependencies.map(dep => this.make(dep)))
+            await Promise.all(context.dependencies.map(dep => this.make(dep, target)))
 
             if (await this.isValid(target, context.dependencies)) {
+                console.log(chalk['grey']('skip'), `${target} up to date`)
                 return target
             }
+            console.log(chalk['cyan'](`make`), this.graph.getSinglePath(target))
             await rule.recipe.make(context)
         } else {
             if (await this.isValid(target, [])) return target

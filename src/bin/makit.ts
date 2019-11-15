@@ -10,8 +10,15 @@ type OptionValue = string | undefined
 yargs.usage('$0 <TARGET>...')
     .option('config', {
         alias: 'c',
+        type: 'string',
         default: 'makefile.js',
         description: 'makefile path'
+    })
+    .option('graph', {
+        alias: 'g',
+        type: 'boolean',
+        default: false,
+        description: 'output dependency graph'
     })
 
 const targets = yargs.argv._
@@ -20,18 +27,17 @@ const makefile = resolve(yargs.argv.config as string)
 if (!existsSync(makefile)) {
     throw new Error('makefile.js not found')
 }
-console.log(chalk.gray('config'), makefile)
+console.log(chalk['cyan']('conf'), makefile)
 require(makefile)
 const makit = global['makit']
 
 async function main () {
     if (targets.length) {
         await Promise.all(targets.map(target => makit.make(target)))
-        console.log(chalk.green('success'), targets.join(','))
     } else {
-        const target = await makit.make()
-        console.log(chalk.green('success'), target)
+        await makit.make()
     }
+    makit.printGraph()
 }
 
 main().catch(err => console.error(err))

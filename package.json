@@ -85,6 +85,7 @@
     "minimatch": "^3.0.4",
     "node-glob": "^1.2.0",
     "snake-case": "^2.1.0",
+    "treeify": "^1.1.0",
     "yargs": "^14.2.0"
   },
   "release": {

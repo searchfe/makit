@@ -3,6 +3,7 @@
     "target": "es6",
     "declaration": true,
     "skipLibCheck": true,
+    "downlevelIteration": true,
     "module": "CommonJS",
     "outDir": "dist",
     "noImplicitAny": false,
