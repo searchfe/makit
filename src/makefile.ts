@@ -11,14 +11,16 @@ const defaultRecipe = () => void (0)
 
 export class Makefile {
     public root: string
+    public quiet: boolean
 
     private ruleMap: Map<string, Rule> = new Map()
     private ruleList: Rule[] = []
     private making: Map<string, Promise<string>> = new Map()
     private graph: DirectedGraph<string> = new DirectedGraph()
 
-    constructor (root = cwd()) {
+    constructor (root = cwd(), quiet = process.env.NODE_ENV === 'test') {
         this.root = root
+        this.quiet = quiet
     }
 
     public addRule (
@@ -43,7 +45,7 @@ export class Makefile {
 
         const circle = this.graph.checkCircular(target)
         if (circle) {
-            throw new Error(`Circular detected while making ${circle}`)
+            throw new Error(`Circular detected while making "${target}": ${circle.join(' <- ')}`)
         }
 
         if (this.making.has(target)) {
@@ -68,10 +70,10 @@ export class Makefile {
             await Promise.all(context.dependencies.map(dep => this.make(dep, target)))
 
             if (await this.isValid(target, context.dependencies)) {
-                console.log(chalk['grey']('skip'), `${target} up to date`)
+                !this.quiet && console.log(chalk['grey']('skip'), `${target} up to date`)
                 return target
             }
-            console.log(chalk['cyan'](`make`), this.graph.getSinglePath(target))
+            !this.quiet && console.log(chalk['cyan'](`make`), this.graph.getSinglePath(target).join(' <- '))
             await rule.recipe.make(context)
         } else {
             if (await this.isValid(target, [])) return target
