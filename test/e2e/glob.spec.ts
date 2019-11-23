@@ -4,7 +4,7 @@ const md5 = require('md5')
 
 describe('glob', function () {
     beforeEach(() => removeSync('test/e2e/glob.md5.out'))
-    const sum = 'e57bb1e7dfca29c69727f6a40b91fa44'
+    const sum = '6cd237310244539a24846274a3f71803'
 
     it('should support glob', async function () {
         const mk = new Makefile(__dirname)

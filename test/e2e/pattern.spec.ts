@@ -5,7 +5,7 @@ const md5 = require('md5')
 describe('glob', function () {
     const output0 = 'test/e2e/d.md5.out'
     beforeEach(() => removeSync(output0))
-    const sum = '89a73e70b37e4631dab23c408b18be32'
+    const sum = 'e9a2fb30a1914745db8f4a114f7484b5'
 
     it('should support matchMode', async function () {
         const mk = new Makefile(process.cwd())
