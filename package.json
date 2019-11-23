@@ -79,11 +79,10 @@
   "dependencies": {
     "camelcase": "^5.3.1",
     "debug": "^4.1.1",
+    "extglob": "^3.0.0",
     "fs-extra": "^8.1.0",
     "is-glob": "^4.0.1",
     "lodash": "^4.17.15",
-    "minimatch": "^3.0.4",
-    "node-glob": "^1.2.0",
     "snake-case": "^2.1.0",
     "treeify": "^1.1.0",
     "yargs": "^14.2.0"
