@@ -1,7 +1,7 @@
 import { Context } from './context'
 import { Recipe } from './recipe'
 import debugFactory from 'debug'
-const extglob = require('extglob');
+const extglob = require('extglob')
 
 const isGlob = require('is-glob')
 const debug = debugFactory('makit:rule')
@@ -16,7 +16,6 @@ enum PrerequisiteMode {
     Function,
     FunctionArray
 }
-
 
 export type TargetDeclaration = string | RegExp
 export type PrerequisitesDeclaration = string | prerequisitesResolver | (string | prerequisitesResolver)[]
@@ -43,16 +42,16 @@ export class Rule {
         this.target = target
 
         this.prerequisites = prerequisites
-        if (typeof prerequisites === "string") {
+        if (typeof prerequisites === 'string') {
             if (prerequisites.match(/\$\d/)) {
                 this.prerequisiteMode = PrerequisiteMode.Match
             } else {
                 this.prerequisiteMode = PrerequisiteMode.String
-            } 
-        } else if (Array.isArray(prerequisites)){
-            if (typeof(prerequisites[0]) === 'string') {
+            }
+        } else if (Array.isArray(prerequisites)) {
+            if (typeof (prerequisites[0]) === 'string') {
                 this.prerequisiteMode = PrerequisiteMode.StringArray
-            } else if (typeof(prerequisites[0]) === 'function') {
+            } else if (typeof (prerequisites[0]) === 'function') {
                 this.prerequisiteMode = PrerequisiteMode.FunctionArray
             }
         } else {
@@ -61,9 +60,9 @@ export class Rule {
 
         this.recipe = recipe
         if (typeof target === 'string') {
-            if (target.indexOf('$') == -1) {
+            if (target.indexOf('$') === -1) {
                 // Matching Mode
-                this.rTarget = new RegExp(extglob(target).replace(/\(\?\:/g, '('))
+                this.rTarget = new RegExp(extglob(target).replace(/\(\?:/g, '('))
             } else {
                 // Support Backward reference
                 this.rTarget = extglob.makeRe(target)
@@ -92,27 +91,27 @@ export class Rule {
     }
 
     public async getPrerequisitesFromDeclaration (ctx: Context, decl: PrerequisitesDeclaration) {
-        switch(this.prerequisiteMode) {
-            case PrerequisiteMode.Match:
-                decl = (decl as string).replace(/\$(\d+)/g, (all, index) => {
-                    return ctx.match[index];
-                });
-                decl = [decl]
-                break;
-            case PrerequisiteMode.String:
-                decl = [decl as string]
-                break;
-            case PrerequisiteMode.Function:
-                decl = [decl as prerequisitesResolver]
-                break;
-            case PrerequisiteMode.FunctionArray:
-                decl = decl as prerequisitesResolver[]
-                break
-            case PrerequisiteMode.StringArray:
-                decl = decl as string[]
-                break;
-            default:
-                return [];
+        switch (this.prerequisiteMode) {
+        case PrerequisiteMode.Match:
+            decl = (decl as string).replace(/\$(\d+)/g, (all, index) => {
+                return ctx.match[index]
+            })
+            decl = [decl]
+            break
+        case PrerequisiteMode.String:
+            decl = [decl as string]
+            break
+        case PrerequisiteMode.Function:
+            decl = [decl as prerequisitesResolver]
+            break
+        case PrerequisiteMode.FunctionArray:
+            decl = decl as prerequisitesResolver[]
+            break
+        case PrerequisiteMode.StringArray:
+            decl = decl as string[]
+            break
+        default:
+            return []
         }
 
         const result = []
@@ -131,4 +130,3 @@ export class Rule {
         return result
     }
 }
-

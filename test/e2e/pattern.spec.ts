@@ -3,7 +3,7 @@ import { removeSync, readFileSync } from 'fs-extra'
 const md5 = require('md5')
 
 describe('glob', function () {
-    const output0 = 'test/e2e/d.md5.out';
+    const output0 = 'test/e2e/d.md5.out'
     beforeEach(() => removeSync(output0))
     const sum = '89a73e70b37e4631dab23c408b18be32'
 
@@ -18,5 +18,4 @@ describe('glob', function () {
         await mk.make(output0)
         expect(readFileSync(output0, 'utf8')).toEqual(sum)
     })
-
 })
