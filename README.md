@@ -77,7 +77,7 @@ rule('*.js.md5', ctx => ctx.target.replace('.md5', ''), async function () {
 The prerequisites function can also return a `Promise<string>` or `Promise<string[]>`.
 
 
-## Match Mode && Backward reference
+## Match Mode && Backward Reference
 
 ```javascript
 // `makit output/app/app.js` will make app.js.md5 from a.ts
