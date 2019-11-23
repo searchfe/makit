@@ -129,6 +129,14 @@ rule(<span class="hljs-string">'*.js.md5'</span>, ctx =&gt; ctx.target.replace(<
     <span class="hljs-keyword">await</span> <span class="hljs-keyword">this</span>.writeTarget(md5(src))
 })</code></pre>
 				<p>The prerequisites function can also return a <code>Promise&lt;string&gt;</code> or <code>Promise&lt;string[]&gt;</code>.</p>
+				<a href="#match-mode-ampamp-backward-reference" id="match-mode-ampamp-backward-reference" style="color: inherit; text-decoration: none;">
+					<h2>Match Mode &amp;&amp; Backward Reference</h2>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-comment">// `makit output/app/app.js` will make app.js.md5 from a.ts</span>
+rule(<span class="hljs-string">'(output/**)/(*).js'</span>, <span class="hljs-string">'$1/$2.ts'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.writeTarget(tsc(<span class="hljs-keyword">await</span> <span class="hljs-keyword">this</span>.readDependency()))
+})
+make(<span class="hljs-string">'output/app/app.js'</span>)</code></pre>
 				<a href="#writing-makefilejs" id="writing-makefilejs" style="color: inherit; text-decoration: none;">
 					<h2>writing makefile.js</h2>
 				</a>

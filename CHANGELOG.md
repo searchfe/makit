@@ -1,3 +1,19 @@
+# [1.2.0](https://github.com/searchfe/makit/compare/v1.1.0...v1.2.0) (2019-11-23)
+
+
+### Bug Fixes
+
+* hash in test ([593198a](https://github.com/searchfe/makit/commit/593198a6e08bc5fa69cf49f0f7db4b632474de03))
+* lint ([242e066](https://github.com/searchfe/makit/commit/242e066415eb8c5f2a0adcf1df005af4a834fcb8))
+
+
+### Features
+
+* dependency graph and make trace ([e5cce8e](https://github.com/searchfe/makit/commit/e5cce8ec317102ab3291f241e8c1075e00f3f73f))
+* publish 1.3.0 ([6df3266](https://github.com/searchfe/makit/commit/6df32665386f3b294b48c1750cca755a262cc1ad))
+* quiet argument to disable trace ([138ea69](https://github.com/searchfe/makit/commit/138ea69290047afc91a6f591c104e06b90401503))
+* support match mode && backward reference ([7f03a4f](https://github.com/searchfe/makit/commit/7f03a4f12b6c1ef4c92d03ce53e8c32edf5e3e7a))
+
 # [1.2.0](https://github.com/searchfe/makit/compare/v1.1.0...v1.2.0) (2019-11-15)
 
 

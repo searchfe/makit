@@ -73,6 +73,7 @@
 						<section class="tsd-index-section ">
 							<h3>Enumerations</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-enum tsd-parent-kind-external-module tsd-is-not-exported"><a href="../enums/_rule_.prerequisitemode.html" class="tsd-kind-icon">Prerequisite<wbr>Mode</a></li>
 								<li class="tsd-kind-enum tsd-parent-kind-external-module"><a href="../enums/_rule_.targettype.html" class="tsd-kind-icon">Target<wbr>Type</a></li>
 							</ul>
 						</section>
@@ -95,13 +96,8 @@
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_rule_.html#debug" class="tsd-kind-icon">debug</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_rule_.html#extglob" class="tsd-kind-icon">extglob</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_rule_.html#isglob" class="tsd-kind-icon">is<wbr>Glob</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Functions</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_rule_.html#getprerequisitesfromdeclaration" class="tsd-kind-icon">get<wbr>Prerequisites<wbr>From<wbr>Declaration</a></li>
 							</ul>
 						</section>
 					</div>
@@ -115,7 +111,7 @@
 					<div class="tsd-signature tsd-kind-icon">Prerequisites<wbr>Declaration<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="_rule_.html#prerequisitesresolver" class="tsd-signature-type">prerequisitesResolver</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/138ea69/src/rule.ts#L13">rule.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/6df3266/src/rule.ts#L21">rule.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -125,7 +121,7 @@
 					<div class="tsd-signature tsd-kind-icon">Target<wbr>Declaration<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RegExp</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/138ea69/src/rule.ts#L12">rule.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/6df3266/src/rule.ts#L20">rule.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -135,7 +131,7 @@
 					<div class="tsd-signature tsd-kind-icon">prerequisites<wbr>Item<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="_rule_.html#prerequisitesresolver" class="tsd-signature-type">prerequisitesResolver</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/138ea69/src/rule.ts#L10">rule.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/6df3266/src/rule.ts#L10">rule.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -145,7 +141,7 @@
 					<div class="tsd-signature tsd-kind-icon">prerequisites<wbr>Resolver<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/138ea69/src/rule.ts#L9">rule.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/6df3266/src/rule.ts#L9">rule.ts:9</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -184,7 +180,17 @@
 					<div class="tsd-signature tsd-kind-icon">debug<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;debugFactory(&#x27;makit:rule&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/138ea69/src/rule.ts#L7">rule.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/6df3266/src/rule.ts#L7">rule.ts:7</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="extglob" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> extglob</h3>
+					<div class="tsd-signature tsd-kind-icon">extglob<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&#x27;extglob&#x27;)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/6df3266/src/rule.ts#L4">rule.ts:4</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -194,38 +200,9 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Glob<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&#x27;is-glob&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/138ea69/src/rule.ts#L6">rule.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/6df3266/src/rule.ts#L6">rule.ts:6</a></li>
 						</ul>
 					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="getprerequisitesfromdeclaration" class="tsd-anchor"></a>
-					<h3>get<wbr>Prerequisites<wbr>From<wbr>Declaration</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Prerequisites<wbr>From<wbr>Declaration<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="../classes/_context_.context.html" class="tsd-signature-type">Context</a>, decl<span class="tsd-signature-symbol">: </span><a href="_rule_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/138ea69/src/rule.ts#L58">rule.ts:58</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>ctx: <a href="../classes/_context_.context.html" class="tsd-signature-type">Context</a></h5>
-								</li>
-								<li>
-									<h5>decl: <a href="_rule_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
 				</section>
 			</section>
 		</div>
@@ -263,6 +240,9 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../enums/_rule_.prerequisitemode.html" class="tsd-kind-icon">Prerequisite<wbr>Mode</a>
+					</li>
 					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
 						<a href="../enums/_rule_.targettype.html" class="tsd-kind-icon">Target<wbr>Type</a>
 					</li>
@@ -285,10 +265,10 @@
 						<a href="_rule_.html#debug" class="tsd-kind-icon">debug</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_rule_.html#isglob" class="tsd-kind-icon">is<wbr>Glob</a>
+						<a href="_rule_.html#extglob" class="tsd-kind-icon">extglob</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_rule_.html#getprerequisitesfromdeclaration" class="tsd-kind-icon">get<wbr>Prerequisites<wbr>From<wbr>Declaration</a>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_rule_.html#isglob" class="tsd-kind-icon">is<wbr>Glob</a>
 					</li>
 				</ul>
 			</nav>
