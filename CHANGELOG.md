@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/searchfe/makit/compare/v1.4.1...v1.5.0) (2019-11-23)
+
+
+### Features
+
+* publish patch ([b1e8b8a](https://github.com/searchfe/makit/commit/b1e8b8ae4143edaecf72e91fe906bc430773f4aa))
+
 # [1.2.0](https://github.com/searchfe/makit/compare/v1.1.0...v1.2.0) (2019-11-23)
 
 
