@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/searchfe/makit/compare/v1.5.0...v1.5.1) (2019-11-24)
+
+
+### Bug Fixes
+
+* Fix a bug which can trigger loops in matching mode ([cac2631](https://github.com/searchfe/makit/commit/cac26318b4263e9734330b1752b000c12c4114c9))
+
 # [1.5.0](https://github.com/searchfe/makit/compare/v1.4.1...v1.5.0) (2019-11-23)
 
 
