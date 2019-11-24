@@ -60,9 +60,9 @@ export class Rule {
 
         this.recipe = recipe
         if (typeof target === 'string') {
-            if (target.indexOf('$') === -1) {
+            if (target.indexOf('(') > -1) {
                 // Matching Mode
-                this.rTarget = new RegExp(extglob(target).replace(/\(\?:/g, '('))
+                this.rTarget = new RegExp('^' + extglob(target).replace(/\(\?:/g, '(') + '$')
             } else {
                 // Support Backward reference
                 this.rTarget = extglob.makeRe(target)

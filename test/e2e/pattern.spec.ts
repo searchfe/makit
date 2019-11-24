@@ -18,4 +18,23 @@ describe('glob', function () {
         await mk.make(output0)
         expect(readFileSync(output0, 'utf8')).toEqual(sum)
     })
+
+    it('should complete ^(?:glob)$', async function () {
+        const mk = new Makefile(process.cwd())
+        mk.addRule('build/**.js', [], () => {
+            console.log('fire build!')
+        })
+        mk.addRule('build', [], () => {
+            throw new Error('should not fire build!')
+        })
+        await mk.make('build/a.js')
+
+        mk.addRule('(src)/**.js', [], () => {
+            console.log('fire src!')
+        })
+        mk.addRule('s(rc)', [], () => {
+            throw new Error('should not fire src!')
+        })
+        await mk.make('src/a.js')
+    })
 })
