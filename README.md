@@ -77,7 +77,10 @@ rule('*.js.md5', ctx => ctx.target.replace('.md5', ''), async function () {
 The prerequisites function can also return a `Promise<string>` or `Promise<string[]>`.
 
 
-## Match Mode && Backward Reference
+## Match Groups and Backward Reference
+
+Makit uses [extglob](https://www.npmjs.com/package/extglob) to match target names.
+And it's extended to support match groups for reference in prerequisites.
 
 ```javascript
 // `makit output/app/app.js` will make app.js.md5 from a.ts
@@ -87,7 +90,7 @@ rule('(output/**)/(*).js', '$1/$2.ts', async function () {
 make('output/app/app.js')
 ```
 
-## writing makefile.js
+## Writing makefile.js
 
 All exported methods `.rule()`, `.make()`, `.setRoot()` are available in makefile.js:
 
@@ -100,9 +103,8 @@ rule('a.min.js', 'a.js', minify)
 rule(/\.md5\.out$/, ctx => ctx.targetPath().replace(ctx.match[0], '.js'), md5)
 
 rule('bundle.js', ['a.min.js'], async () => {
-    // do bundle
     await make('bundle.js.md5')
 })
 ```
 
-More details please refer to <https://searchfe.github.io/makit/modules/_index_.html>
+For more acurrate documentation, here's the TypeDoc: <https://searchfe.github.io/makit/modules/_index_.html>

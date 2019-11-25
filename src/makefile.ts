@@ -11,16 +11,16 @@ const defaultRecipe = () => void (0)
 
 export class Makefile {
     public root: string
-    public quiet: boolean
+    public verbose: boolean
 
     private ruleMap: Map<string, Rule> = new Map()
     private ruleList: Rule[] = []
     private making: Map<string, Promise<string>> = new Map()
     private graph: DirectedGraph<string> = new DirectedGraph()
 
-    constructor (root = cwd(), quiet = process.env.NODE_ENV === 'test') {
+    constructor (root = cwd(), verbose = false) {
         this.root = root
-        this.quiet = quiet
+        this.verbose = verbose
     }
 
     public addRule (
@@ -70,10 +70,10 @@ export class Makefile {
             await Promise.all(context.dependencies.map(dep => this.make(dep, target)))
 
             if (await this.isValid(target, context.dependencies)) {
-                !this.quiet && console.log(chalk['grey']('skip'), `${target} up to date`)
+                this.verbose && console.log(chalk['grey']('skip'), `${target} up to date`)
                 return target
             }
-            !this.quiet && console.log(chalk['cyan'](`make`), this.graph.getSinglePath(target).join(' <- '))
+            this.verbose && console.log(chalk['cyan'](`make`), this.graph.getSinglePath(target).join(' <- '))
             await rule.recipe.make(context)
         } else {
             if (await this.isValid(target, [])) return target

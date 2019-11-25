@@ -4,8 +4,8 @@ import { PrerequisitesDeclaration } from './rule'
 
 const makefile = global['makit'] = new Makefile()
 
-export function setQuiet (val: boolean = true) {
-    makefile.quiet = val
+export function setVerbose (val: boolean = true) {
+    makefile.verbose = val
 }
 
 export function setRoot (val: string) {
