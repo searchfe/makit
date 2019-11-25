@@ -129,16 +129,18 @@ rule(<span class="hljs-string">'*.js.md5'</span>, ctx =&gt; ctx.target.replace(<
     <span class="hljs-keyword">await</span> <span class="hljs-keyword">this</span>.writeTarget(md5(src))
 })</code></pre>
 				<p>The prerequisites function can also return a <code>Promise&lt;string&gt;</code> or <code>Promise&lt;string[]&gt;</code>.</p>
-				<a href="#match-mode-ampamp-backward-reference" id="match-mode-ampamp-backward-reference" style="color: inherit; text-decoration: none;">
-					<h2>Match Mode &amp;&amp; Backward Reference</h2>
+				<a href="#match-groups-and-backward-reference" id="match-groups-and-backward-reference" style="color: inherit; text-decoration: none;">
+					<h2>Match Groups and Backward Reference</h2>
 				</a>
+				<p>Makit uses <a href="https://www.npmjs.com/package/extglob">extglob</a> to match target names.
+				And it&#39;s extended to support match groups for reference in prerequisites.</p>
 				<pre><code class="language-javascript"><span class="hljs-comment">// `makit output/app/app.js` will make app.js.md5 from a.ts</span>
 rule(<span class="hljs-string">'(output/**)/(*).js'</span>, <span class="hljs-string">'$1/$2.ts'</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.writeTarget(tsc(<span class="hljs-keyword">await</span> <span class="hljs-keyword">this</span>.readDependency()))
 })
 make(<span class="hljs-string">'output/app/app.js'</span>)</code></pre>
 				<a href="#writing-makefilejs" id="writing-makefilejs" style="color: inherit; text-decoration: none;">
-					<h2>writing makefile.js</h2>
+					<h2>Writing makefile.js</h2>
 				</a>
 				<p>All exported methods <code>.rule()</code>, <code>.make()</code>, <code>.setRoot()</code> are available in makefile.js:</p>
 				<pre><code class="language-javascript"><span class="hljs-comment">// file: makefile.js</span>
@@ -149,10 +151,9 @@ rule(<span class="hljs-string">'a.min.js'</span>, <span class="hljs-string">'a.j
 rule(<span class="hljs-regexp">/\.md5\.out$/</span>, ctx =&gt; ctx.targetPath().replace(ctx.match[<span class="hljs-number">0</span>], <span class="hljs-string">'.js'</span>), md5)
 
 rule(<span class="hljs-string">'bundle.js'</span>, [<span class="hljs-string">'a.min.js'</span>], <span class="hljs-keyword">async</span> () =&gt; {
-    <span class="hljs-comment">// do bundle</span>
     <span class="hljs-keyword">await</span> make(<span class="hljs-string">'bundle.js.md5'</span>)
 })</code></pre>
-				<p>More details please refer to <a href="https://searchfe.github.io/makit/modules/_index_.html">https://searchfe.github.io/makit/modules/_index_.html</a></p>
+				<p>For more acurrate documentation, here&#39;s the TypeDoc: <a href="https://searchfe.github.io/makit/modules/_index_.html">https://searchfe.github.io/makit/modules/_index_.html</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

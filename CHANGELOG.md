@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/searchfe/makit/compare/v1.5.1...v1.5.2) (2019-11-25)
+
+
+### Bug Fixes
+
+* quiet by default, fixes [#8](https://github.com/searchfe/makit/issues/8) ([daff868](https://github.com/searchfe/makit/commit/daff86897306a93b37f272519ed90c33906fb70e))
+
 ## [1.5.1](https://github.com/searchfe/makit/compare/v1.5.0...v1.5.1) (2019-11-24)
 
 
