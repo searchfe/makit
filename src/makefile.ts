@@ -1,4 +1,6 @@
-import { Rule, TargetDeclaration, PrerequisitesDeclaration } from './rule'
+import { Rule } from './rule'
+import { Prerequisites, PrerequisitesDeclaration } from './prerequisites'
+import { Target, TargetDeclaration } from './target'
 import chalk from 'chalk'
 import { Context } from './context'
 import { cwd } from 'process'
@@ -13,7 +15,8 @@ export class Makefile {
     public root: string
     public verbose: boolean
 
-    private ruleMap: Map<string, Rule> = new Map()
+    private fileTargetRules: Map<string, Rule> = new Map()
+    private ruleMap: Map<TargetDeclaration, Rule> = new Map()
     private ruleList: Rule[] = []
     private making: Map<string, Promise<string>> = new Map()
     private graph: DirectedGraph<string> = new DirectedGraph()
@@ -24,15 +27,32 @@ export class Makefile {
     }
 
     public addRule (
-        target: TargetDeclaration,
-        prerequisites: PrerequisitesDeclaration,
-        recipe: RecipeDeclaration<void> = defaultRecipe
+        targetDecl: TargetDeclaration,
+        prerequisitesDecl: PrerequisitesDeclaration,
+        recipeDecl: RecipeDeclaration<void> = defaultRecipe
     ) {
-        const rule = new Rule(target, prerequisites, new Recipe(recipe))
-        if (rule.targetIsFilePath()) {
-            this.ruleMap.set(rule.target, rule)
+        const target = new Target(targetDecl)
+        const prerequisites = new Prerequisites(prerequisitesDecl)
+        const recipe = new Recipe(recipeDecl)
+        const rule = new Rule(target, prerequisites, recipe)
+        if (target.isFilePath()) {
+            this.fileTargetRules.set(target.decl, rule)
         }
         this.ruleList.push(rule)
+        this.ruleMap.set(target.decl, rule)
+    }
+
+    public updateRule (
+        targetDecl: TargetDeclaration,
+        prerequisitesDecl: PrerequisitesDeclaration,
+        recipeDecl: RecipeDeclaration<void> = defaultRecipe
+    ) {
+        if (!this.ruleMap.has(targetDecl)) {
+            throw new Error('error while updating rule: not found')
+        }
+        const rule = this.ruleMap.get(targetDecl)
+        rule.prerequisites = new Prerequisites(prerequisitesDecl)
+        rule.recipe = new Recipe(recipeDecl)
     }
 
     public async make (target?: string, parent?: string): Promise<string> {
@@ -48,12 +68,18 @@ export class Makefile {
             throw new Error(`Circular detected while making "${target}": ${circle.join(' <- ')}`)
         }
 
-        if (this.making.has(target)) {
-            return this.making.get(target)
+        const fullPath = resolve(this.root, target)
+        if (this.making.has(fullPath)) {
+            return this.making.get(fullPath)
         }
         const pending = this.doMake(target)
-        this.making.set(target, pending)
+        this.making.set(fullPath, pending)
         return pending
+    }
+
+    public invalidate (path: string) {
+        const fullpath = resolve(path)
+        this.making.delete(fullpath)
     }
 
     public printGraph () {
@@ -66,7 +92,7 @@ export class Makefile {
 
         if (rule) {
             const context = new Context({ target, match, root: this.root })
-            context.dependencies = await rule.getPrerequisites(context)
+            context.dependencies = await rule.dependencies(context)
             await Promise.all(context.dependencies.map(dep => this.make(dep, target)))
 
             if (await this.isValid(target, context.dependencies)) {
@@ -100,11 +126,11 @@ export class Makefile {
     }
 
     private findRule (target: string): [Rule, RegExpExecArray] {
-        if (this.ruleMap.has(target)) {
+        if (this.fileTargetRules.has(target)) {
             const match: RegExpExecArray = [target] as RegExpExecArray
             match.input = target
             match.index = 0
-            return [this.ruleMap.get(target), match]
+            return [this.fileTargetRules.get(target), match]
         }
         for (let i = this.ruleList.length - 1; i >= 0; i--) {
             const rule = this.ruleList[i]
@@ -118,7 +144,7 @@ export class Makefile {
 
     private findFirstTarget (): string {
         for (const rule of this.ruleList) {
-            if (rule.targetIsFilePath()) return rule.target
+            if (rule.target.isFilePath()) return rule.target.decl
         }
     }
 

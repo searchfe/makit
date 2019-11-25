@@ -7,7 +7,7 @@ describe('glob', function () {
     beforeEach(() => removeSync(output0))
     const sum = 'e9a2fb30a1914745db8f4a114f7484b5'
 
-    it('should support matchMode', async function () {
+    it('should support matching groups', async function () {
         const mk = new Makefile(process.cwd())
 
         const recipe = async function () {
@@ -19,7 +19,7 @@ describe('glob', function () {
         expect(readFileSync(output0, 'utf8')).toEqual(sum)
     })
 
-    it('should complete ^(?:glob)$', async function () {
+    it('should support glob', async function () {
         const mk = new Makefile(process.cwd())
         mk.addRule('build/**.js', [], () => {
             console.log('fire build!')
@@ -36,5 +36,16 @@ describe('glob', function () {
             throw new Error('should not fire src!')
         })
         await mk.make('src/a.js')
+    })
+
+    it('should support groups in dependency array', async function () {
+        const mk = new Makefile(process.cwd())
+        const recipe = jest.fn()
+        mk.addRule('src/(**).min.js', ['src/$1.js'], recipe)
+        mk.addRule('src/a.js', [], () => void (0))
+        await mk.make('src/a.min.js')
+        expect(recipe).toHaveBeenCalledWith(expect.objectContaining({
+            dependencies: ['src/a.js']
+        }))
     })
 })
