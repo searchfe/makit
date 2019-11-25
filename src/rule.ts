@@ -28,7 +28,7 @@ export enum TargetType {
 export class Rule {
     public targetType: TargetType
     public target: TargetDeclaration
-    public recipe: Recipe
+    public recipe: Recipe<void>
 
     private rTarget: RegExp
     private prerequisites: PrerequisitesDeclaration
@@ -37,7 +37,7 @@ export class Rule {
     constructor (
         target: TargetDeclaration,
         prerequisites: PrerequisitesDeclaration,
-        recipe: Recipe
+        recipe: Recipe<void>
     ) {
         this.target = target
 

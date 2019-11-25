@@ -1,17 +1,17 @@
 import { Context } from './context'
 
-export type recipeDeclaration = (this: Context, ctx: Context) => (void | Promise<void>)
+export type RecipeDeclaration<T> =
+    (this: Context, ctx?: Context, done?: (err?: Error, result?: T) => void)
+    => (T | Promise<T>)
 
-export class Recipe {
-    private fn: recipeDeclaration
-    private root: string
+export class Recipe<T> {
+    private fn: RecipeDeclaration<T>
 
-    constructor (fn: recipeDeclaration, root: string) {
+    constructor (fn: RecipeDeclaration<T>) {
         this.fn = fn
-        this.root = root
     }
 
-    public async make (context: Context) {
+    public async make (context: Context): Promise<T> {
         if (this.fn.length >= 2) {
             return new Promise((resolve, reject) => {
                 this.fn.call(context, context, (err, data) => {

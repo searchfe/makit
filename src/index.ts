@@ -1,5 +1,5 @@
 import { Makefile } from './makefile'
-import { recipeDeclaration } from './recipe'
+import { RecipeDeclaration } from './recipe'
 import { PrerequisitesDeclaration } from './rule'
 
 const makefile = global['makit'] = new Makefile()
@@ -12,7 +12,7 @@ export function setRoot (val: string) {
     makefile.root = val
 }
 
-export function rule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: recipeDeclaration) {
+export function rule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration<void>) {
     return makefile.addRule(target, prerequisites, recipe)
 }
 

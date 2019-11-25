@@ -3,7 +3,7 @@ import chalk from 'chalk'
 import { Context } from './context'
 import { cwd } from 'process'
 import { DirectedGraph } from './graph'
-import { Recipe, recipeDeclaration } from './recipe'
+import { Recipe, RecipeDeclaration } from './recipe'
 import { resolve } from 'path'
 import { stat } from 'fs-extra'
 
@@ -26,9 +26,9 @@ export class Makefile {
     public addRule (
         target: TargetDeclaration,
         prerequisites: PrerequisitesDeclaration,
-        recipe: recipeDeclaration = defaultRecipe
+        recipe: RecipeDeclaration<void> = defaultRecipe
     ) {
-        const rule = new Rule(target, prerequisites, new Recipe(recipe, this.root))
+        const rule = new Rule(target, prerequisites, new Recipe(recipe))
         if (rule.targetIsFilePath()) {
             this.ruleMap.set(rule.target, rule)
         }
