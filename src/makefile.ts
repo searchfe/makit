@@ -124,7 +124,7 @@ export class Makefile {
         if (!targetInfo) return false
 
         for (const depInfo of depInfos) {
-            if (depInfo.mtime > targetInfo.mtime) return false
+            if (!depInfo || depInfo.mtime > targetInfo.mtime) return false
         }
         return true
     }

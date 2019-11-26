@@ -32,4 +32,8 @@ export function make (target: string) {
     return makefile.make(target)
 }
 
+export function printGraph () {
+    return makefile.printGraph()
+}
+
 export { Makefile } from './makefile'
