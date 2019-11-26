@@ -26,6 +26,18 @@ export class Makefile {
         this.verbose = verbose
     }
 
+    public updateOrAddRule (
+        targetDecl: TargetDeclaration,
+        prerequisitesDecl: PrerequisitesDeclaration,
+        recipeDecl: RecipeDeclaration<void> = defaultRecipe
+    ) {
+        if (this.ruleMap.has(targetDecl)) {
+            this.updateRule(targetDecl, prerequisitesDecl, recipeDecl)
+        } else {
+            this.addRule(targetDecl, prerequisitesDecl, recipeDecl)
+        }
+    }
+
     public addRule (
         targetDecl: TargetDeclaration,
         prerequisitesDecl: PrerequisitesDeclaration,
@@ -47,9 +59,6 @@ export class Makefile {
         prerequisitesDecl: PrerequisitesDeclaration,
         recipeDecl: RecipeDeclaration<void> = defaultRecipe
     ) {
-        if (!this.ruleMap.has(targetDecl)) {
-            throw new Error('error while updating rule: not found')
-        }
         const rule = this.ruleMap.get(targetDecl)
         rule.prerequisites = new Prerequisites(prerequisitesDecl)
         rule.recipe = new Recipe(recipeDecl)

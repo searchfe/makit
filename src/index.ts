@@ -16,6 +16,14 @@ export function rule (target: string, prerequisites: PrerequisitesDeclaration, r
     return makefile.addRule(target, prerequisites, recipe)
 }
 
+export function updateRule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration<void>) {
+    return makefile.updateRule(target, prerequisites, recipe)
+}
+
+export function updateOrAddRule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration<void>) {
+    return makefile.updateOrAddRule(target, prerequisites, recipe)
+}
+
 export function invalidate (path: string) {
     return makefile.invalidate(path)
 }
