@@ -24,16 +24,8 @@ export function updateOrAddRule (target: string, prerequisites: PrerequisitesDec
     return makefile.updateOrAddRule(target, prerequisites, recipe)
 }
 
-export function invalidate (path: string) {
-    return makefile.invalidate(path)
-}
-
 export function make (target: string) {
     return makefile.make(target)
-}
-
-export function printGraph () {
-    return makefile.printGraph()
 }
 
 export { Makefile } from './makefile'

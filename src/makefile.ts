@@ -1,13 +1,10 @@
 import { Rule } from './rule'
+import { Make } from './make'
+import { Logger } from './utils/logger'
 import { Prerequisites, PrerequisitesDeclaration } from './prerequisites'
 import { Target, TargetDeclaration } from './target'
-import chalk from 'chalk'
-import { Context } from './context'
 import { cwd } from 'process'
-import { DirectedGraph } from './graph'
 import { Recipe, RecipeDeclaration } from './recipe'
-import { resolve } from 'path'
-import { stat } from 'fs-extra'
 
 const defaultRecipe = () => void (0)
 
@@ -18,12 +15,12 @@ export class Makefile {
     private fileTargetRules: Map<string, Rule> = new Map()
     private ruleMap: Map<TargetDeclaration, Rule> = new Map()
     private ruleList: Rule[] = []
-    private making: Map<string, Promise<string>> = new Map()
-    private graph: DirectedGraph<string> = new DirectedGraph()
+    private logger: Logger
 
     constructor (root = cwd(), verbose = false) {
         this.root = root
         this.verbose = verbose
+        this.logger = new Logger(verbose)
     }
 
     public updateOrAddRule (
@@ -64,74 +61,11 @@ export class Makefile {
         rule.recipe = new Recipe(recipeDecl)
     }
 
-    public async make (target?: string, parent?: string): Promise<string> {
+    public async make (target?: string): Promise<string> {
         if (!target) {
             target = this.findFirstTargetOrThrow()
         }
-
-        if (parent) this.graph.addEdge(parent, target)
-        else this.graph.addVertex(target)
-
-        const circle = this.graph.checkCircular(target)
-        if (circle) {
-            throw new Error(`Circular detected while making "${target}": ${circle.join(' <- ')}`)
-        }
-
-        const fullPath = resolve(this.root, target)
-        if (this.making.has(fullPath)) {
-            return this.making.get(fullPath)
-        }
-        const pending = this.doMake(target)
-        this.making.set(fullPath, pending)
-        return pending
-    }
-
-    public invalidate (path: string) {
-        const fullpath = resolve(path)
-        this.making.delete(fullpath)
-    }
-
-    public printGraph () {
-        console.log(chalk['cyan']('deps'))
-        console.log(this.graph.toString())
-    }
-
-    private async doMake (target: string): Promise<string> {
-        const [rule, match] = this.findRule(target)
-
-        if (rule) {
-            const context = new Context({ target, match, root: this.root })
-            context.dependencies = await rule.dependencies(context)
-            await Promise.all(context.dependencies.map(dep => this.make(dep, target)))
-
-            if (await this.isValid(target, context.dependencies)) {
-                this.verbose && console.log(chalk['grey']('skip'), `${target} up to date`)
-                return target
-            }
-            this.verbose && console.log(chalk['cyan'](`make`), this.graph.getSinglePath(target).join(' <- '))
-            await rule.recipe.make(context)
-        } else {
-            if (await this.isValid(target, [])) return target
-            throw new Error(`no rule matched target: "${target}"`)
-        }
-
-        return target
-    }
-
-    private async isValid (target: string, deps: string[]) {
-        const targetInfo = await this.getFileStat(target)
-        const depInfos = await Promise.all(deps.map(dep => this.getFileStat(dep)))
-        if (!targetInfo) return false
-
-        for (const depInfo of depInfos) {
-            if (!depInfo || depInfo.mtime > targetInfo.mtime) return false
-        }
-        return true
-    }
-
-    private getFileStat (file: string) {
-        const filepath = resolve(this.root, file)
-        return stat(filepath).catch(() => null)
+        return new Make(this.root, this.logger, target => this.findRule(target)).make(target)
     }
 
     private findRule (target: string): [Rule, RegExpExecArray] {

@@ -16,15 +16,15 @@ describe('async', function () {
     })
 
     it('should make one file only once', async function () {
-        removeSync('test/e2e/count.out')
         const mk = new Makefile(__dirname)
-        let count = 0
+        const recipe = jest.fn()
 
-        mk.addRule('count.out', 'a.js', ctx => {
-            return ctx.writeTarget('' + (count++))
-        })
-        await Promise.all([mk.make('count.out'), mk.make('count.out')])
+        mk.addRule('a', ['b', 'c'])
+        mk.addRule('b', 'd')
+        mk.addRule('c', 'd')
+        mk.addRule('d', [], recipe as any)
 
-        expect(readFileSync('test/e2e/count.out', 'utf8')).toEqual('0')
+        await mk.make('a')
+        expect(recipe).toBeCalledTimes(1)
     })
 })
