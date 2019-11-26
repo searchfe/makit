@@ -1,3 +1,11 @@
+## [1.7.1](https://github.com/searchfe/makit/compare/v1.7.0...v1.7.1) (2019-11-26)
+
+
+### Bug Fixes
+
+* extrace make outof makefile ([8e0a4ad](https://github.com/searchfe/makit/commit/8e0a4ad36ebfa41d9849d106bfd66150cab1c71f))
+* trigger make for none-exist file ([22c0095](https://github.com/searchfe/makit/commit/22c0095bd56c34f67e6ebf9cced65421d395d7ef))
+
 # [1.7.0](https://github.com/searchfe/makit/compare/v1.6.0...v1.7.0) (2019-11-26)
 
 
