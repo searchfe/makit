@@ -1,3 +1,16 @@
+# [1.6.0](https://github.com/searchfe/makit/compare/v1.5.2...v1.6.0) (2019-11-26)
+
+
+### Bug Fixes
+
+* make Prerequisites() public ([6c9f4de](https://github.com/searchfe/makit/commit/6c9f4dea0258d02072bf55c4fb36f2d907237605))
+* RecipeDeclaration complains for callback ([e7025ef](https://github.com/searchfe/makit/commit/e7025ef63368acb7802f86af17bc849e22154bcb))
+
+
+### Features
+
+* support groups in dependency array ([f70dec2](https://github.com/searchfe/makit/commit/f70dec2f1c2e2a8abc575bb9f9de43aba0f72304))
+
 ## [1.5.2](https://github.com/searchfe/makit/compare/v1.5.1...v1.5.2) (2019-11-25)
 
 
