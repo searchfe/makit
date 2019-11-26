@@ -18,7 +18,7 @@ function normalizeResolver (decl: string | PrerequisitesResolver) {
 export class Prerequisites {
     private resolvers: PrerequisitesResolver[]
 
-    protected constructor (decl: PrerequisitesDeclaration) {
+    public constructor (decl: PrerequisitesDeclaration) {
         if (!Array.isArray(decl)) decl = [ decl ]
         this.resolvers = decl.map(normalizeResolver)
     }
