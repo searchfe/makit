@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/searchfe/makit/compare/v1.6.0...v1.7.0) (2019-11-26)
+
+
+### Features
+
+* updateOrAddRule() ([7488265](https://github.com/searchfe/makit/commit/74882651d070eb4a40fe89a99da0d101f3c5e842))
+
 # [1.6.0](https://github.com/searchfe/makit/compare/v1.5.2...v1.6.0) (2019-11-26)
 
 
