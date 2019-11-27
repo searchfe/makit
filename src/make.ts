@@ -7,7 +7,7 @@ import { DirectedGraph } from './graph'
 import { Logger } from './utils/logger'
 
 export class Make {
-    private making: Map<string, Promise<string>> = new Map()
+    private making: Map<string, Promise<boolean>> = new Map()
     private graph: DirectedGraph<string> = new DirectedGraph()
     private root: string
     private ruleResolver: (target: string) => [Rule, RegExpExecArray]
@@ -19,44 +19,45 @@ export class Make {
         this.logger = logger
     }
 
-    public async make (target: string, parent?: string): Promise<string> {
-        if (parent) this.graph.addEdge(parent, target)
-        else this.graph.addVertex(target)
+    public async make (target: string, parent?: string): Promise<boolean> {
+        this.updateGraph(target, parent)
+        this.checkCircular(target)
 
-        const circle = this.graph.checkCircular(target)
-        if (circle) {
-            throw new Error(`Circular detected while making "${target}": ${circle.join(' <- ')}`)
-        }
+        return this.withCache(target, async () => {
+            const [rule, match] = this.ruleResolver(target)
 
-        const fullPath = resolve(this.root, target)
-        if (this.making.has(fullPath)) {
-            return this.making.get(fullPath)
-        }
-        const pending = this.doMake(target)
-        this.making.set(fullPath, pending)
-        return pending
+            if (!rule) {
+                if (await this.isValid(target, [])) return false
+                throw new Error(`no rule matched target: "${target}"`)
+            }
+            return this.doMake(target, rule, match)
+        })
     }
 
-    private async doMake (target: string): Promise<string> {
-        const [rule, match] = this.ruleResolver(target)
+    private async doMake (target: string, rule: Rule, match: RegExpExecArray): Promise<boolean> {
+        const context = new Context({ target, match, root: this.root })
+        context.dependencies = await rule.dependencies(context)
+        await Promise.all(context.dependencies.map(dep => this.make(dep, target)))
 
-        if (rule) {
-            const context = new Context({ target, match, root: this.root })
-            context.dependencies = await rule.dependencies(context)
-            await Promise.all(context.dependencies.map(dep => this.make(dep, target)))
-
-            if (await this.isValid(target, context.dependencies)) {
-                this.logger.verbose(chalk['grey']('skip'), `${target} up to date`)
-                return target
-            }
-            this.logger.verbose(chalk['cyan'](`make`), this.graph.getSinglePath(target).join(' <- '))
-            await rule.recipe.make(context)
-        } else {
-            if (await this.isValid(target, [])) return target
-            throw new Error(`no rule matched target: "${target}"`)
+        if (await this.isValid(target, context.dependencies)) {
+            this.logger.verbose(chalk['grey']('skip'), `${target} up to date`)
+            return false
         }
+        this.logger.verbose(chalk['cyan'](`make`), this.graph.getSinglePath(target).join(' <- '))
+        await rule.recipe.make(context)
+        return true
+    }
 
-        return target
+    private updateGraph (target: string, parent?: string) {
+        if (parent) this.graph.addEdge(parent, target)
+        else this.graph.addVertex(target)
+    }
+
+    private checkCircular (begin: string) {
+        const circle = this.graph.checkCircular(begin)
+        if (circle) {
+            throw new Error(`Circular detected while making "${begin}": ${circle.join(' <- ')}`)
+        }
     }
 
     public printGraph () {
@@ -66,6 +67,13 @@ export class Make {
     private getFileStat (file: string) {
         const filepath = resolve(this.root, file)
         return stat(filepath).catch(() => null)
+    }
+
+    private withCache (target: string, fn: (...args: any[]) => Promise<boolean>): Promise<boolean> {
+        if (!this.making.has(target)) {
+            this.making.set(target, fn())
+        }
+        return this.making.get(target)
     }
 
     private async isValid (target: string, deps: string[]) {

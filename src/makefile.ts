@@ -61,7 +61,7 @@ export class Makefile {
         rule.recipe = new Recipe(recipeDecl)
     }
 
-    public async make (target?: string): Promise<string> {
+    public async make (target?: string): Promise<boolean> {
         if (!target) {
             target = this.findFirstTargetOrThrow()
         }

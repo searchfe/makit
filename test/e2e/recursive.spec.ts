@@ -1,5 +1,5 @@
 import { Makefile } from '../../src/index'
-import { removeSync, readFileSync } from 'fs-extra'
+import { removeSync, readFileSync, utimes } from 'fs-extra'
 
 describe('recursive', function () {
     it('should recursively resolve prerequisites', async function () {
@@ -39,5 +39,50 @@ describe('recursive', function () {
         expect(a2b).toHaveBeenCalledTimes(1)
         expect(a2c).toHaveBeenCalledTimes(1)
         expect(bc2d).toHaveBeenCalledTimes(1)
+    })
+
+    it('should remake if dependency file not exists', async function () {
+        const mk = new Makefile()
+        const recipeA = jest.fn()
+        const recipeB = jest.fn()
+        mk.addRule('a', ['b'], recipeA)
+        mk.addRule('b', [], recipeB)
+        await mk.make('a')
+        expect(recipeA).toBeCalledTimes(1)
+        expect(recipeB).toBeCalledTimes(1)
+        await mk.make('a')
+        expect(recipeA).toBeCalledTimes(2)
+        expect(recipeB).toBeCalledTimes(2)
+    })
+
+    it('should remake if recursive dependency file not exists', async function () {
+        const mk = new Makefile()
+        const recipeA = jest.fn()
+        const recipeB = jest.fn()
+        const recipeC = jest.fn()
+        mk.addRule('a', [__filename], recipeA)
+        mk.addRule(__filename, ['c'], recipeB)
+        mk.addRule('c', [], recipeC)
+        await mk.make('a')
+        expect(recipeA).toBeCalledTimes(1)
+        expect(recipeB).toBeCalledTimes(1)
+        expect(recipeC).toBeCalledTimes(1)
+        await mk.make('a')
+        expect(recipeA).toBeCalledTimes(2)
+        expect(recipeB).toBeCalledTimes(2)
+        expect(recipeC).toBeCalledTimes(2)
+    })
+
+    it('should remake if dependency file updated', async function () {
+        const mk = new Makefile()
+        const recipeA = jest.fn()
+        mk.addRule('a', [__filename], recipeA)
+        await mk.make('a')
+        expect(recipeA).toBeCalledTimes(1)
+
+        await utimes(__filename, Date.now())
+
+        await mk.make('a')
+        expect(recipeA).toBeCalledTimes(2)
     })
 })
