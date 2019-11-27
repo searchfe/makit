@@ -11,7 +11,6 @@ const defaultRecipe = () => void (0)
 
 export class Makefile {
     public root: string
-    public verbose: boolean
 
     private fileTargetRules: Map<string, Rule> = new Map()
     private ruleMap: Map<TargetDeclaration, Rule> = new Map()
@@ -21,9 +20,12 @@ export class Makefile {
 
     constructor (root = cwd(), verbose = false, fs = require('fs')) {
         this.root = root
-        this.verbose = verbose
         this.fs = fs
         this.logger = new Logger(verbose)
+    }
+
+    public setVerbose (val: boolean) {
+        this.logger.isVerbose = val
     }
 
     public updateOrAddRule (

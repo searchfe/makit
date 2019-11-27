@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "bulid": "makit",
+    "build": "makit",
     "clean": "makit clean"
   },
   "author": "harttle<yangjvn@126.com>",

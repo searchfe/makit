@@ -38,7 +38,7 @@ if (!existsSync(makefile)) {
 console.log(chalk['cyan']('conf'), makefile)
 require(makefile)
 const makit = global['makit']
-makit.verbose = verbose
+makit.setVerbose(verbose)
 
 async function main () {
     if (targets.length) {

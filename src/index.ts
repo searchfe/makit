@@ -5,7 +5,7 @@ import { PrerequisitesDeclaration } from './prerequisites'
 const makefile = global['makit'] = new Makefile()
 
 export function setVerbose (val: boolean = true) {
-    makefile.verbose = val
+    makefile.setVerbose(val)
 }
 
 export function setRoot (val: string) {
