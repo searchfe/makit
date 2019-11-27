@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/searchfe/makit/compare/v1.7.1...v1.7.2) (2019-11-27)
+
+
+### Bug Fixes
+
+* check prerequisites recursively ([673b2fe](https://github.com/searchfe/makit/commit/673b2feb617abba9b84bd7208110a65cf2b9c258))
+
 ## [1.7.1](https://github.com/searchfe/makit/compare/v1.7.0...v1.7.1) (2019-11-26)
 
 
