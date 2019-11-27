@@ -54,6 +54,7 @@
     "@semantic-release/npm": "^5.1.8",
     "@semantic-release/release-notes-generator": "^7.1.4",
     "@types/jest": "^24.0.23",
+    "@types/memory-fs": "^0.3.2",
     "@types/minimatch": "^3.0.3",
     "@types/yargs": "^13.0.3",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
@@ -73,6 +74,7 @@
     "jasmine-core": "^2.99.0",
     "jest": "^24.9.0",
     "md5": "^2.2.1",
+    "memory-fs": "^0.5.0",
     "semantic-release": "^15.13.30",
     "typedoc": "^0.15.0"
   },
@@ -80,7 +82,6 @@
     "camelcase": "^5.3.1",
     "debug": "^4.1.1",
     "extglob": "^3.0.0",
-    "fs-extra": "^8.1.0",
     "is-glob": "^4.0.1",
     "lodash": "^4.17.15",
     "snake-case": "^2.1.0",

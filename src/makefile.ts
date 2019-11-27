@@ -1,5 +1,6 @@
 import { Rule } from './rule'
-import { Make } from './make'
+import { PendingMakeResult, Make } from './make'
+import { FileSystem } from './utils/fs'
 import { Logger } from './utils/logger'
 import { Prerequisites, PrerequisitesDeclaration } from './prerequisites'
 import { Target, TargetDeclaration } from './target'
@@ -16,17 +17,19 @@ export class Makefile {
     private ruleMap: Map<TargetDeclaration, Rule> = new Map()
     private ruleList: Rule[] = []
     private logger: Logger
+    private fs: FileSystem
 
-    constructor (root = cwd(), verbose = false) {
+    constructor (root = cwd(), verbose = false, fs = require('fs')) {
         this.root = root
         this.verbose = verbose
+        this.fs = fs
         this.logger = new Logger(verbose)
     }
 
     public updateOrAddRule (
         targetDecl: TargetDeclaration,
         prerequisitesDecl: PrerequisitesDeclaration,
-        recipeDecl: RecipeDeclaration<void> = defaultRecipe
+        recipeDecl: RecipeDeclaration<any> = defaultRecipe
     ) {
         if (this.ruleMap.has(targetDecl)) {
             this.updateRule(targetDecl, prerequisitesDecl, recipeDecl)
@@ -38,7 +41,7 @@ export class Makefile {
     public addRule (
         targetDecl: TargetDeclaration,
         prerequisitesDecl: PrerequisitesDeclaration,
-        recipeDecl: RecipeDeclaration<void> = defaultRecipe
+        recipeDecl: RecipeDeclaration<any> = defaultRecipe
     ) {
         const target = new Target(targetDecl)
         const prerequisites = new Prerequisites(prerequisitesDecl)
@@ -54,18 +57,24 @@ export class Makefile {
     public updateRule (
         targetDecl: TargetDeclaration,
         prerequisitesDecl: PrerequisitesDeclaration,
-        recipeDecl: RecipeDeclaration<void> = defaultRecipe
+        recipeDecl: RecipeDeclaration<any> = defaultRecipe
     ) {
         const rule = this.ruleMap.get(targetDecl)
         rule.prerequisites = new Prerequisites(prerequisitesDecl)
         rule.recipe = new Recipe(recipeDecl)
     }
 
-    public async make (target?: string): Promise<boolean> {
+    public async make (target?: string): PendingMakeResult {
         if (!target) {
             target = this.findFirstTargetOrThrow()
         }
-        return new Make(this.root, this.logger, target => this.findRule(target)).make(target)
+        const make = new Make({
+            root: this.root,
+            fs: this.fs,
+            logger: this.logger,
+            ruleResolver: target => this.findRule(target)
+        })
+        return make.make(target)
     }
 
     private findRule (target: string): [Rule, RegExpExecArray] {

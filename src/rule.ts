@@ -21,7 +21,8 @@ export class Rule {
     }
 
     public async dependencies (ctx: Context) {
-        return this.prerequisites.evaluate(ctx)
+        ctx.dependencies = await this.prerequisites.evaluate(ctx)
+        return ctx.dependencies
     }
 
     public match (targetFile: string) {

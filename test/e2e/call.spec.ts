@@ -13,7 +13,7 @@ describe('call', function () {
         mk.addRule('call.b.out', 'a.js', ctx => ctx.writeTarget('B'))
         mk.addRule('call.c.out', 'a.js', async ctx => {
             await mk.make('call.b.out')
-            await ctx.writeTarget(await ctx.read('call.b.out'))
+            await ctx.writeTarget(await ctx.readFile('call.b.out'))
         })
 
         await mk.make('call.c.out')
@@ -32,7 +32,7 @@ describe('call', function () {
             'call.c.out',
             async () => { await mk.make('call.b.out'); return [] },
             async ctx => {
-                await ctx.writeTarget(await ctx.read('call.b.out'))
+                await ctx.writeTarget(await ctx.readFile('call.b.out'))
             }
         )
 

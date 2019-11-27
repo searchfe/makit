@@ -1,44 +1,79 @@
-import { resolve } from 'path'
-import { writeFile, writeFileSync, readFile, readFileSync } from 'fs-extra'
+import { resolve, dirname } from 'path'
+import { fromCallback } from './utils/promise'
+import { FileSystem } from './utils/fs'
 
 export class Context {
-    public readonly target: string
+    public target: string
     public dependencies: string[]
-    public readonly match
+    public match
 
+    private readonly fs: FileSystem
     private readonly root: string
 
-    constructor ({ target, match, root, dependencies = [] }) {
+    constructor ({ target, match, root, dependencies = [], fs = require('fs') }) {
         this.root = root
         this.match = match
         this.target = target
         this.dependencies = dependencies
+        this.fs = fs
     }
 
-    async writeSync (filepath: string) {
-        return writeFileSync(this.toFullPath(filepath))
+    async mkdir (filepath: string, options?) {
+        return fromCallback(cb => this.fs.mkdir(this.toFullPath(filepath), options, cb))
     }
 
-    async write (filepath: string) {
-        return writeFile(this.toFullPath(filepath))
+    mkdirSync (filepath: string, options) {
+        return this.fs.mkdirSync(this.toFullPath(filepath), options)
     }
 
-    async readSync (filepath: string) {
-        return readFileSync(this.toFullPath(filepath))
+    async outputFile (filepath: string, content: string | Buffer) {
+        return this.writeFile(filepath, content).catch(e => {
+            if (e.code === 'ENOENT') {
+                return this.mkdir(dirname(filepath), { recursive: true })
+                    .then(() => this.writeFile(filepath, content))
+            }
+            throw e
+        })
     }
 
-    async read (filepath: string) {
-        return readFile(this.toFullPath(filepath))
+    outputFileSync (filepath: string, content: string | Buffer) {
+        try {
+            return this.fs.writeFileSync(this.toFullPath(filepath), content)
+        } catch (e) {
+            if (e.code === 'ENOENT') {
+                this.fs.mkdirSync(dirname(filepath), { recursive: true })
+                return this.writeFileSync(filepath, content)
+            }
+            throw e
+        }
     }
 
-    async readDependency (i: number = 0) {
+    async writeFile (filepath: string, content: string | Buffer) {
+        return fromCallback(cb => this.fs.writeFile(this.toFullPath(filepath), content, cb))
+    }
+
+    writeFileSync (filepath: string, content: string | Buffer) {
+        return this.fs.writeFileSync(this.toFullPath(filepath), content)
+    }
+
+    async readFile (filepath: string, encoding?: BufferEncoding): Promise<string>
+    async readFile (filepath: string, encoding = 'utf8'): Promise<string | Buffer> {
+        return fromCallback(cb => this.fs.readFile(this.toFullPath(filepath), encoding, cb))
+    }
+
+    readFileSync (filepath: string, encoding: BufferEncoding): string
+    readFileSync (filepath: string, encoding = 'utf8'): string | Buffer {
+        return this.fs.readFileSync(this.toFullPath(filepath), encoding)
+    }
+
+    async readDependency (i: number = 0): Promise<string> {
         if (i >= this.dependencies.length) throw new Error(`cannot get ${i}th dependency,dependencieshis.deps.length} dependencies in total`)
-        return readFile(this.dependencyFullPath(i), 'utf8')
+        return this.readFile(this.dependencyFullPath(i))
     }
 
-    async readDependencySync (i: number = 0) {
+    readDependencySync (i: number = 0): string {
         if (i >= this.dependencies.length) throw new Error(`cannot get ${i}th dependency,dependencieshis.deps.length} dependencies in total`)
-        return readFileSync(this.dependencyFullPath(i), 'utf8')
+        return this.readFileSync(this.dependencyFullPath(i), 'utf8')
     }
 
     targetFullPath () {
@@ -49,20 +84,20 @@ export class Context {
         return this.target
     }
 
-    dependencyFullPath (i: number = 0) {
+    dependencyFullPath (i: number = 0): string {
         return this.toFullPath(this.dependencies[i])
     }
 
-    dependencyPath (i: number = 0) {
+    dependencyPath (i: number = 0): string {
         return this.dependencies[i]
     }
 
     writeTarget (content: string) {
-        return writeFile(this.targetFullPath(), content)
+        return this.outputFile(this.targetFullPath(), content)
     }
 
     writeTargetSync (content: string) {
-        return writeFileSync(this.targetFullPath(), content)
+        return this.outputFileSync(this.targetFullPath(), content)
     }
 
     private toFullPath (filename: string) {

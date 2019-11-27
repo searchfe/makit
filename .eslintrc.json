@@ -13,6 +13,7 @@
   ],
   "rules": {
     "no-var": 2,
+    "no-dupe-class-members": "off",
     "prefer-const": 2,
     "no-labels": "off",
     "indent": ["error", 4],

@@ -1,7 +1,15 @@
 import { Makefile } from '../../src/index'
-import { removeSync, readFileSync, utimes } from 'fs-extra'
+import { removeSync, readFileSync } from 'fs-extra'
+import { createMemoryFileSystem } from '../stub/memfs'
+import { FileSystem } from '../../src/utils/fs'
 
 describe('recursive', function () {
+    let fs: FileSystem
+    let mk: Makefile
+    beforeEach(() => {
+        fs = createMemoryFileSystem()
+        mk = new Makefile(process.cwd(), false, fs)
+    })
     it('should recursively resolve prerequisites', async function () {
         removeSync('test/e2e/recursive.a.out')
         removeSync('test/e2e/recursive.b.out')
@@ -73,16 +81,60 @@ describe('recursive', function () {
         expect(recipeC).toBeCalledTimes(2)
     })
 
+    it('should not remake if dependency file not updated', async function () {
+        const recipe = jest.fn(ctx => ctx.writeTarget('_'))
+        mk.addRule('foo', ['bar'], recipe)
+        mk.addRule('bar', [], ctx => ctx.writeTarget('_'))
+
+        await mk.make('foo')
+        expect(recipe).toBeCalledTimes(1)
+
+        await mk.make('foo')
+        expect(recipe).toBeCalledTimes(1)
+    })
+
     it('should remake if dependency file updated', async function () {
-        const mk = new Makefile()
-        const recipeA = jest.fn()
-        mk.addRule('a', [__filename], recipeA)
-        await mk.make('a')
-        expect(recipeA).toBeCalledTimes(1)
+        const recipe = jest.fn(ctx => ctx.writeTarget('_'))
+        mk.addRule('foo', ['bar'], recipe)
+        mk.addRule('bar', [], ctx => ctx.writeTarget('_'))
 
-        await utimes(__filename, Date.now())
+        await mk.make('foo')
+        expect(recipe).toBeCalledTimes(1)
 
-        await mk.make('a')
-        expect(recipeA).toBeCalledTimes(2)
+        fs.writeFileSync('bar', 'x')
+        await mk.make('foo')
+        expect(recipe).toBeCalledTimes(2)
+    })
+
+    it('should not remake if recursive dependency file not updated', async function () {
+        const recipeFoo = jest.fn(ctx => ctx.writeTarget('_'))
+        const recipeBar = jest.fn(ctx => ctx.writeTarget('_'))
+        const recipeCoo = jest.fn(ctx => ctx.writeTarget('_'))
+        mk.addRule('foo', ['bar'], recipeFoo)
+        mk.addRule('bar', ['coo'], recipeBar)
+        mk.addRule('coo', [], recipeCoo)
+
+        await mk.make('foo')
+        expect(recipeFoo).toBeCalledTimes(1)
+
+        await mk.make('foo')
+        expect(recipeFoo).toBeCalledTimes(1)
+    })
+
+    it('should remake if recursive dependency file updated', async function () {
+        const recipeFoo = jest.fn(ctx => ctx.writeTarget('_'))
+        const recipeBar = jest.fn(ctx => ctx.writeTarget('_'))
+        const recipeCoo = jest.fn(ctx => ctx.writeTarget('_'))
+        mk.addRule('foo', ['bar'], recipeFoo)
+        mk.addRule('bar', ['coo'], recipeBar)
+        mk.addRule('coo', [], recipeCoo)
+
+        await mk.make('foo')
+        expect(recipeFoo).toBeCalledTimes(1)
+
+        fs.writeFileSync('coo', 'x')
+
+        await mk.make('foo')
+        expect(recipeFoo).toBeCalledTimes(2)
     })
 })

@@ -1,7 +1,7 @@
 import { Context } from './context'
 
 export type RecipeDeclaration<T> =
-    (this: Context, ctx: Context, done: (err?: Error, result?: T) => void)
+    (this: Context, ctx: Context, done: (err?: Error, result?: T) => any)
     => (T | Promise<T>)
 
 export class Recipe<T> {
