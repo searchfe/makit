@@ -1,3 +1,10 @@
+## [1.7.3](https://github.com/searchfe/makit/compare/v1.7.2...v1.7.3) (2019-11-27)
+
+
+### Bug Fixes
+
+* setVerbose() ([1551451](https://github.com/searchfe/makit/commit/155145172a5e4121bafbb294eeaea20e8b4629bf))
+
 ## [1.7.2](https://github.com/searchfe/makit/compare/v1.7.1...v1.7.2) (2019-11-27)
 
 
