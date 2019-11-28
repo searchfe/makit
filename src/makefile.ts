@@ -1,16 +1,18 @@
 import { Rule } from './rule'
-import { PendingMakeResult, Make } from './make'
+import { Make } from './make'
 import { FileSystem } from './utils/fs'
 import { Logger } from './utils/logger'
 import { Prerequisites, PrerequisitesDeclaration } from './prerequisites'
 import { Target, TargetDeclaration } from './target'
 import { cwd } from 'process'
 import { Recipe, RecipeDeclaration } from './recipe'
+import { EventEmitter } from 'events'
 
 const defaultRecipe = () => void (0)
 
 export class Makefile {
     public root: string
+    public emitter: EventEmitter
 
     private fileTargetRules: Map<string, Rule> = new Map()
     private ruleMap: Map<TargetDeclaration, Rule> = new Map()
@@ -66,7 +68,7 @@ export class Makefile {
         rule.recipe = new Recipe(recipeDecl)
     }
 
-    public async make (target?: string): PendingMakeResult {
+    public async make (target?: string) {
         if (!target) {
             target = this.findFirstTargetOrThrow()
         }
@@ -74,9 +76,15 @@ export class Makefile {
             root: this.root,
             fs: this.fs,
             logger: this.logger,
+            emitter: this.emitter,
             ruleResolver: target => this.findRule(target)
         })
         return make.make(target)
+    }
+
+    public on (event: string, fn: (...args: any[]) => void) {
+        this.emitter = this.emitter || new EventEmitter()
+        this.emitter.on(event, fn)
     }
 
     private findRule (target: string): [Rule, RegExpExecArray] {

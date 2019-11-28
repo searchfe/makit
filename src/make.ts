@@ -7,6 +7,7 @@ import { FileSystem } from './utils/fs'
 import chalk from 'chalk'
 import { DirectedGraph } from './graph'
 import { Logger } from './utils/logger'
+import { EventEmitter } from 'events'
 
 export type MakeResult = Number
 export type PendingMakeResult = Promise<MakeResult>
@@ -19,6 +20,7 @@ export interface MakeOptions {
     root?: string
     logger?: Logger
     fs?: FileSystem
+    emitter?: EventEmitter
     ruleResolver: (target: string) => [Rule, RegExpExecArray]
 }
 
@@ -29,20 +31,24 @@ export class Make {
     private ruleResolver: (target: string) => [Rule, RegExpExecArray]
     private logger: Logger
     private fs: FileSystem
+    private emitter: EventEmitter;
 
     constructor ({
         root = process.cwd(),
         logger = new Logger(false),
         fs = require('fs'),
-        ruleResolver
+        ruleResolver,
+        emitter
     }: MakeOptions) {
         this.fs = fs
         this.root = root
         this.ruleResolver = ruleResolver
         this.logger = logger
+        this.emitter = emitter
     }
 
     public async make (target: string, parent?: string): PendingMakeResult {
+        this.emitter && this.emitter.emit('prepare', { target, parent })
         this.updateGraph(target, parent)
         this.checkCircular(target)
 
@@ -61,9 +67,11 @@ export class Make {
                 }
                 this.logger.verbose(chalk['cyan'](`make`), this.graph.getSinglePath(target).join(' <- '))
                 await rule.recipe.make(context)
+                this.emitter && this.emitter.emit('make', { target, parent })
                 return now()
             }
             this.logger.verbose(chalk['grey']('skip'), `${target} up to date`)
+            this.emitter && this.emitter.emit('skip', { target, parent })
             return mtime
         })
     }

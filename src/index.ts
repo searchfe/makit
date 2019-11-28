@@ -28,6 +28,10 @@ export function make (target: string) {
     return makefile.make(target)
 }
 
+export function on (event: string, listener: (...args: any[]) => void) {
+    return makefile.on(event, listener)
+}
+
 export { Makefile } from './makefile'
 
 export { Context } from './context'
