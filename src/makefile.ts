@@ -12,9 +12,9 @@ const defaultRecipe = () => void (0)
 export class Makefile {
     public root: string
 
-    private fileTargetRules: Map<string, Rule> = new Map()
     private ruleMap: Map<TargetDeclaration, Rule> = new Map()
-    private ruleList: Rule[] = []
+    private fileTargetRules: Map<string, Rule> = new Map()
+    private matchingRules: Rule[] = []
     private logger: Logger
     private fs: FileSystem
 
@@ -51,8 +51,9 @@ export class Makefile {
         const rule = new Rule(target, prerequisites, recipe)
         if (target.isFilePath()) {
             this.fileTargetRules.set(target.decl, rule)
+        } else {
+            this.matchingRules.push(rule)
         }
-        this.ruleList.push(rule)
         this.ruleMap.set(target.decl, rule)
     }
 
@@ -86,8 +87,8 @@ export class Makefile {
             match.index = 0
             return [this.fileTargetRules.get(target), match]
         }
-        for (let i = this.ruleList.length - 1; i >= 0; i--) {
-            const rule = this.ruleList[i]
+        for (let i = this.matchingRules.length - 1; i >= 0; i--) {
+            const rule = this.matchingRules[i]
             const match = rule.match(target)
             if (match) {
                 return [rule, match]
@@ -97,9 +98,7 @@ export class Makefile {
     }
 
     private findFirstTarget (): string {
-        for (const rule of this.ruleList) {
-            if (rule.target.isFilePath()) return rule.target.decl
-        }
+        return this.fileTargetRules.keys().next().value
     }
 
     private findFirstTargetOrThrow () {
