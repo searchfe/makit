@@ -1,5 +1,5 @@
-import { Makefile, make } from '../../src/index'
-import { writeFileSync, statSync } from 'fs';
+import { Makefile } from '../../src/index'
+import { writeFileSync, statSync } from 'fs'
 import { removeSync } from 'fs-extra'
 
 describe('Dynamic update', function () {
@@ -15,32 +15,32 @@ describe('Dynamic update', function () {
     })
 
     it('should trigger bundle0.js.out recipt once', async () => {
-        writeFileSync(input0, Math.random());
+        writeFileSync(input0, Math.random())
         const mk = new Makefile()
-        let recipeTimes = 0;
+        let recipeTimes = 0
 
         mk.addRule(output0, input0, ctx => {
-            writeFileSync(ctx.targetFullPath(), statSync(ctx.dependencyFullPath()).mtimeMs);
-            recipeTimes ++;
-        });
-        await mk.make(output0);
+            writeFileSync(ctx.targetFullPath(), statSync(ctx.dependencyFullPath()).mtimeMs)
+            recipeTimes++
+        })
+        await mk.make(output0)
         // writeFileSync(randomFile, Math.random());
-        await mk.make(output0);
-        expect(recipeTimes).toEqual(1);
-    });
+        await mk.make(output0)
+        expect(recipeTimes).toEqual(1)
+    })
 
     it('should trigger bundle1.js.out recipt twice', async () => {
-        writeFileSync(input1, Math.random());
+        writeFileSync(input1, Math.random())
         const mk = new Makefile()
-        let recipeTimes = 0;
+        let recipeTimes = 0
 
         mk.addRule(output1, input1, ctx => {
-            writeFileSync(ctx.targetFullPath(), statSync(ctx.dependencyFullPath()).mtimeMs);
-            recipeTimes ++;
-        });
-        await mk.make(output1);
-        writeFileSync(input1, Math.random());
-        await mk.make(output1);
-        expect(recipeTimes).toEqual(2);
-    });
-});
+            writeFileSync(ctx.targetFullPath(), statSync(ctx.dependencyFullPath()).mtimeMs)
+            recipeTimes++
+        })
+        await mk.make(output1)
+        writeFileSync(input1, Math.random())
+        await mk.make(output1)
+        expect(recipeTimes).toEqual(2)
+    })
+})
