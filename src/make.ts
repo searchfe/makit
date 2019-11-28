@@ -54,7 +54,8 @@ export class Make {
                 this.getModifiedTime(context.targetFullPath())
             ])
 
-            if (dmtime > mtime) {
+            if (dmtime >= mtime) {
+                // depency mtime may equal mtime when no io and async
                 if (!rule) {
                     throw new Error(`no rule matched target: "${target}"`)
                 }
