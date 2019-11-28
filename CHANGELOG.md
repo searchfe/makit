@@ -1,3 +1,11 @@
+# [1.9.0](https://github.com/searchfe/makit/compare/v1.8.0...v1.9.0) (2019-11-28)
+
+
+### Features
+
+* add emitter ([9fc8fb0](https://github.com/searchfe/makit/commit/9fc8fb0b0fdd81e860213e640da3d3778664424c))
+* add emitter ([da3cd99](https://github.com/searchfe/makit/commit/da3cd9997005f0883a7e8c544fc5d3a67c30ab14))
+
 # [1.8.0](https://github.com/searchfe/makit/compare/v1.7.3...v1.8.0) (2019-11-28)
 
 
