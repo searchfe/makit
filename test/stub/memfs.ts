@@ -1,25 +1,25 @@
 import { FileSystem } from '../../src/utils/fs'
-import { now } from '../../src/utils/date'
+import { now, TimeStamp } from '../../src/utils/date'
 import { resolve } from 'path'
 import { Stats, MakeDirectoryOptions } from 'fs'
 import { Callback } from '../../src/utils/callback'
 import MemoryFileSystem from 'memory-fs'
-import { MakeResult } from '../../src/make'
 
 const cwd = process.cwd()
 
 export function createMemoryFileSystem (): FileSystem {
     const fs = new MemoryFileSystem()
-    const mtime: Map<string, MakeResult> = new Map()
+    const mtime: Map<string, TimeStamp> = new Map()
 
     return {
         mkdir (path: string, options: MakeDirectoryOptions = {}, cb?: Callback<void>) {
-            if (options.recursive) return fs.mkdirp(path, cb)
-            return fs.mkdir(path, cb)
+            this.mkdirSync(path, options)
+            cb(null)
         },
         mkdirSync (path: string, options: MakeDirectoryOptions = {}) {
-            if (options.recursive) return fs.mkdirpSync(path)
-            return fs.mkdirSync(path)
+            const fullpath = resolve(cwd, path)
+            if (options.recursive) return fs.mkdirpSync(fullpath)
+            return fs.mkdirSync(fullpath)
         },
 
         readFile (path: string, encoding: string, cb?: Callback<Buffer | string>) {

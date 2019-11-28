@@ -1,22 +1,27 @@
 import { Makefile } from '../../src/index'
-import { removeSync, readFileSync } from 'fs-extra'
+import { createMemoryFileSystem } from '../stub/memfs'
+import { FileSystem } from '../../src/utils/fs'
 
 describe('async', function () {
+    let fs: FileSystem
+    let mk: Makefile
+    beforeEach(() => {
+        fs = createMemoryFileSystem()
+        fs.mkdirSync(process.cwd(), { recursive: true })
+        mk = new Makefile(process.cwd(), false, fs)
+    })
+
     it('should support async', async function () {
-        removeSync('test/e2e/async.out')
-
-        const mk = new Makefile(__dirname)
-
+        fs.writeFileSync('a.js', 'a')
         mk.addRule('async.out', 'a.js', async function () {
             return this.writeTarget(this.dependencyPath())
         })
         await mk.make('async.out')
 
-        expect(readFileSync('test/e2e/async.out', 'utf8')).toEqual('a.js')
+        expect(fs.readFileSync('async.out', 'utf8')).toEqual('a.js')
     })
 
     it('should make one file only once', async function () {
-        const mk = new Makefile(__dirname)
         const recipe = jest.fn()
 
         mk.addRule('a', ['b', 'c'])

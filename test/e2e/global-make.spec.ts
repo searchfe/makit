@@ -1,14 +1,18 @@
 import { Makefile } from '../../src/index'
-import { removeSync, readFileSync } from 'fs-extra'
+import { createMemoryFileSystem } from '../stub/memfs'
+import { FileSystem } from '../../src/utils/fs'
 
-describe('call', function () {
-    beforeEach(() => removeSync('test/e2e/call.c.out'))
+describe('global make', function () {
+    let fs: FileSystem
+    let mk: Makefile
+    beforeEach(() => {
+        fs = createMemoryFileSystem()
+        fs.mkdirSync(process.cwd(), { recursive: true })
+        mk = new Makefile(process.cwd(), false, fs)
+    })
 
     it('should support call another make inside recipe', async function () {
-        removeSync('test/e2e/call.b.out')
-        removeSync('test/e2e/call.c.out')
-
-        const mk = new Makefile(__dirname)
+        fs.writeFileSync('a.js', 'a')
 
         mk.addRule('call.b.out', 'a.js', ctx => ctx.writeTarget('B'))
         mk.addRule('call.c.out', 'a.js', async ctx => {
@@ -17,15 +21,11 @@ describe('call', function () {
         })
 
         await mk.make('call.c.out')
-
-        expect(readFileSync('test/e2e/call.c.out', 'utf8')).toEqual('B')
+        expect(fs.readFileSync('call.c.out', 'utf8')).toEqual('B')
     })
 
     it('should support call another make inside prerequisites', async function () {
-        removeSync('test/e2e/call.b.out')
-        removeSync('test/e2e/call.c.out')
-
-        const mk = new Makefile(__dirname)
+        fs.writeFileSync('a.js', 'a')
 
         mk.addRule('call.b.out', 'a.js', ctx => ctx.writeTarget('B'))
         mk.addRule(
@@ -37,7 +37,6 @@ describe('call', function () {
         )
 
         await mk.make('call.c.out')
-
-        expect(readFileSync('test/e2e/call.c.out', 'utf8')).toEqual('B')
+        expect(fs.readFileSync('call.c.out', 'utf8')).toEqual('B')
     })
 })
