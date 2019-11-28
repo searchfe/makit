@@ -1,26 +1,30 @@
 import { Makefile } from '../../src/index'
-import { removeSync, readFileSync } from 'fs-extra'
-const md5 = require('md5')
+import { createMemoryFileSystem } from '../stub/memfs'
+import { FileSystem } from '../../src/utils/fs'
 
-describe('glob', function () {
-    const output0 = 'test/e2e/d.md5.out'
-    beforeEach(() => removeSync(output0))
-    const sum = 'e9a2fb30a1914745db8f4a114f7484b5'
-
-    it('should support matching groups', async function () {
-        const mk = new Makefile(process.cwd())
-
-        const recipe = async function () {
-            return this.writeTarget(md5(await this.readDependency()))
-        }
-        mk.addRule('(test/**)/(*).md5.out', '$1/$2.san.js', recipe)
-
-        await mk.make(output0)
-        expect(readFileSync(output0, 'utf8')).toEqual(sum)
+describe('glob scopes', function () {
+    let fs: FileSystem
+    let mk: Makefile
+    beforeEach(() => {
+        fs = createMemoryFileSystem()
+        fs.mkdirSync(process.cwd(), { recursive: true })
+        mk = new Makefile(process.cwd(), false, fs)
     })
 
-    it('should support glob', async function () {
-        const mk = new Makefile(process.cwd())
+    it('should support matching groups', async function () {
+        fs.mkdirSync('src/foo', { recursive: true })
+        fs.writeFileSync('src/foo/a.san.js', 'a')
+
+        mk.addRule(
+            '(src/**)/(*).md5', '$1/$2.san.js',
+            async ctx => ctx.writeTarget(await ctx.readDependency())
+        )
+
+        await mk.make('src/foo/a.md5')
+        expect(fs.readFileSync('src/foo/a.md5', 'utf8')).toEqual('a')
+    })
+
+    it('should match from begin to end', async function () {
         mk.addRule('build/**.js', [], () => {
             console.log('fire build!')
         })
@@ -39,7 +43,6 @@ describe('glob', function () {
     })
 
     it('should support groups in dependency array', async function () {
-        const mk = new Makefile(process.cwd())
         const recipe = jest.fn()
         mk.addRule('src/(**).min.js', ['src/$1.js'], recipe)
         mk.addRule('src/a.js', [], () => void (0))

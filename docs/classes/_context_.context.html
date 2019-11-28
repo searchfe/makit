@@ -92,8 +92,10 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_context_.context.html#dependencies" class="tsd-kind-icon">dependencies</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_context_.context.html#fs" class="tsd-kind-icon">fs</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_context_.context.html#make" class="tsd-kind-icon">make</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_context_.context.html#match" class="tsd-kind-icon">match</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_context_.context.html#root" class="tsd-kind-icon">root</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_context_.context.html#rule" class="tsd-kind-icon">rule</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_context_.context.html#target" class="tsd-kind-icon">target</a></li>
 							</ul>
 						</section>
@@ -134,7 +136,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L11">context.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L25">context.ts:25</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -143,19 +145,43 @@
 									<h5>__namedParameters: <span class="tsd-signature-type">object</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
-											<h5>dependencies<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+											<h5>dependencies<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
 										</li>
 										<li class="tsd-parameter">
-											<h5>fs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></h5>
+											<h5>fs<span class="tsd-signature-symbol">: </span><a href="../interfaces/_utils_fs_.filesystem.html" class="tsd-signature-type">FileSystem</a></h5>
 										</li>
 										<li class="tsd-parameter">
-											<h5>match<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></h5>
+											<h5>make<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></h5>
+											<ul class="tsd-parameters">
+												<li class="tsd-parameter-siganture">
+													<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable tsd-is-not-exported">
+														<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_utils_date_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></li>
+													</ul>
+													<ul class="tsd-descriptions">
+														<li class="tsd-description">
+															<h4 class="tsd-parameters-title">Parameters</h4>
+															<ul class="tsd-parameters">
+																<li>
+																	<h5>target: <span class="tsd-signature-type">string</span></h5>
+																</li>
+															</ul>
+															<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_utils_date_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></h4>
+														</li>
+													</ul>
+												</li>
+											</ul>
 										</li>
 										<li class="tsd-parameter">
-											<h5>root<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></h5>
+											<h5>match<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RegExpExecArray</span></h5>
 										</li>
 										<li class="tsd-parameter">
-											<h5>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></h5>
+											<h5>root<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>rule<span class="tsd-signature-symbol">: </span><a href="_rule_.rule.html" class="tsd-signature-type">Rule</a></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
 										</li>
 									</ul>
 								</li>
@@ -173,7 +199,7 @@
 					<div class="tsd-signature tsd-kind-icon">dependencies<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L7">context.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L21">context.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -183,9 +209,40 @@
 					<div class="tsd-signature tsd-kind-icon">fs<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_utils_fs_.filesystem.html" class="tsd-signature-type">FileSystem</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L10">context.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L24">context.ts:24</a></li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="make" class="tsd-anchor"></a>
+					<h3>make</h3>
+					<div class="tsd-signature tsd-kind-icon">make<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L22">context.ts:22</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_utils_date_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>target: <span class="tsd-signature-type">string</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_utils_date_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="match" class="tsd-anchor"></a>
@@ -193,7 +250,7 @@
 					<div class="tsd-signature tsd-kind-icon">match<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L8">context.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L19">context.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -203,7 +260,17 @@
 					<div class="tsd-signature tsd-kind-icon">root<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L11">context.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L25">context.ts:25</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="rule" class="tsd-anchor"></a>
+					<h3>rule</h3>
+					<div class="tsd-signature tsd-kind-icon">rule<span class="tsd-signature-symbol">:</span> <a href="_rule_.rule.html" class="tsd-signature-type">Rule</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L20">context.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -213,7 +280,7 @@
 					<div class="tsd-signature tsd-kind-icon">target<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L6">context.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L18">context.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -230,7 +297,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L87">context.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L103">context.ts:103</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -253,7 +320,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L91">context.ts:91</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L107">context.ts:107</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -276,7 +343,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L21">context.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L37">context.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -302,7 +369,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L25">context.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L41">context.ts:41</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -328,7 +395,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L29">context.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L45">context.ts:45</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -354,7 +421,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L39">context.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L55">context.ts:55</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -380,7 +447,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L69">context.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L85">context.ts:85</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -403,7 +470,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L74">context.ts:74</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L90">context.ts:90</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -426,7 +493,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L59">context.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L75">context.ts:75</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -452,7 +519,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L64">context.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L80">context.ts:80</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -478,7 +545,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L79">context.ts:79</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L95">context.ts:95</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -495,7 +562,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L83">context.ts:83</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L99">context.ts:99</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -512,7 +579,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L103">context.ts:103</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L119">context.ts:119</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -535,7 +602,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L51">context.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L67">context.ts:67</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -561,7 +628,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L55">context.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L71">context.ts:71</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -587,7 +654,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L95">context.ts:95</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L111">context.ts:111</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -610,7 +677,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1551451/src/context.ts#L99">context.ts:99</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1dfb234/src/context.ts#L115">context.ts:115</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -698,10 +765,16 @@
 								<a href="_context_.context.html#fs" class="tsd-kind-icon">fs</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_context_.context.html#make" class="tsd-kind-icon">make</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_context_.context.html#match" class="tsd-kind-icon">match</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_context_.context.html#root" class="tsd-kind-icon">root</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_context_.context.html#rule" class="tsd-kind-icon">rule</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_context_.context.html#target" class="tsd-kind-icon">target</a>
@@ -761,6 +834,9 @@
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../interfaces/_context_.contextoptions.html" class="tsd-kind-icon">Context<wbr>Options</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

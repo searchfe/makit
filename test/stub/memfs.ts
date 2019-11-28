@@ -1,5 +1,5 @@
 import { FileSystem } from '../../src/utils/fs'
-import { now } from '../../src/utils/date'
+import { now, TimeStamp } from '../../src/utils/date'
 import { resolve } from 'path'
 import { Stats, MakeDirectoryOptions } from 'fs'
 import { Callback } from '../../src/utils/callback'
@@ -9,16 +9,17 @@ const cwd = process.cwd()
 
 export function createMemoryFileSystem (): FileSystem {
     const fs = new MemoryFileSystem()
-    const mtime: Map<string, number> = new Map()
+    const mtime: Map<string, TimeStamp> = new Map()
 
     return {
         mkdir (path: string, options: MakeDirectoryOptions = {}, cb?: Callback<void>) {
-            if (options.recursive) return fs.mkdirp(path, cb)
-            return fs.mkdir(path, cb)
+            this.mkdirSync(path, options)
+            cb(null)
         },
         mkdirSync (path: string, options: MakeDirectoryOptions = {}) {
-            if (options.recursive) return fs.mkdirpSync(path)
-            return fs.mkdirSync(path)
+            const fullpath = resolve(cwd, path)
+            if (options.recursive) return fs.mkdirpSync(fullpath)
+            return fs.mkdirSync(fullpath)
         },
 
         readFile (path: string, encoding: string, cb?: Callback<Buffer | string>) {
@@ -26,7 +27,6 @@ export function createMemoryFileSystem (): FileSystem {
         },
         readFileSync (path: string, encoding: string) {
             const fullpath = resolve(cwd, path)
-            mtime.set(fullpath, now())
             return fs.readFileSync(fullpath, encoding)
         },
 
@@ -56,7 +56,9 @@ export function createMemoryFileSystem (): FileSystem {
                 throw err
             }
             return {
-                mtime: mtime.get(fullpath)
+                mtime: mtime.get(fullpath),
+                mtimeMs: mtime.get(fullpath),
+                mtimeNs: mtime.get(fullpath)
             } as any
         }
     } as FileSystem

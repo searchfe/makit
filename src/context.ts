@@ -1,21 +1,37 @@
 import { resolve, dirname } from 'path'
+import { Rule } from './rule'
 import { fromCallback } from './utils/promise'
 import { FileSystem } from './utils/fs'
+import { TimeStamp } from './utils/date'
+
+interface ContextOptions {
+    target: string
+    match: RegExpExecArray
+    root: string
+    dependencies?: string[]
+    fs: FileSystem
+    rule: Rule
+    make: (target: string) => Promise<TimeStamp>
+}
 
 export class Context {
-    public target: string
+    public readonly target: string
+    public readonly match
+    public readonly rule: Rule
     public dependencies: string[]
-    public match
+    public readonly make: ContextOptions['make']
 
     private readonly fs: FileSystem
     private readonly root: string
 
-    constructor ({ target, match, root, dependencies = [], fs = require('fs') }) {
+    constructor ({ target, match, rule, root, dependencies = [], fs = require('fs'), make }: ContextOptions) {
         this.root = root
         this.match = match
         this.target = target
         this.dependencies = dependencies
         this.fs = fs
+        this.rule = rule
+        this.make = make
     }
 
     async mkdir (filepath: string, options?) {

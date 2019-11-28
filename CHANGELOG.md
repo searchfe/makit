@@ -1,3 +1,16 @@
+# [1.8.0](https://github.com/searchfe/makit/compare/v1.7.3...v1.8.0) (2019-11-28)
+
+
+### Bug Fixes
+
+* fire recipe when make twice or more in immediate moment ([cdfd03a](https://github.com/searchfe/makit/commit/cdfd03afa16d9e67348358a9c54dd28218ce5db0))
+* fire recipe when make twice or more in immediate moment ([2620601](https://github.com/searchfe/makit/commit/26206011f1e5590cba6269d36ec2f034475e6f04))
+
+
+### Features
+
+* local make via ctx.make ([d5d8027](https://github.com/searchfe/makit/commit/d5d8027d0aeb3e0dc9276a80c4bd73efbbbfd1d7))
+
 ## [1.7.3](https://github.com/searchfe/makit/compare/v1.7.2...v1.7.3) (2019-11-27)
 
 

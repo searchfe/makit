@@ -1,9 +1,11 @@
-import { Stats, MakeDirectoryOptions } from 'fs'
+import { BigIntOptions, BigIntStats, Stats, MakeDirectoryOptions } from 'fs'
 import { Callback } from './callback'
 
 export interface FileSystem {
     stat(path: string, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    stat(path: string, options: BigIntOptions, callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void): void;
     statSync(path: string): Stats;
+    statSync(path: string, options: BigIntOptions): BigIntStats;
 
     readFile(path: string, encoding?: string, callback?: (err: Error | null, data: string | Buffer) => void): void;
     readFile(path: string, encoding?: BufferEncoding, callback?: (err: Error | null, data: string) => void): void;

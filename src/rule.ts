@@ -6,21 +6,21 @@ import debugFactory from 'debug'
 const debug = debugFactory('makit:rule')
 
 export class Rule {
-    public recipe: Recipe<void>
+    public recipe: Recipe
     public target: Target
     public prerequisites: Prerequisites
 
     constructor (
         target: Target,
         prerequisites: Prerequisites,
-        recipe: Recipe<void>
+        recipe: Recipe
     ) {
         this.target = target
         this.prerequisites = prerequisites
         this.recipe = recipe
     }
 
-    public async dependencies (ctx: Context) {
+    public async getDependencies (ctx: Context) {
         ctx.dependencies = await this.prerequisites.evaluate(ctx)
         return ctx.dependencies
     }

@@ -12,15 +12,15 @@ export function setRoot (val: string) {
     makefile.root = val
 }
 
-export function rule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration<void>) {
+export function rule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration) {
     return makefile.addRule(target, prerequisites, recipe)
 }
 
-export function updateRule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration<void>) {
+export function updateRule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration) {
     return makefile.updateRule(target, prerequisites, recipe)
 }
 
-export function updateOrAddRule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration<void>) {
+export function updateOrAddRule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration) {
     return makefile.updateOrAddRule(target, prerequisites, recipe)
 }
 

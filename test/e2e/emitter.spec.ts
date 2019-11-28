@@ -1,7 +1,7 @@
 import { Makefile } from '../../src/index'
 
-describe('Dynamic update', function () {
-    it('should trigger bundle0.js.out recipt once', async () => {
+describe('emitter test', function () {
+    it('emit make & prepare event', async () => {
         const mk = new Makefile()
         mk.addRule('a', ['b'])
         mk.addRule('b', [], () => {})
