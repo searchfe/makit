@@ -8,10 +8,10 @@ import chalk from 'chalk'
 import { DirectedGraph } from './graph'
 import { Logger } from './utils/logger'
 
-export type MakeResult = Number
+export type MakeResult = number
 export type PendingMakeResult = Promise<MakeResult>
 
-// NOT_EXIST < EMPTY_DEPENDENCY < mtime < Date.now()
+// NOT_EXIST < EMPTY_DEPENDENCY < mtimeNs < Date.now()
 const NOT_EXIST: MakeResult = -2
 const EMPTY_DEPENDENCY: MakeResult = -1
 
@@ -46,7 +46,7 @@ export class Make {
         this.updateGraph(target, parent)
         this.checkCircular(target)
 
-        return this.withCache(target, async () => {
+        return this.withCache(target, async (): PendingMakeResult => {
             const [rule, match] = this.ruleResolver(target)
             const context = new Context({ fs: this.fs, target, match, root: this.root })
             const [dmtime, mtime] = await Promise.all([
@@ -55,7 +55,7 @@ export class Make {
             ])
 
             if (dmtime >= mtime) {
-                // depency mtime may equal mtime when no io and async
+                // depency mtime may equal to mtime when no io and async
                 if (!rule) {
                     throw new Error(`no rule matched target: "${target}"`)
                 }
@@ -68,10 +68,10 @@ export class Make {
         })
     }
 
-    private async getModifiedTime (filepath: string) {
+    private async getModifiedTime (filepath: string): PendingMakeResult {
         try {
-            const { mtime } = await fromCallback(cb => this.fs.stat(filepath, cb))
-            return +mtime
+            const { mtimeMs } = await fromCallback(cb => this.fs.stat(filepath, cb))
+            return mtimeMs
         } catch (error) {
             if (error.code === 'ENOENT') return NOT_EXIST
             throw error

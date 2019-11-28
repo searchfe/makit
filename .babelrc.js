@@ -11,6 +11,7 @@ module.exports = {
         '@babel/preset-typescript'
     ],
     "plugins": [
-        "transform-class-properties"
+        "transform-class-properties",
+        "@babel/plugin-syntax-bigint"
     ]
 };

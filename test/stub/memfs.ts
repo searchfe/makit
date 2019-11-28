@@ -4,12 +4,13 @@ import { resolve } from 'path'
 import { Stats, MakeDirectoryOptions } from 'fs'
 import { Callback } from '../../src/utils/callback'
 import MemoryFileSystem from 'memory-fs'
+import { MakeResult } from '../../src/make'
 
 const cwd = process.cwd()
 
 export function createMemoryFileSystem (): FileSystem {
     const fs = new MemoryFileSystem()
-    const mtime: Map<string, number> = new Map()
+    const mtime: Map<string, MakeResult> = new Map()
 
     return {
         mkdir (path: string, options: MakeDirectoryOptions = {}, cb?: Callback<void>) {
@@ -26,7 +27,6 @@ export function createMemoryFileSystem (): FileSystem {
         },
         readFileSync (path: string, encoding: string) {
             const fullpath = resolve(cwd, path)
-            mtime.set(fullpath, now())
             return fs.readFileSync(fullpath, encoding)
         },
 
@@ -56,7 +56,9 @@ export function createMemoryFileSystem (): FileSystem {
                 throw err
             }
             return {
-                mtime: mtime.get(fullpath)
+                mtime: mtime.get(fullpath),
+                mtimeMs: mtime.get(fullpath),
+                mtimeNs: mtime.get(fullpath)
             } as any
         }
     } as FileSystem
