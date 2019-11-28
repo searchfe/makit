@@ -29,3 +29,5 @@ export function make (target: string) {
 }
 
 export { Makefile } from './makefile'
+
+export { Context } from './context'
