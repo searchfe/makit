@@ -1,5 +1,6 @@
 import { Rule } from './rule'
-import { PendingMakeResult, Make } from './make'
+import { Make } from './make'
+import { TimeStamp } from './utils/date'
 import { FileSystem } from './utils/fs'
 import { Logger } from './utils/logger'
 import { Prerequisites, PrerequisitesDeclaration } from './prerequisites'
@@ -31,7 +32,7 @@ export class Makefile {
     public updateOrAddRule (
         targetDecl: TargetDeclaration,
         prerequisitesDecl: PrerequisitesDeclaration,
-        recipeDecl: RecipeDeclaration<any> = defaultRecipe
+        recipeDecl: RecipeDeclaration = defaultRecipe
     ) {
         if (this.ruleMap.has(targetDecl)) {
             this.updateRule(targetDecl, prerequisitesDecl, recipeDecl)
@@ -43,7 +44,7 @@ export class Makefile {
     public addRule (
         targetDecl: TargetDeclaration,
         prerequisitesDecl: PrerequisitesDeclaration,
-        recipeDecl: RecipeDeclaration<any> = defaultRecipe
+        recipeDecl: RecipeDeclaration = defaultRecipe
     ) {
         const target = new Target(targetDecl)
         const prerequisites = new Prerequisites(prerequisitesDecl)
@@ -60,14 +61,14 @@ export class Makefile {
     public updateRule (
         targetDecl: TargetDeclaration,
         prerequisitesDecl: PrerequisitesDeclaration,
-        recipeDecl: RecipeDeclaration<any> = defaultRecipe
+        recipeDecl: RecipeDeclaration = defaultRecipe
     ) {
         const rule = this.ruleMap.get(targetDecl)
         rule.prerequisites = new Prerequisites(prerequisitesDecl)
         rule.recipe = new Recipe(recipeDecl)
     }
 
-    public async make (target?: string): PendingMakeResult {
+    public async make (target?: string): Promise<TimeStamp> {
         if (!target) {
             target = this.findFirstTargetOrThrow()
         }

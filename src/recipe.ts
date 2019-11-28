@@ -1,17 +1,18 @@
 import { Context } from './context'
+import { now, TimeStamp } from './utils/date'
 
-export type RecipeDeclaration<T> =
-    (this: Context, ctx: Context, done: (err?: Error, result?: T) => any)
-    => (T | Promise<T>)
+export type RecipeDeclaration =
+    (this: Context, ctx: Context, done: (err?: Error) => any)
+    => (any | Promise<any>)
 
-export class Recipe<T> {
-    private fn: RecipeDeclaration<T>
+export class Recipe {
+    private fn: RecipeDeclaration
 
-    constructor (fn: RecipeDeclaration<T>) {
+    constructor (fn: RecipeDeclaration) {
         this.fn = fn
     }
 
-    public async make (context: Context): Promise<T> {
+    public async make (context: Context): Promise<TimeStamp> {
         if (this.fn.length >= 2) {
             return new Promise((resolve, reject) => {
                 this.fn.call(context, context, (err, data) => {
@@ -20,6 +21,7 @@ export class Recipe<T> {
                 })
             })
         }
-        return this.fn.call(context, context)
+        await this.fn.call(context, context)
+        return now()
     }
 }

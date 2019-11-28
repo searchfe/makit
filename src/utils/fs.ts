@@ -1,4 +1,4 @@
-import { BigIntOptions, BigIntStats, Stats, stat, MakeDirectoryOptions } from 'fs'
+import { BigIntOptions, BigIntStats, Stats, MakeDirectoryOptions } from 'fs'
 import { Callback } from './callback'
 
 export interface FileSystem {

@@ -12,3 +12,5 @@ export function now () {
     last = n
     return n
 }
+
+export type TimeStamp = number

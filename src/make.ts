@@ -1,5 +1,5 @@
 import { Context } from './context'
-import { now } from './utils/date'
+import { TimeStamp } from './utils/date'
 import { fromCallback } from './utils/promise'
 import { max } from 'lodash'
 import { Rule } from './rule'
@@ -8,12 +8,9 @@ import chalk from 'chalk'
 import { DirectedGraph } from './graph'
 import { Logger } from './utils/logger'
 
-export type MakeResult = number
-export type PendingMakeResult = Promise<MakeResult>
-
 // NOT_EXIST < EMPTY_DEPENDENCY < mtimeNs < Date.now()
-const NOT_EXIST: MakeResult = -2
-const EMPTY_DEPENDENCY: MakeResult = -1
+const NOT_EXIST: TimeStamp = -2
+const EMPTY_DEPENDENCY: TimeStamp = -1
 
 export interface MakeOptions {
     root?: string
@@ -23,7 +20,7 @@ export interface MakeOptions {
 }
 
 export class Make {
-    private making: Map<string, PendingMakeResult> = new Map()
+    private making: Map<string, Promise<TimeStamp>> = new Map()
     private graph: DirectedGraph<string> = new DirectedGraph()
     private root: string
     private ruleResolver: (target: string) => [Rule, RegExpExecArray]
@@ -42,15 +39,25 @@ export class Make {
         this.logger = logger
     }
 
-    public async make (target: string, parent?: string): PendingMakeResult {
+    public async make (target: string, parent?: string): Promise<TimeStamp> {
         this.updateGraph(target, parent)
         this.checkCircular(target)
 
-        return this.withCache(target, async (): PendingMakeResult => {
+        return this.withCache(target, async (): Promise<TimeStamp> => {
             const [rule, match] = this.ruleResolver(target)
-            const context = new Context({ fs: this.fs, target, match, root: this.root })
+            const context = new Context({
+                fs: this.fs,
+                target,
+                match,
+                rule,
+                root: this.root,
+                make: (child: string) => {
+                    rule.prerequisites.addDynamicDependency(target, child)
+                    return this.make(child, target)
+                }
+            })
             const [dmtime, mtime] = await Promise.all([
-                this.resolveDependencies(context, rule),
+                this.resolveDependencies(context),
                 this.getModifiedTime(context.targetFullPath())
             ])
 
@@ -60,15 +67,15 @@ export class Make {
                     throw new Error(`no rule matched target: "${target}"`)
                 }
                 this.logger.verbose(chalk['cyan'](`make`), this.graph.getSinglePath(target).join(' <- '))
-                await rule.recipe.make(context)
-                return now()
+                rule.prerequisites.clearDynamicDependency(target)
+                return rule.recipe.make(context)
             }
             this.logger.verbose(chalk['grey']('skip'), `${target} up to date`)
             return mtime
         })
     }
 
-    private async getModifiedTime (filepath: string): PendingMakeResult {
+    private async getModifiedTime (filepath: string): Promise<TimeStamp> {
         try {
             const { mtimeMs } = await fromCallback(cb => this.fs.stat(filepath, cb))
             return mtimeMs
@@ -78,9 +85,9 @@ export class Make {
         }
     }
 
-    private async resolveDependencies (context: Context, rule?: Rule): PendingMakeResult {
-        if (!rule) return EMPTY_DEPENDENCY
-        const dependencies = await rule.dependencies(context)
+    private async resolveDependencies (context: Context): Promise<TimeStamp> {
+        if (!context.rule) return EMPTY_DEPENDENCY
+        const dependencies = await context.rule.getDependencies(context)
         const results = await Promise.all(dependencies.map(dep => this.make(dep, context.target)))
         return max(results) || EMPTY_DEPENDENCY
     }
@@ -102,7 +109,7 @@ export class Make {
         console.log(this.graph.toString())
     }
 
-    private withCache (target: string, fn: (...args: any[]) => PendingMakeResult): PendingMakeResult {
+    private withCache (target: string, fn: (...args: any[]) => Promise<TimeStamp>): Promise<TimeStamp> {
         if (!this.making.has(target)) {
             this.making.set(target, fn())
         }
