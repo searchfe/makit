@@ -49,11 +49,11 @@ export class Make {
     }
 
     public async make (target: string, parent?: string): Promise<TimeStamp> {
-        this.emit('prepare', { target, parent, graph: this.graph })
         this.updateGraph(target, parent)
         this.checkCircular(target)
 
         return this.withCache(target, async (): Promise<TimeStamp> => {
+            this.emit('making', { target, parent, graph: this.graph })
             const [rule, match] = this.ruleResolver(target)
             const context = new Context({
                 fs: this.fs,
@@ -79,7 +79,7 @@ export class Make {
                 this.logger.verbose(chalk['cyan'](`make`), this.graph.getSinglePath(target).join(' <- '))
                 rule.prerequisites.clearDynamicDependency(target)
                 const t = await rule.recipe.make(context)
-                this.emit('make', { target, parent, graph: this.graph })
+                this.emit('maked', { target, parent, graph: this.graph })
                 return t
             }
             this.logger.verbose(chalk['grey']('skip'), `${target} up to date`)

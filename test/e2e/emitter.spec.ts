@@ -6,21 +6,21 @@ describe('emitter test', function () {
         mk.addRule('a', ['b'])
         mk.addRule('b', [], () => {})
         const rs: any[] = []
-        mk.on('prepare', ({ target, parent }) => {
-            rs.push(['prepare', target, parent])
+        mk.on('making', ({ target, parent }) => {
+            rs.push(['making', target, parent])
         })
         const mkFn = ({ target, parent, graph }) => {
-            rs.push(['make', target, parent, (graph as DirectedGraph<string>).getSinglePath(target)])
+            rs.push(['maked', target, parent, (graph as DirectedGraph<string>).getSinglePath(target)])
         }
-        mk.on('make', mkFn)
+        mk.on('maked', mkFn)
         await mk.make('a')
         expect(rs).toEqual([
-            ['prepare', 'a', undefined],
-            ['prepare', 'b', 'a'],
-            ['make', 'b', 'a', ['b', 'a']],
-            ['make', 'a', undefined, ['a']]
+            ['making', 'a', undefined],
+            ['making', 'b', 'a'],
+            ['maked', 'b', 'a', ['b', 'a']],
+            ['maked', 'a', undefined, ['a']]
         ])
-        mk.off('make', mkFn)
+        mk.off('maked', mkFn)
         await mk.make('b')
         expect(rs.length).toEqual(5)
     })
