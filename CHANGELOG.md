@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/searchfe/makit/compare/v1.10.0...v1.10.1) (2019-11-29)
+
+
+### Bug Fixes
+
+* add off export ([7a36b98](https://github.com/searchfe/makit/commit/7a36b9865f61642e480fec9831cdfa9bb3442d6d))
+
 # [1.10.0](https://github.com/searchfe/makit/compare/v1.9.0...v1.10.0) (2019-11-29)
 
 
