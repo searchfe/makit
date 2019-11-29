@@ -32,6 +32,10 @@ export function on (event: string, listener: (...args: any[]) => void) {
     return makefile.on(event, listener)
 }
 
+export function off (event: string, listener: (...args: any[]) => void) {
+    return makefile.off(event, listener)
+}
+
 export { Makefile } from './makefile'
 
 export { Context } from './context'
