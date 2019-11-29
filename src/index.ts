@@ -35,3 +35,7 @@ export function on (event: string, listener: (...args: any[]) => void) {
 export { Makefile } from './makefile'
 
 export { Context } from './context'
+
+export { DirectedGraph } from './graph'
+
+export { RecipeDeclaration } from './recipe'

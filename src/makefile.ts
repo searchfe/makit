@@ -88,6 +88,9 @@ export class Makefile {
         this.emitter = this.emitter || new EventEmitter()
         this.emitter.on(event, fn)
     }
+    public off (event: string, fn: (...args: any[]) => void) {
+        this.emitter && this.emitter.off(event, fn)
+    }
 
     private findRule (target: string): [Rule, RegExpExecArray] {
         if (this.fileTargetRules.has(target)) {

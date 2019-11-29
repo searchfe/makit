@@ -45,7 +45,7 @@ export class Make {
     }
 
     public async make (target: string, parent?: string): Promise<TimeStamp> {
-        this.emitter && this.emitter.emit('prepare', { target, parent })
+        this.emit('prepare', { target, parent, graph: this.graph })
         this.updateGraph(target, parent)
         this.checkCircular(target)
 
@@ -75,15 +75,17 @@ export class Make {
                 this.logger.verbose(chalk['cyan'](`make`), this.graph.getSinglePath(target).join(' <- '))
                 rule.prerequisites.clearDynamicDependency(target)
                 const t = await rule.recipe.make(context)
-                this.emitter && this.emitter.emit('make', { target, parent })
+                this.emit('make', { target, parent, graph: this.graph })
                 return t
             }
             this.logger.verbose(chalk['grey']('skip'), `${target} up to date`)
-            this.emitter && this.emitter.emit('skip', { target, parent })
+            this.emit('skip', { target, parent, graph: this.graph })
             return mtime
         })
     }
-
+    private emit (event: string, msg: any) {
+        this.emitter && this.emitter.emit(event, msg)
+    }
     private async getModifiedTime (filepath: string): Promise<TimeStamp> {
         try {
             const { mtimeMs } = await fromCallback(cb => this.fs.stat(filepath, cb))
