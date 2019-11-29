@@ -18,4 +18,7 @@ export interface FileSystem {
 
     mkdir(path: string, options?: number | string | MakeDirectoryOptions | null, callback?: Callback<void>): void;
     mkdirSync(path: string, options?: number | string | MakeDirectoryOptions | null): void;
+
+    unlink(path: string, callback?: Callback<void>)
+    unlinkSync(path: string)
 }

@@ -60,6 +60,14 @@ export function createMemoryFileSystem (): FileSystem {
                 mtimeMs: mtime.get(fullpath),
                 mtimeNs: mtime.get(fullpath)
             } as any
+        },
+
+        unlink (path: string, callback?: Callback<void>) {
+            callback(this.unlinkSync(path))
+        },
+        unlinkSync (path: string) {
+            const fullpath = resolve(cwd, path)
+            return fs.unlinkSync(fullpath)
         }
     } as FileSystem
 }

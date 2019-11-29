@@ -82,6 +82,14 @@ export class Context {
         return this.fs.readFileSync(this.toFullPath(filepath), encoding)
     }
 
+    unlinkSync (filepath: string) {
+        return this.fs.unlinkSync(this.toFullPath(filepath))
+    }
+
+    unlink (filepath: string) {
+        return fromCallback(cb => this.fs.unlink(this.toFullPath(filepath), cb))
+    }
+
     async readDependency (i: number = 0): Promise<string> {
         if (i >= this.dependencies.length) throw new Error(`cannot get ${i}th dependency,dependencieshis.deps.length} dependencies in total`)
         return this.readFile(this.dependencyFullPath(i))
