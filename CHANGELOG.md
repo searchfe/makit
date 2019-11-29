@@ -1,3 +1,10 @@
+## [1.10.2](https://github.com/searchfe/makit/compare/v1.10.1...v1.10.2) (2019-11-29)
+
+
+### Bug Fixes
+
+* add disableCheckCircular ([1188aa3](https://github.com/searchfe/makit/commit/1188aa33204738e1a95a0bbd64724618945dc83a))
+
 ## [1.10.1](https://github.com/searchfe/makit/compare/v1.10.0...v1.10.1) (2019-11-29)
 
 
