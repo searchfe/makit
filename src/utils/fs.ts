@@ -21,4 +21,10 @@ export interface FileSystem {
 
     unlink(path: string, callback?: Callback<void>)
     unlinkSync(path: string)
+
+    exists(path: string, callback?: Callback<void>)
+    existsSync(path: string)
+
+    utimes(path: string, atime: number, mtime: number, callback?: Callback<void>)
+    utimesSync(path: string, atime: number, mtime: number)
 }

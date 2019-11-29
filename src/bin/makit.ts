@@ -3,6 +3,7 @@
 import chalk from 'chalk'
 import * as yargs from 'yargs'
 import { existsSync } from 'fs'
+import { Logger, LogLevel } from '../utils/logger'
 import { resolve } from 'path'
 
 type OptionValue = string | undefined
@@ -13,6 +14,12 @@ yargs.usage('$0 <TARGET>...')
         type: 'string',
         default: 'makefile.js',
         description: 'makefile path'
+    })
+    .option('loglevel', {
+        alias: 'l',
+        choices: [0, 1, 2, 3, 4],
+        default: 1,
+        description: 'error, warning, info, verbose, debug'
     })
     .option('verbose', {
         alias: 'v',
@@ -32,13 +39,14 @@ const makefile = resolve(yargs.argv.config as string)
 const verbose = yargs.argv.verbose as boolean
 const graph = yargs.argv.graph as boolean
 
+if (verbose) Logger.getOrCreate().setLevel(LogLevel.verbose)
+
 if (!existsSync(makefile)) {
     throw new Error('makefile.js not found')
 }
 console.log(chalk['cyan']('conf'), makefile)
 require(makefile)
 const makit = global['makit']
-makit.setVerbose(verbose)
 
 async function main () {
     if (targets.length) {

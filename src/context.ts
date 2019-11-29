@@ -1,8 +1,13 @@
 import { resolve, dirname } from 'path'
+import { Logger } from './utils/logger'
 import { Rule } from './rule'
 import { fromCallback } from './utils/promise'
 import { FileSystem } from './utils/fs'
+import { pick } from 'lodash'
 import { TimeStamp } from './utils/date'
+import { getDependencyFromTarget } from './rude'
+
+const logger = Logger.getOrCreate()
 
 interface ContextOptions {
     target: string
@@ -19,8 +24,10 @@ export class Context {
     public readonly match
     public readonly rule: Rule
     public dependencies: string[]
-    public readonly make: ContextOptions['make']
 
+    private dynamicDependenciesUpdatedAt = 0
+    private readonly dynamicDependencies: string[] = []
+    private readonly makeImpl: ContextOptions['make']
     private readonly fs: FileSystem
     private readonly root: string
 
@@ -31,7 +38,31 @@ export class Context {
         this.dependencies = dependencies
         this.fs = fs
         this.rule = rule
-        this.make = make
+        this.makeImpl = make
+    }
+
+    public getAllDependencies () {
+        return [...this.dependencies, ...this.dynamicDependencies]
+    }
+
+    public make (target: string) {
+        this.dynamicDependencies.push(target)
+        this.dynamicDependenciesUpdatedAt = Date.now()
+        return this.makeImpl(target)
+    }
+
+    public async writeDependency () {
+        const filepath = getDependencyFromTarget(this.target)
+        logger.debug(this.target, 'writing', filepath, 'with', this.dynamicDependencies, 'mtime', this.dynamicDependenciesUpdatedAt)
+        await this.outputFile(filepath, JSON.stringify(this.dynamicDependencies))
+        await this.utimes(filepath, this.dynamicDependenciesUpdatedAt, this.dynamicDependenciesUpdatedAt)
+    }
+
+    public clone (options: Partial<ContextOptions>) {
+        return new Context({
+            ...pick(this, ['root', 'match', 'target', 'dependencies', 'fs', 'rule', 'make']),
+            ...options
+        })
     }
 
     async mkdir (filepath: string, options?) {
@@ -90,6 +121,22 @@ export class Context {
         return fromCallback(cb => this.fs.unlink(this.toFullPath(filepath), cb))
     }
 
+    exists (filepath: string) {
+        return fromCallback(cb => this.fs.exists(filepath, cb))
+    }
+
+    existsSync (filepath: string) {
+        return this.fs.existsSync(filepath)
+    }
+
+    utimes (filepath: string, atime: number, utime: number) {
+        return fromCallback(cb => this.fs.utimes(filepath, atime, utime, cb))
+    }
+
+    utimesSync (filepath: string, atime: number, utime: number) {
+        return this.fs.utimesSync(filepath, atime, utime)
+    }
+
     async readDependency (i: number = 0): Promise<string> {
         if (i >= this.dependencies.length) throw new Error(`cannot get ${i}th dependency,dependencieshis.deps.length} dependencies in total`)
         return this.readFile(this.dependencyFullPath(i))
@@ -124,7 +171,7 @@ export class Context {
         return this.outputFileSync(this.targetFullPath(), content)
     }
 
-    private toFullPath (filename: string) {
+    toFullPath (filename: string) {
         return resolve(this.root, filename)
     }
 }

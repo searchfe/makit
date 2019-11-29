@@ -1,4 +1,5 @@
 import { Makefile } from '../../src/index'
+import { Logger, LogLevel } from '../../src/utils/logger'
 import { createMemoryFileSystem } from '../stub/memfs'
 import { FileSystem } from '../../src/utils/fs'
 
@@ -8,7 +9,8 @@ describe('glob scopes', function () {
     beforeEach(() => {
         fs = createMemoryFileSystem()
         fs.mkdirSync(process.cwd(), { recursive: true })
-        mk = new Makefile(process.cwd(), false, fs)
+        mk = new Makefile(process.cwd(), fs)
+        Logger.getOrCreate().setLevel(LogLevel.default)
     })
 
     it('should support matching groups', async function () {
@@ -25,17 +27,13 @@ describe('glob scopes', function () {
     })
 
     it('should match from begin to end', async function () {
-        mk.addRule('build/**.js', [], () => {
-            console.log('fire build!')
-        })
+        mk.addRule('build/**.js', [])
         mk.addRule('build', [], () => {
             throw new Error('should not fire build!')
         })
         await mk.make('build/a.js')
 
-        mk.addRule('(src)/**.js', [], () => {
-            console.log('fire src!')
-        })
+        mk.addRule('(src)/**.js', [])
         mk.addRule('s(rc)', [], () => {
             throw new Error('should not fire src!')
         })

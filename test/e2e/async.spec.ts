@@ -1,4 +1,5 @@
 import { Makefile } from '../../src/index'
+import { Logger, LogLevel } from '../../src/utils/logger'
 import { createMemoryFileSystem } from '../stub/memfs'
 import { FileSystem } from '../../src/utils/fs'
 
@@ -8,7 +9,8 @@ describe('async', function () {
     beforeEach(() => {
         fs = createMemoryFileSystem()
         fs.mkdirSync(process.cwd(), { recursive: true })
-        mk = new Makefile(process.cwd(), false, fs)
+        mk = new Makefile(process.cwd(), fs)
+        Logger.getOrCreate().setLevel(LogLevel.default)
     })
 
     it('should support async', async function () {

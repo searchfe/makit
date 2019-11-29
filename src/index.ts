@@ -1,11 +1,16 @@
 import { Makefile } from './makefile'
+import { Logger, LogLevel } from './utils/logger'
 import { RecipeDeclaration } from './recipe'
 import { PrerequisitesDeclaration } from './prerequisites'
 
 const makefile = global['makit'] = new Makefile()
 
 export function setVerbose (val: boolean = true) {
-    makefile.setVerbose(val)
+    Logger.getOrCreate().setLevel(val ? LogLevel.verbose : LogLevel.default)
+}
+
+export function setLoglevel (val: LogLevel) {
+    Logger.getOrCreate().setLevel(val)
 }
 
 export function setRoot (val: string) {
@@ -16,6 +21,10 @@ export { series } from './schedule/sequential-schedule'
 
 export function rule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration) {
     return makefile.addRule(target, prerequisites, recipe)
+}
+
+export function rude (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration) {
+    return makefile.addRude(target, prerequisites, recipe)
 }
 
 export function updateRule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration) {

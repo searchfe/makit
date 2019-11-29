@@ -9,7 +9,7 @@ const cwd = process.cwd()
 
 export function createMemoryFileSystem (): FileSystem {
     const fs = new MemoryFileSystem()
-    const mtime: Map<string, TimeStamp> = new Map()
+    const mtimes: Map<string, TimeStamp> = new Map()
 
     return {
         mkdir (path: string, options: MakeDirectoryOptions = {}, cb?: Callback<void>) {
@@ -36,7 +36,8 @@ export function createMemoryFileSystem (): FileSystem {
         },
         writeFileSync (path: string, data: any) {
             const fullpath = resolve(cwd, path)
-            mtime.set(fullpath, now())
+            const n = now()
+            mtimes.set(fullpath, n)
             return fs.writeFileSync(fullpath, data)
         },
 
@@ -50,15 +51,15 @@ export function createMemoryFileSystem (): FileSystem {
 
         statSync (path: string): Stats {
             const fullpath = resolve(cwd, path)
-            if (!mtime.has(fullpath)) {
+            if (!mtimes.has(fullpath)) {
                 const err = new Error(`file ${fullpath} not found`) as any
                 err.code = 'ENOENT'
                 throw err
             }
             return {
-                mtime: mtime.get(fullpath),
-                mtimeMs: mtime.get(fullpath),
-                mtimeNs: mtime.get(fullpath)
+                mtime: mtimes.get(fullpath),
+                mtimeMs: mtimes.get(fullpath),
+                mtimeNs: mtimes.get(fullpath)
             } as any
         },
 
@@ -68,6 +69,22 @@ export function createMemoryFileSystem (): FileSystem {
         unlinkSync (path: string) {
             const fullpath = resolve(cwd, path)
             return fs.unlinkSync(fullpath)
+        },
+
+        exists (path: string, callback?: Callback<void>) {
+            callback(this.existsSync(path))
+        },
+        existsSync (path: string) {
+            const fullpath = resolve(cwd, path)
+            return fs.existsSync(fullpath)
+        },
+
+        utimes (path: string, atime: number, mtime: number, callback?: Callback<void>) {
+            callback(this.utimesSync(path, atime, mtime))
+        },
+        utimesSync (path: string, atime: number, mtime: number) {
+            const fullpath = resolve(cwd, path)
+            mtimes.set(fullpath, mtime)
         }
     } as FileSystem
 }

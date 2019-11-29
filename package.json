@@ -82,7 +82,6 @@
   },
   "dependencies": {
     "camelcase": "^5.3.1",
-    "debug": "^4.1.1",
     "extglob": "^3.0.0",
     "is-glob": "^4.0.1",
     "lodash": "^4.17.15",

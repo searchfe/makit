@@ -1,17 +1,57 @@
+import chalk from 'chalk'
+
+export enum LogLevel {
+    error = 0,
+    warning = 1,
+    info = 2,
+    verbose = 3,
+    debug = 4,
+    default = 1
+}
 
 export class Logger {
-    public isVerbose: boolean = false
+    private constructor (private loglevel: LogLevel = LogLevel.default) { }
 
-    constructor (verbose: boolean) {
-        this.isVerbose = verbose
+    private static logger: Logger = null
+
+    public static getOrCreate () {
+        if (!Logger.logger) {
+            Logger.logger = new Logger()
+        }
+        return Logger.logger
     }
 
-    public verbose (title, ...args) {
-        if (!this.isVerbose) return
-        console.log(title, ...args)
+    public setLevel (level: LogLevel) {
+        if (level < LogLevel.error || level > LogLevel.debug) throw new Error('invalid loglevel')
+        this.loglevel = level
     }
 
-    public log (title: string, ...args: string[]) {
-        console.log(title, ...args)
+    public error (title: string, ...args: any[]) {
+        if (this.loglevel < LogLevel.error) return
+        console.log(chalk['red'](title), this.stringify(args))
+    }
+
+    public warning (title: string, ...args: any[]) {
+        if (this.loglevel < LogLevel.warning) return
+        console.log(chalk['yellow'](title), this.stringify(args))
+    }
+
+    public info (title: string, ...args: any[]) {
+        if (this.loglevel < LogLevel.info) return
+        console.log(chalk['cyan'](title), this.stringify(args))
+    }
+
+    public verbose (title: string, ...args: any[]) {
+        if (this.loglevel < LogLevel.verbose) return
+        console.log(chalk['grey'](title), this.stringify(args))
+    }
+
+    public debug (title: string, ...args: any[]) {
+        if (this.loglevel < LogLevel.debug) return
+        console.log(chalk['bgRed'](title), ...args)
+    }
+
+    private stringify (args) {
+        return args.map(x => (x && x.toString && x.toString()) || x).join(' ')
     }
 }

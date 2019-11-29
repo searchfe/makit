@@ -1,5 +1,6 @@
 import { Context } from './context'
 import { now, TimeStamp } from './utils/date'
+import { inline, limit } from './utils/string'
 
 export type RecipeDeclaration =
     (this: Context, ctx: Context, done: (err?: Error) => any)
@@ -23,5 +24,9 @@ export class Recipe {
         }
         await this.fn.call(context, context)
         return now()
+    }
+
+    public toString () {
+        return limit(inline(this.fn.toString()))
     }
 }

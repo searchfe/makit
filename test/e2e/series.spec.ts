@@ -10,7 +10,7 @@ describe('series', function () {
     beforeEach(() => {
         fs = createMemoryFileSystem()
         fs.mkdirSync(process.cwd(), { recursive: true })
-        mk = new Makefile(process.cwd(), false, fs)
+        mk = new Makefile(process.cwd(), fs)
     })
 
     it('should build series one by one', async function () {

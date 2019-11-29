@@ -17,6 +17,8 @@ Purposes and Principles:
 * Less Limits. We do not use recipes return values, don't even requrie a recipe, and don't check the actual output.
 * JavaScript Style. Async callbacks & Promises are supported, automatic variables are replaced by JavaScript names, wildcards are replaced by JavaScript RegExp and globs.
 
+API Spec: <https://searchfe.github.io/makit/modules/_index_.html>
+
 ## Get Started
 
 Basically, the syntax is as simple as Makefile, a rule consists of 3 parts:
@@ -28,6 +30,8 @@ Basically, the syntax is as simple as Makefile, a rule consists of 3 parts:
 Write a makefile.js containing the following contents:
 
 ```javascript
+const { rule } = require('makit')
+
 rule('all', ['a1.min.js'])  // default rule
 
 rule('a1.min.js', ['a.js'], function () {
@@ -90,21 +94,66 @@ rule('(output/**)/(*).js', '$1/$2.ts', async function () {
 make('output/app/app.js')
 ```
 
-## Writing makefile.js
+## Dynamic Prerequisites
 
-All exported methods `.rule()`, `.make()`, `.setRoot()` are available in makefile.js:
+It's sometimes handy to call `make()` within the recipe,
+these dynamically prerequisites will not be recorded into the dependency tree.
+Thus makit will NOT remake the target when any of these prerequisites changed.
+For example: 
 
 ```javascript
-// file: makefile.js
 const { rule, make } = require('makit')
 
-rule('a.min.js', 'a.js', minify)
-
-rule(/\.md5\.out$/, ctx => ctx.targetPath().replace(ctx.match[0], '.js'), md5)
-
-rule('bundle.js', ['a.min.js'], async () => {
-    await make('bundle.js.md5')
+rule('bundle.js', 'a.js', async (ctx) => {
+    await make('b.js')
+    const js = (await ctx.readFile('a.js')) + (await ctx.readFile('b.js'))
+    ctx.writeTarget(js)
 })
 ```
 
-For more acurrate documentation, here's the TypeDoc: <https://searchfe.github.io/makit/modules/_index_.html>
+Suppose we have the above `makefile.js` and run `makit bundle.js` to get the file `bundle.js`.
+Make changes to `b.js` and then remake bundle via `makit bundle.js`.
+The recipe for `bundle.js` will not be called cause `b.js` is not in the dependency tree.
+To fix this, just Take `b.js` into the prerequisites and makit will do the rest:
+
+```javascript
+const { rule, make } = require('makit')
+
+rule('bundle.js', ['a.js', 'b.js'] async (ctx) => {
+    const js = (await ctx.readFile('a.js')) + (await ctx.readFile('b.js'))
+    return ctx.writeTarget(js)
+})
+```
+
+When it comes to dynamic prerequisites (like bundling AMD requires) it's recommended to
+provide another rule to make the dependency list.
+
+```javascript
+const { series, rule } = require('makit')
+
+rule(
+    'bundle.js',
+    series('bundle.js.dep', ctx => ctx.readFileSync('bundle.js.dep').split('\n'),
+    ctx => {/* do the bundle */}
+)
+
+rule('bundle.js.dep', 'bundle.js', ctx => { /* analyze the dependencies of bundle.js */ })
+```
+
+We introduced `rude()` and `ctx.make` to facilitate this situation:
+
+```javascript
+const { rude } = require('makit')
+
+rude(
+    'bundle.js', [], async ctx => {
+        await ctx.make('a.js')
+        await ctx.make('b.js')
+        const js = (await ctx.readFile('a.js')) + (await ctx.readFile('b.js'))
+        return ctx.writeTarget(js)
+    }
+)
+```
+
+A pseudo rule targeting `bundle.js.rude.dep`, which contains the dependencies during the last run,
+will be generated for each `rude()`.

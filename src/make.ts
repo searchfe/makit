@@ -3,6 +3,7 @@ import { TimeStamp } from './utils/date'
 import { fromCallback } from './utils/promise'
 import { max } from 'lodash'
 import { Rule } from './rule'
+import { getTargetFromDependency } from './rude'
 import { FileSystem } from './utils/fs'
 import chalk from 'chalk'
 import { DirectedGraph } from './graph'
@@ -12,40 +13,52 @@ import { EventEmitter } from 'events'
 // NOT_EXIST < EMPTY_DEPENDENCY < mtimeNs < Date.now()
 const NOT_EXIST: TimeStamp = -2
 const EMPTY_DEPENDENCY: TimeStamp = -1
+const logger = Logger.getOrCreate()
 
 export interface MakeOptions {
     root?: string
-    logger?: Logger
     fs?: FileSystem
     emitter?: EventEmitter
     disableCheckCircular?: boolean
-    ruleResolver?: (target: string) => [Rule, RegExpExecArray]
+    matchRule?: (target: string) => [Rule, RegExpExecArray]
 }
 
 export class Make {
     private making: Map<string, Promise<TimeStamp>> = new Map()
     private graph: DirectedGraph<string> = new DirectedGraph()
     private root: string
-    private ruleResolver: (target: string) => [Rule, RegExpExecArray]
-    private logger: Logger
+    private matchRule: (target: string) => [Rule, RegExpExecArray]
     private fs: FileSystem
     private emitter: EventEmitter
     private disableCheckCircular: boolean
 
     constructor ({
         root = process.cwd(),
-        logger = new Logger(false),
         fs = require('fs'),
-        ruleResolver,
+        matchRule,
         emitter,
         disableCheckCircular
     }: MakeOptions) {
         this.fs = fs
         this.root = root
-        this.ruleResolver = ruleResolver
-        this.logger = logger
+        this.matchRule = matchRule
         this.emitter = emitter
         this.disableCheckCircular = disableCheckCircular || false
+    }
+
+    public createContext ({ target, match, rule }: { target: string, match: RegExpExecArray, rule?: Rule}) {
+        if (rule && rule.isDependencyTarget) {
+            target = getTargetFromDependency(target)
+            match = this.matchRule(target)[1]
+        }
+        return new Context({
+            fs: this.fs,
+            target,
+            match,
+            rule,
+            root: this.root,
+            make: (child: string) => this.make(child, target)
+        })
     }
 
     public async make (target: string, parent?: string): Promise<TimeStamp> {
@@ -54,42 +67,47 @@ export class Make {
 
         return this.withCache(target, async (): Promise<TimeStamp> => {
             this.emit('making', { target, parent, graph: this.graph })
-            const [rule, match] = this.ruleResolver(target)
-            const context = new Context({
-                fs: this.fs,
-                target,
-                match,
-                rule,
-                root: this.root,
-                make: (child: string) => {
-                    rule.prerequisites.addDynamicDependency(target, child)
-                    return this.make(child, target)
-                }
-            })
+            logger.verbose('prepare', target)
+            const [rule, match] = this.matchRule(target)
+            const context = this.createContext({ target, match, rule })
             const [dmtime, mtime] = await Promise.all([
-                this.resolveDependencies(context),
-                this.getModifiedTime(context.targetFullPath())
+                this.resolveDependencies(target, context),
+                this.getModifiedTime(context.toFullPath(target))
             ])
+
+            logger.debug(target, `dmtime: ${dmtime}, mtime: ${mtime}`)
 
             if (dmtime >= mtime) {
                 // depency mtime may equal to mtime when no io and async
                 if (!rule) {
                     throw new Error(`no rule matched target: "${target}"`)
                 }
-                this.logger.verbose(chalk['cyan'](`make`), this.graph.getSinglePath(target).join(' <- '))
-                rule.prerequisites.clearDynamicDependency(target)
+
+                const deps = context.getAllDependencies()
+                const msg = target + (deps.length ? ': ' + deps.join(', ') : '')
+                logger.info('make', msg)
+
                 const t = await rule.recipe.make(context)
+                logger.debug(target, 'write dynamic deps?', !!rule.hasDynamicDependencies)
+                rule.hasDynamicDependencies && await context.writeDependency()
+
                 this.emit('maked', { target, parent, graph: this.graph })
                 return t
             }
-            this.logger.verbose(chalk['grey']('skip'), `${target} up to date`)
+
+            const deps = context.getAllDependencies()
+            const msg = target + (deps.length ? ': ' + deps.join(', ') : '')
+            logger.info(chalk['grey']('skip'), msg)
             this.emit('skip', { target, parent, graph: this.graph })
+
             return mtime
         })
     }
+
     private emit (event: string, msg: any) {
         this.emitter && this.emitter.emit(event, msg)
     }
+
     private async getModifiedTime (filepath: string): Promise<TimeStamp> {
         try {
             const { mtimeMs } = await fromCallback(cb => this.fs.stat(filepath, cb))
@@ -100,12 +118,14 @@ export class Make {
         }
     }
 
-    private async resolveDependencies (context: Context): Promise<TimeStamp> {
+    private async resolveDependencies (target: string, context: Context): Promise<TimeStamp> {
         if (!context.rule) return EMPTY_DEPENDENCY
         const results = await context.rule.map(
             context,
-            (dep: string) => this.make(dep, context.target)
+            (dep: string) => this.make(dep, target)
         )
+        logger.debug(target, 'dependencies', context.dependencies)
+        logger.debug(target, 'timestamps', results)
         return max(results) || EMPTY_DEPENDENCY
     }
 

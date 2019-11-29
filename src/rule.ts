@@ -10,6 +10,8 @@ export class Rule {
     public recipe: Recipe
     public target: Target
     public prerequisites: Prerequisites
+    public hasDynamicDependencies = false
+    public isDependencyTarget = false
 
     constructor (
         target: Target,
@@ -30,5 +32,9 @@ export class Rule {
 
     public match (targetFile: string) {
         return this.target.exec(targetFile)
+    }
+
+    public toString () {
+        return '\n' + this.target.toString() + ': ' + this.prerequisites.toString() + '\n  ' + this.recipe.toString()
     }
 }

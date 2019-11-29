@@ -1,13 +1,15 @@
 import { Makefile } from '../../src/index'
+import { Logger, LogLevel } from '../../src/utils/logger'
 import { createMemoryFileSystem } from '../stub/memfs'
 import { FileSystem } from '../../src/utils/fs'
 
-describe('local make', function () {
+describe('rude', function () {
     let fs: FileSystem
     let mk: Makefile
     beforeEach(() => {
         fs = createMemoryFileSystem()
-        mk = new Makefile(process.cwd(), false, fs)
+        mk = new Makefile(process.cwd(), fs)
+        Logger.getOrCreate().setLevel(LogLevel.default)
     })
 
     it('should call corresponding recipe for ctx.make', async function () {
@@ -30,7 +32,7 @@ describe('local make', function () {
         })
         const recipeBar = jest.fn(ctx => ctx.writeTarget('_'))
 
-        mk.addRule('foo', [], recipeFoo)
+        mk.addRude('foo', [], recipeFoo)
         mk.addRule('bar', [], recipeBar)
 
         await mk.make('foo')
@@ -43,17 +45,38 @@ describe('local make', function () {
 
     it('should not remake if dynamic dependency not updated', async function () {
         const recipeFoo = jest.fn(async ctx => {
+            await ctx.make('bar')
+            await ctx.writeTarget('_')
+        })
+        const recipeBar = jest.fn(ctx => ctx.writeTarget('_'))
+
+        mk.addRude('foo', [], recipeFoo)
+        mk.addRule('bar', [], recipeBar)
+
+        await mk.make('foo')
+        expect(recipeFoo).toBeCalledTimes(1)
+        expect(recipeBar).toBeCalledTimes(1)
+
+        await mk.make('foo')
+        expect(recipeFoo).toBeCalledTimes(1)
+        expect(recipeBar).toBeCalledTimes(1)
+    })
+
+    it('should remake if dependency updated', async function () {
+        const recipeFoo = jest.fn(async ctx => {
             ctx.writeTarget('_')
             await ctx.make('bar')
         })
         const recipeBar = jest.fn(ctx => ctx.writeTarget('_'))
 
-        mk.addRule('foo', [], recipeFoo)
+        mk.addRude('foo', ['coo'], recipeFoo)
         mk.addRule('bar', [], recipeBar)
+        mk.addRule('coo', [], ctx => ctx.writeTarget('coo'))
 
         await mk.make('foo')
         expect(recipeFoo).toBeCalledTimes(1)
 
+        fs.writeFileSync('coo', 'COO')
         await mk.make('foo')
         expect(recipeFoo).toBeCalledTimes(2)
     })

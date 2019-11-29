@@ -1,3 +1,6 @@
+import { inline } from './utils/string'
+import { inspect } from 'util'
+
 const extglob = require('extglob')
 const isGlob = require('is-glob')
 
@@ -43,5 +46,9 @@ export class Target {
 
     public exec (targetFile: string) {
         return this.rTarget.exec(targetFile)
+    }
+
+    public toString () {
+        return inline(inspect(this._decl))
     }
 }

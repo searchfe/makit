@@ -8,7 +8,7 @@ describe('global make', function () {
     beforeEach(() => {
         fs = createMemoryFileSystem()
         fs.mkdirSync(process.cwd(), { recursive: true })
-        mk = new Makefile(process.cwd(), false, fs)
+        mk = new Makefile(process.cwd(), fs)
     })
 
     it('should support call another make inside recipe', async function () {
