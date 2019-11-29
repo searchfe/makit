@@ -1,3 +1,10 @@
+## [1.10.3](https://github.com/searchfe/makit/compare/v1.10.2...v1.10.3) (2019-11-29)
+
+
+### Bug Fixes
+
+* change making ([732951d](https://github.com/searchfe/makit/commit/732951daa66fff42803c8e8be9be07d4e846252c))
+
 ## [1.10.2](https://github.com/searchfe/makit/compare/v1.10.1...v1.10.2) (2019-11-29)
 
 
