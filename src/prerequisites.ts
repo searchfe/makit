@@ -7,8 +7,9 @@ import { ConcurrentSchedule } from './schedule/concurrent-schedule'
 
 export type TargetHandler<T> = (target: string) => T
 export type Resolver = (context: Context) => (string[] | string | Promise<string | string[]>)
-export type Prerequisite = string | Resolver | SequentialSchedule
-export type PrerequisitesDeclaration = Prerequisite | Prerequisite[]
+export type PrerequisiteItem = string | Resolver | SequentialSchedule | PrerequisiteArray
+export interface PrerequisiteArray extends Array<PrerequisiteItem> {}
+export type PrerequisitesDeclaration = PrerequisiteItem | PrerequisiteArray
 
 const emptySet: Set<string> = new Set()
 

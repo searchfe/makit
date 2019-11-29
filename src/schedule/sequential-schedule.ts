@@ -1,16 +1,19 @@
 import { Schedule } from './schedule'
 import { Context } from '../context'
 import { SingleSchedule } from './single-schedule'
-import { Prerequisite, TargetHandler } from '../prerequisites'
+import { ConcurrentSchedule } from './concurrent-schedule'
+import { PrerequisiteArray, TargetHandler } from '../prerequisites'
 
 export class SequentialSchedule implements Schedule {
-    constructor (private tasks: Prerequisite[]) {}
+    constructor (private tasks: PrerequisiteArray) {}
 
     public async map<T> (ctx: Context, fn: TargetHandler<T>): Promise<T[]> {
         const results: T[] = []
         for (const task of this.tasks) {
             if (SequentialSchedule.is(task)) {
                 results.push(...await task.map(ctx, fn))
+            } else if (Array.isArray(task)) {
+                results.push(...await new ConcurrentSchedule(task).map(ctx, fn))
             } else {
                 results.push(...await new SingleSchedule(task).map(ctx, fn))
             }
@@ -23,6 +26,6 @@ export class SequentialSchedule implements Schedule {
     }
 }
 
-export function series (...args: Prerequisite[]) {
+export function series (...args: PrerequisiteArray) {
     return new SequentialSchedule(args)
 }
