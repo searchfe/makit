@@ -1,47 +1,36 @@
 import { Context } from './context'
+import { normalizeToArray } from './utils/array'
+import { flatten } from 'lodash'
+import { Schedule } from './schedule/schedule'
+import { SequentialSchedule } from './schedule/sequential-schedule'
+import { ConcurrentSchedule } from './schedule/concurrent-schedule'
 
-type PrerequisitesResolver = (context: Context) => (string[] | string | Promise<string | string[]>)
-type prerequisitesItem = string | PrerequisitesResolver
-export type PrerequisitesDeclaration = prerequisitesItem | prerequisitesItem[]
+export type TargetHandler<T> = (target: string) => T
+export type Resolver = (context: Context) => (string[] | string | Promise<string | string[]>)
+export type Prerequisite = string | Resolver | SequentialSchedule
+export type PrerequisitesDeclaration = Prerequisite | Prerequisite[]
 
-const emptySet = new Set()
-
-function normalizeResolver (decl: string | PrerequisitesResolver) {
-    if (typeof decl === 'string') {
-        if (decl.match(/\$\d/)) {
-            return ctx => decl.replace(/\$(\d+)/g, (_, i) => ctx.match[i])
-        }
-        return () => decl
-    }
-    if (typeof decl === 'function') return decl
-    throw new Error('invalid prerequisites resolver:' + decl)
-}
+const emptySet: Set<string> = new Set()
 
 export class Prerequisites {
-    private resolvers: PrerequisitesResolver[]
     private dynamicDependencies: Map<string, Set<string>> = new Map()
+    private schedule: Schedule
 
     public constructor (decl: PrerequisitesDeclaration) {
-        if (!Array.isArray(decl)) decl = [ decl ]
-        this.resolvers = decl.map(normalizeResolver)
+        this.schedule = new ConcurrentSchedule(normalizeToArray(decl))
     }
 
-    public async evaluate (ctx: Context) {
-        const result = []
-        for (const resolver of [...this.resolvers, ...this.getDynamicResolvers(ctx.target)]) {
-            const deps = await resolver(ctx)
-            if (Array.isArray(deps)) {
-                result.push(...deps)
-            } else {
-                result.push(deps)
-            }
-        }
-        return result
+    public async map<T> (ctx: Context, fn: TargetHandler<T>) {
+        return Promise
+            .all([
+                this.schedule.map<T>(ctx, fn),
+                Promise.all([...this.getDynamicDependency(ctx.target)].map(target => fn(target)))
+            ])
+            .then(flatten)
     }
 
-    public getDynamicResolvers (target: string) {
-        const deps = this.dynamicDependencies.get(target) || emptySet
-        return [...deps].map(dep => () => dep)
+    public getDynamicDependency (target: string): Set<string> {
+        return this.dynamicDependencies.get(target) || emptySet
     }
 
     public addDynamicDependency (target: string, dep: string) {

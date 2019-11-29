@@ -12,6 +12,8 @@ export function setRoot (val: string) {
     makefile.root = val
 }
 
+export { series } from './schedule/sequential-schedule'
+
 export function rule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration) {
     return makefile.addRule(target, prerequisites, recipe)
 }

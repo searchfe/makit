@@ -1,8 +1,9 @@
 import { Context } from './context'
-import { Prerequisites } from './prerequisites'
+import { TargetHandler, Prerequisites } from './prerequisites'
 import { Target } from './target'
 import { Recipe } from './recipe'
 import debugFactory from 'debug'
+
 const debug = debugFactory('makit:rule')
 
 export class Rule {
@@ -20,9 +21,11 @@ export class Rule {
         this.recipe = recipe
     }
 
-    public async getDependencies (ctx: Context) {
-        ctx.dependencies = await this.prerequisites.evaluate(ctx)
-        return ctx.dependencies
+    public async map<T> (ctx: Context, maker: TargetHandler<T>) {
+        return this.prerequisites.map(ctx, (target: string) => {
+            ctx.dependencies.push(target)
+            return maker(target)
+        })
     }
 
     public match (targetFile: string) {
