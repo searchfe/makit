@@ -84,12 +84,18 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_utils_fs_.filesystem.html#exists" class="tsd-kind-icon">exists</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_utils_fs_.filesystem.html#existssync" class="tsd-kind-icon">exists<wbr>Sync</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_utils_fs_.filesystem.html#mkdir" class="tsd-kind-icon">mkdir</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_utils_fs_.filesystem.html#mkdirsync" class="tsd-kind-icon">mkdir<wbr>Sync</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_utils_fs_.filesystem.html#readfile" class="tsd-kind-icon">read<wbr>File</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_utils_fs_.filesystem.html#readfilesync" class="tsd-kind-icon">read<wbr>File<wbr>Sync</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_utils_fs_.filesystem.html#stat" class="tsd-kind-icon">stat</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_utils_fs_.filesystem.html#statsync" class="tsd-kind-icon">stat<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_utils_fs_.filesystem.html#unlink" class="tsd-kind-icon">unlink</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_utils_fs_.filesystem.html#unlinksync" class="tsd-kind-icon">unlink<wbr>Sync</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_utils_fs_.filesystem.html#utimes" class="tsd-kind-icon">utimes</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_utils_fs_.filesystem.html#utimessync" class="tsd-kind-icon">utimes<wbr>Sync</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_utils_fs_.filesystem.html#writefile" class="tsd-kind-icon">write<wbr>File</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_utils_fs_.filesystem.html#writefilesync" class="tsd-kind-icon">write<wbr>File<wbr>Sync</a></li>
 							</ul>
@@ -100,6 +106,55 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="exists" class="tsd-anchor"></a>
+					<h3>exists</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">exists<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../modules/_utils_callback_.html#callback" class="tsd-signature-type">Callback</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L25">utils/fs.ts:25</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../modules/_utils_callback_.html#callback" class="tsd-signature-type">Callback</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="existssync" class="tsd-anchor"></a>
+					<h3>exists<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">exists<wbr>Sync<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L26">utils/fs.ts:26</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="mkdir" class="tsd-anchor"></a>
 					<h3>mkdir</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
@@ -109,7 +164,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/utils/fs.ts#L19">utils/fs.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L19">utils/fs.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -138,7 +193,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/utils/fs.ts#L20">utils/fs.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L20">utils/fs.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -165,7 +220,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/utils/fs.ts#L10">utils/fs.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L10">utils/fs.ts:10</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -206,7 +261,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/utils/fs.ts#L11">utils/fs.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L11">utils/fs.ts:11</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -257,7 +312,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/utils/fs.ts#L13">utils/fs.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L13">utils/fs.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -277,7 +332,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/utils/fs.ts#L14">utils/fs.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L14">utils/fs.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -304,7 +359,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/utils/fs.ts#L5">utils/fs.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L5">utils/fs.ts:5</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -342,7 +397,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/utils/fs.ts#L6">utils/fs.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L6">utils/fs.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -393,7 +448,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/utils/fs.ts#L7">utils/fs.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L7">utils/fs.ts:7</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -407,7 +462,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/utils/fs.ts#L8">utils/fs.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L8">utils/fs.ts:8</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -424,6 +479,116 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="unlink" class="tsd-anchor"></a>
+					<h3>unlink</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">unlink<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../modules/_utils_callback_.html#callback" class="tsd-signature-type">Callback</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L22">utils/fs.ts:22</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../modules/_utils_callback_.html#callback" class="tsd-signature-type">Callback</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="unlinksync" class="tsd-anchor"></a>
+					<h3>unlink<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">unlink<wbr>Sync<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L23">utils/fs.ts:23</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="utimes" class="tsd-anchor"></a>
+					<h3>utimes</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">utimes<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, atime<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, mtime<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../modules/_utils_callback_.html#callback" class="tsd-signature-type">Callback</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L28">utils/fs.ts:28</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>atime: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>mtime: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <a href="../modules/_utils_callback_.html#callback" class="tsd-signature-type">Callback</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="utimessync" class="tsd-anchor"></a>
+					<h3>utimes<wbr>Sync</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">utimes<wbr>Sync<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, atime<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, mtime<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L29">utils/fs.ts:29</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>atime: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>mtime: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="writefile" class="tsd-anchor"></a>
 					<h3>write<wbr>File</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
@@ -433,7 +598,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/utils/fs.ts#L16">utils/fs.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L16">utils/fs.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -462,7 +627,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/utils/fs.ts#L17">utils/fs.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/a72cba2/src/utils/fs.ts#L17">utils/fs.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -514,6 +679,9 @@
 						<a href="../modules/_recipe_.html">"recipe"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/_rude_.html">"rude"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_rule_.html">"rule"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -549,6 +717,9 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_utils_promise_.html">"utils/promise"</a>
 					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_utils_string_.html">"utils/string"</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
@@ -558,6 +729,12 @@
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_utils_fs_.filesystem.html" class="tsd-kind-icon">File<wbr>System</a>
 						<ul>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_utils_fs_.filesystem.html#exists" class="tsd-kind-icon">exists</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_utils_fs_.filesystem.html#existssync" class="tsd-kind-icon">exists<wbr>Sync</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_utils_fs_.filesystem.html#mkdir" class="tsd-kind-icon">mkdir</a>
 							</li>
@@ -575,6 +752,18 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_utils_fs_.filesystem.html#statsync" class="tsd-kind-icon">stat<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_utils_fs_.filesystem.html#unlink" class="tsd-kind-icon">unlink</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_utils_fs_.filesystem.html#unlinksync" class="tsd-kind-icon">unlink<wbr>Sync</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_utils_fs_.filesystem.html#utimes" class="tsd-kind-icon">utimes</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_utils_fs_.filesystem.html#utimessync" class="tsd-kind-icon">utimes<wbr>Sync</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_utils_fs_.filesystem.html#writefile" class="tsd-kind-icon">write<wbr>File</a>

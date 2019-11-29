@@ -1,3 +1,12 @@
+# [1.12.0](https://github.com/searchfe/makit/compare/v1.11.0...v1.12.0) (2019-11-29)
+
+
+### Features
+
+* rude() with dynamic dependencies ([a72cba2](https://github.com/searchfe/makit/commit/a72cba25708526b259a83ee536011a18dd092a8c))
+* support arbitrary nested concurrent/series ([b4e07be](https://github.com/searchfe/makit/commit/b4e07be1429aa9d6883a5b638cb4efeaafded6e2))
+* unlink, unlinkSync for Context ([8d67332](https://github.com/searchfe/makit/commit/8d67332d94e7b7cb81e1280e0734a42d28934eff))
+
 # [1.11.0](https://github.com/searchfe/makit/compare/v1.10.3...v1.11.0) (2019-11-29)
 
 

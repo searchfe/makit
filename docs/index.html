@@ -84,6 +84,7 @@
 					<li>Less Limits. We do not use recipes return values, don&#39;t even requrie a recipe, and don&#39;t check the actual output.</li>
 					<li>JavaScript Style. Async callbacks &amp; Promises are supported, automatic variables are replaced by JavaScript names, wildcards are replaced by JavaScript RegExp and globs.</li>
 				</ul>
+				<p>API Spec: <a href="https://searchfe.github.io/makit/modules/_index_.html">https://searchfe.github.io/makit/modules/_index_.html</a></p>
 				<a href="#get-started" id="get-started" style="color: inherit; text-decoration: none;">
 					<h2>Get Started</h2>
 				</a>
@@ -94,7 +95,9 @@
 					<li><strong>recipe</strong>: an optional function, can be async</li>
 				</ul>
 				<p>Write a makefile.js containing the following contents:</p>
-				<pre><code class="language-javascript">rule(<span class="hljs-string">'all'</span>, [<span class="hljs-string">'a1.min.js'</span>])  <span class="hljs-comment">// default rule</span>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { rule } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'makit'</span>)
+
+rule(<span class="hljs-string">'all'</span>, [<span class="hljs-string">'a1.min.js'</span>])  <span class="hljs-comment">// default rule</span>
 
 rule(<span class="hljs-string">'a1.min.js'</span>, [<span class="hljs-string">'a.js'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">const</span> src = readFileSync(<span class="hljs-keyword">this</span>.dependencies[<span class="hljs-number">0</span>], <span class="hljs-string">'utf8'</span>)
@@ -139,21 +142,54 @@ rule(<span class="hljs-string">'(output/**)/(*).js'</span>, <span class="hljs-st
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.writeTarget(tsc(<span class="hljs-keyword">await</span> <span class="hljs-keyword">this</span>.readDependency()))
 })
 make(<span class="hljs-string">'output/app/app.js'</span>)</code></pre>
-				<a href="#writing-makefilejs" id="writing-makefilejs" style="color: inherit; text-decoration: none;">
-					<h2>Writing makefile.js</h2>
+				<a href="#dynamic-prerequisites" id="dynamic-prerequisites" style="color: inherit; text-decoration: none;">
+					<h2>Dynamic Prerequisites</h2>
 				</a>
-				<p>All exported methods <code>.rule()</code>, <code>.make()</code>, <code>.setRoot()</code> are available in makefile.js:</p>
-				<pre><code class="language-javascript"><span class="hljs-comment">// file: makefile.js</span>
-<span class="hljs-keyword">const</span> { rule, make } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'makit'</span>)
+				<p>It&#39;s sometimes handy to call <code>make()</code> within the recipe,
+					these dynamically prerequisites will not be recorded into the dependency tree.
+					Thus makit will NOT remake the target when any of these prerequisites changed.
+				For example: </p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { rule, make } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'makit'</span>)
 
-rule(<span class="hljs-string">'a.min.js'</span>, <span class="hljs-string">'a.js'</span>, minify)
-
-rule(<span class="hljs-regexp">/\.md5\.out$/</span>, ctx =&gt; ctx.targetPath().replace(ctx.match[<span class="hljs-number">0</span>], <span class="hljs-string">'.js'</span>), md5)
-
-rule(<span class="hljs-string">'bundle.js'</span>, [<span class="hljs-string">'a.min.js'</span>], <span class="hljs-keyword">async</span> () =&gt; {
-    <span class="hljs-keyword">await</span> make(<span class="hljs-string">'bundle.js.md5'</span>)
+rule(<span class="hljs-string">'bundle.js'</span>, <span class="hljs-string">'a.js'</span>, <span class="hljs-keyword">async</span> (ctx) =&gt; {
+    <span class="hljs-keyword">await</span> make(<span class="hljs-string">'b.js'</span>)
+    <span class="hljs-keyword">const</span> js = (<span class="hljs-keyword">await</span> ctx.readFile(<span class="hljs-string">'a.js'</span>)) + (<span class="hljs-keyword">await</span> ctx.readFile(<span class="hljs-string">'b.js'</span>))
+    ctx.writeTarget(js)
 })</code></pre>
-				<p>For more acurrate documentation, here&#39;s the TypeDoc: <a href="https://searchfe.github.io/makit/modules/_index_.html">https://searchfe.github.io/makit/modules/_index_.html</a></p>
+				<p>Suppose we have the above <code>makefile.js</code> and run <code>makit bundle.js</code> to get the file <code>bundle.js</code>.
+					Make changes to <code>b.js</code> and then remake bundle via <code>makit bundle.js</code>.
+					The recipe for <code>bundle.js</code> will not be called cause <code>b.js</code> is not in the dependency tree.
+				To fix this, just Take <code>b.js</code> into the prerequisites and makit will do the rest:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { rule, make } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'makit'</span>)
+
+rule(<span class="hljs-string">'bundle.js'</span>, [<span class="hljs-string">'a.js'</span>, <span class="hljs-string">'b.js'</span>] <span class="hljs-keyword">async</span> (ctx) =&gt; {
+    <span class="hljs-keyword">const</span> js = (<span class="hljs-keyword">await</span> ctx.readFile(<span class="hljs-string">'a.js'</span>)) + (<span class="hljs-keyword">await</span> ctx.readFile(<span class="hljs-string">'b.js'</span>))
+    <span class="hljs-keyword">return</span> ctx.writeTarget(js)
+})</code></pre>
+				<p>When it comes to dynamic prerequisites (like bundling AMD requires) it&#39;s recommended to
+				provide another rule to make the dependency list.</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { series, rule } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'makit'</span>)
+
+rule(
+    <span class="hljs-string">'bundle.js'</span>,
+    series(<span class="hljs-string">'bundle.js.dep'</span>, ctx =&gt; ctx.readFileSync(<span class="hljs-string">'bundle.js.dep'</span>).split(<span class="hljs-string">'\n'</span>),
+    ctx =&gt; {<span class="hljs-comment">/* do the bundle */</span>}
+)
+
+rule(<span class="hljs-string">'bundle.js.dep'</span>, <span class="hljs-string">'bundle.js'</span>, ctx =&gt; { <span class="hljs-comment">/* analyze the dependencies of bundle.js */</span> })</code></pre>
+				<p>We introduced <code>rude()</code> and <code>ctx.make</code> to facilitate this situation:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { rude } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'makit'</span>)
+
+rude(
+    <span class="hljs-string">'bundle.js'</span>, [], <span class="hljs-keyword">async</span> ctx =&gt; {
+        <span class="hljs-keyword">await</span> ctx.make(<span class="hljs-string">'a.js'</span>)
+        <span class="hljs-keyword">await</span> ctx.make(<span class="hljs-string">'b.js'</span>)
+        <span class="hljs-keyword">const</span> js = (<span class="hljs-keyword">await</span> ctx.readFile(<span class="hljs-string">'a.js'</span>)) + (<span class="hljs-keyword">await</span> ctx.readFile(<span class="hljs-string">'b.js'</span>))
+        <span class="hljs-keyword">return</span> ctx.writeTarget(js)
+    }
+)</code></pre>
+				<p>A pseudo rule targeting <code>bundle.js.rude.dep</code>, which contains the dependencies during the last run,
+				will be generated for each <code>rude()</code>.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -190,6 +226,9 @@ rule(<span class="hljs-string">'bundle.js'</span>, [<span class="hljs-string">'a
 						<a href="modules/_recipe_.html">"recipe"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="modules/_rude_.html">"rude"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="modules/_rule_.html">"rule"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -224,6 +263,9 @@ rule(<span class="hljs-string">'bundle.js'</span>, [<span class="hljs-string">'a
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_utils_promise_.html">"utils/promise"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_string_.html">"utils/string"</a>
 					</li>
 				</ul>
 			</nav>
