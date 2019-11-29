@@ -102,8 +102,10 @@ export class Make {
 
     private async resolveDependencies (context: Context): Promise<TimeStamp> {
         if (!context.rule) return EMPTY_DEPENDENCY
-        const dependencies = await context.rule.getDependencies(context)
-        const results = await Promise.all(dependencies.map(dep => this.make(dep, context.target)))
+        const results = await context.rule.map(
+            context,
+            (dep: string) => this.make(dep, context.target)
+        )
         return max(results) || EMPTY_DEPENDENCY
     }
 
