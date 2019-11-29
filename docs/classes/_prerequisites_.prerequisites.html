@@ -91,7 +91,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_prerequisites_.prerequisites.html#dynamicdependencies" class="tsd-kind-icon">dynamic<wbr>Dependencies</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_prerequisites_.prerequisites.html#resolvers" class="tsd-kind-icon">resolvers</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_prerequisites_.prerequisites.html#schedule" class="tsd-kind-icon">schedule</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -99,8 +99,8 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_prerequisites_.prerequisites.html#adddynamicdependency" class="tsd-kind-icon">add<wbr>Dynamic<wbr>Dependency</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_prerequisites_.prerequisites.html#cleardynamicdependency" class="tsd-kind-icon">clear<wbr>Dynamic<wbr>Dependency</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_prerequisites_.prerequisites.html#evaluate" class="tsd-kind-icon">evaluate</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_prerequisites_.prerequisites.html#getdynamicresolvers" class="tsd-kind-icon">get<wbr>Dynamic<wbr>Resolvers</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_prerequisites_.prerequisites.html#getdynamicdependency" class="tsd-kind-icon">get<wbr>Dynamic<wbr>Dependency</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_prerequisites_.prerequisites.html#map" class="tsd-kind-icon">map</a></li>
 							</ul>
 						</section>
 					</div>
@@ -118,7 +118,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/debe647/src/prerequisites.ts#L22">prerequisites.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/prerequisites.ts#L17">prerequisites.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -140,17 +140,17 @@
 					<div class="tsd-signature tsd-kind-icon">dynamic<wbr>Dependencies<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Set</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Map()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/debe647/src/prerequisites.ts#L22">prerequisites.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/prerequisites.ts#L16">prerequisites.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="resolvers" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> resolvers</h3>
-					<div class="tsd-signature tsd-kind-icon">resolvers<span class="tsd-signature-symbol">:</span> <a href="../modules/_prerequisites_.html#prerequisitesresolver" class="tsd-signature-type">PrerequisitesResolver</a><span class="tsd-signature-symbol">[]</span></div>
+					<a name="schedule" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> schedule</h3>
+					<div class="tsd-signature tsd-kind-icon">schedule<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_schedule_schedule_.schedule.html" class="tsd-signature-type">Schedule</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/debe647/src/prerequisites.ts#L21">prerequisites.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/prerequisites.ts#L17">prerequisites.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -167,7 +167,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/debe647/src/prerequisites.ts#L47">prerequisites.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/prerequisites.ts#L36">prerequisites.ts:36</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -193,7 +193,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/debe647/src/prerequisites.ts#L55">prerequisites.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/prerequisites.ts#L44">prerequisites.ts:44</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -207,39 +207,16 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="evaluate" class="tsd-anchor"></a>
-					<h3>evaluate</h3>
+					<a name="getdynamicdependency" class="tsd-anchor"></a>
+					<h3>get<wbr>Dynamic<wbr>Dependency</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">evaluate<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="_context_.context.html" class="tsd-signature-type">Context</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Dynamic<wbr>Dependency<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Set</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/debe647/src/prerequisites.ts#L29">prerequisites.ts:29</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>ctx: <a href="_context_.context.html" class="tsd-signature-type">Context</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getdynamicresolvers" class="tsd-anchor"></a>
-					<h3>get<wbr>Dynamic<wbr>Resolvers</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Dynamic<wbr>Resolvers<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/debe647/src/prerequisites.ts#L42">prerequisites.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/prerequisites.ts#L32">prerequisites.ts:32</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -248,7 +225,39 @@
 									<h5>target: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span><span class="tsd-signature-symbol">[]</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Set</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<a name="map" class="tsd-anchor"></a>
+					<h3>map</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">map&lt;T&gt;<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="_context_.context.html" class="tsd-signature-type">Context</a>, fn<span class="tsd-signature-symbol">: </span><a href="../modules/_prerequisites_.html#targethandler" class="tsd-signature-type">TargetHandler</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/567f4ac/src/prerequisites.ts#L23">prerequisites.ts:23</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>ctx: <a href="_context_.context.html" class="tsd-signature-type">Context</a></h5>
+								</li>
+								<li>
+									<h5>fn: <a href="../modules/_prerequisites_.html#targethandler" class="tsd-signature-type">TargetHandler</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -291,7 +300,22 @@
 						<a href="../modules/_rule_.html">"rule"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/_schedule_concurrent_schedule_.html">"schedule/concurrent-<wbr>schedule"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_schedule_schedule_.html">"schedule/schedule"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_schedule_sequential_schedule_.html">"schedule/sequential-<wbr>schedule"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_schedule_single_schedule_.html">"schedule/single-<wbr>schedule"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_target_.html">"target"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_utils_array_.html">"utils/array"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_utils_callback_.html">"utils/callback"</a>
@@ -324,7 +348,7 @@
 								<a href="_prerequisites_.prerequisites.html#dynamicdependencies" class="tsd-kind-icon">dynamic<wbr>Dependencies</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_prerequisites_.prerequisites.html#resolvers" class="tsd-kind-icon">resolvers</a>
+								<a href="_prerequisites_.prerequisites.html#schedule" class="tsd-kind-icon">schedule</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_prerequisites_.prerequisites.html#adddynamicdependency" class="tsd-kind-icon">add<wbr>Dynamic<wbr>Dependency</a>
@@ -333,29 +357,29 @@
 								<a href="_prerequisites_.prerequisites.html#cleardynamicdependency" class="tsd-kind-icon">clear<wbr>Dynamic<wbr>Dependency</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_prerequisites_.prerequisites.html#evaluate" class="tsd-kind-icon">evaluate</a>
+								<a href="_prerequisites_.prerequisites.html#getdynamicdependency" class="tsd-kind-icon">get<wbr>Dynamic<wbr>Dependency</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_prerequisites_.prerequisites.html#getdynamicresolvers" class="tsd-kind-icon">get<wbr>Dynamic<wbr>Resolvers</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="_prerequisites_.prerequisites.html#map" class="tsd-kind-icon">map</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_prerequisites_.html#prerequisite" class="tsd-kind-icon">Prerequisite</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="../modules/_prerequisites_.html#prerequisitesdeclaration" class="tsd-kind-icon">Prerequisites<wbr>Declaration</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_prerequisites_.html#prerequisitesresolver" class="tsd-kind-icon">Prerequisites<wbr>Resolver</a>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_prerequisites_.html#resolver" class="tsd-kind-icon">Resolver</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_prerequisites_.html#prerequisitesitem" class="tsd-kind-icon">prerequisites<wbr>Item</a>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/_prerequisites_.html#targethandler" class="tsd-kind-icon">Target<wbr>Handler</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="../modules/_prerequisites_.html#emptyset" class="tsd-kind-icon">empty<wbr>Set</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_prerequisites_.html#normalizeresolver" class="tsd-kind-icon">normalize<wbr>Resolver</a>
 					</li>
 				</ul>
 			</nav>

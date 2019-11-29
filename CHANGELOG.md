@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/searchfe/makit/compare/v1.10.3...v1.11.0) (2019-11-29)
+
+
+### Features
+
+* series() ([51a2fa5](https://github.com/searchfe/makit/commit/51a2fa544d2b5cd511ad7673f48457b7ee2e6ff7))
+
 ## [1.10.3](https://github.com/searchfe/makit/compare/v1.10.2...v1.10.3) (2019-11-29)
 
 
