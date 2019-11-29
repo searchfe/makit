@@ -36,6 +36,10 @@ export function off (event: string, listener: (...args: any[]) => void) {
     return makefile.off(event, listener)
 }
 
+export function disableCheckCircular () {
+    makefile.disableCheckCircular = true
+}
+
 export { Makefile } from './makefile'
 
 export { Context } from './context'

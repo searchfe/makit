@@ -18,7 +18,8 @@ export interface MakeOptions {
     logger?: Logger
     fs?: FileSystem
     emitter?: EventEmitter
-    ruleResolver: (target: string) => [Rule, RegExpExecArray]
+    disableCheckCircular?: boolean
+    ruleResolver?: (target: string) => [Rule, RegExpExecArray]
 }
 
 export class Make {
@@ -28,20 +29,23 @@ export class Make {
     private ruleResolver: (target: string) => [Rule, RegExpExecArray]
     private logger: Logger
     private fs: FileSystem
-    private emitter: EventEmitter;
+    private emitter: EventEmitter
+    private disableCheckCircular: boolean
 
     constructor ({
         root = process.cwd(),
         logger = new Logger(false),
         fs = require('fs'),
         ruleResolver,
-        emitter
+        emitter,
+        disableCheckCircular
     }: MakeOptions) {
         this.fs = fs
         this.root = root
         this.ruleResolver = ruleResolver
         this.logger = logger
         this.emitter = emitter
+        this.disableCheckCircular = disableCheckCircular || false
     }
 
     public async make (target: string, parent?: string): Promise<TimeStamp> {
@@ -109,6 +113,9 @@ export class Make {
     }
 
     private checkCircular (begin: string) {
+        if (this.disableCheckCircular) {
+            return
+        }
         const circle = this.graph.checkCircular(begin)
         if (circle) {
             throw new Error(`Circular detected while making "${begin}": ${circle.join(' <- ')}`)

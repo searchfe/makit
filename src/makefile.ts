@@ -14,6 +14,7 @@ const defaultRecipe = () => void (0)
 export class Makefile {
     public root: string
     public emitter: EventEmitter
+    public disableCheckCircular = false;
 
     private ruleMap: Map<TargetDeclaration, Rule> = new Map()
     private fileTargetRules: Map<string, Rule> = new Map()
@@ -79,7 +80,8 @@ export class Makefile {
             fs: this.fs,
             logger: this.logger,
             emitter: this.emitter,
-            ruleResolver: target => this.findRule(target)
+            ruleResolver: target => this.findRule(target),
+            disableCheckCircular: this.disableCheckCircular
         })
         return make.make(target)
     }
