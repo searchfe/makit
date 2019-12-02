@@ -1,3 +1,10 @@
+## [1.12.2](https://github.com/searchfe/makit/compare/v1.12.1...v1.12.2) (2019-12-02)
+
+
+### Bug Fixes
+
+* glob negation in Target.match/exec ([cfc561e](https://github.com/searchfe/makit/commit/cfc561e37250c7eaa645534f523321109accb7a3))
+
 ## [1.12.1](https://github.com/searchfe/makit/compare/v1.12.0...v1.12.1) (2019-12-02)
 
 
