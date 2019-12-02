@@ -1,3 +1,11 @@
+## [1.12.3](https://github.com/searchfe/makit/compare/v1.12.2...v1.12.3) (2019-12-02)
+
+
+### Bug Fixes
+
+* graph printing, closes [#5](https://github.com/searchfe/makit/issues/5) ([57b2397](https://github.com/searchfe/makit/commit/57b2397c27129bbaa02f8f3273a7a15dc7e3b1a1))
+* update unit test for DirectedGraph ([8cdc341](https://github.com/searchfe/makit/commit/8cdc3419246abe142730772bbb10c96ccd273ec8))
+
 ## [1.12.2](https://github.com/searchfe/makit/compare/v1.12.1...v1.12.2) (2019-12-02)
 
 
