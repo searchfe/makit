@@ -1,6 +1,5 @@
 import { Rule } from './rule'
 import { Make } from './make'
-import { TimeStamp } from './utils/date'
 import { FileSystem } from './utils/fs'
 import { Logger } from './utils/logger'
 import { Prerequisites, PrerequisitesDeclaration } from './prerequisites'
