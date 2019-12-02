@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/searchfe/makit/compare/v1.12.0...v1.12.1) (2019-12-02)
+
+
+### Bug Fixes
+
+* support node_js LTS versions ([9be73c1](https://github.com/searchfe/makit/commit/9be73c1b46926510741cdc2dcf590224328f7cad))
+
 # [1.12.0](https://github.com/searchfe/makit/compare/v1.11.0...v1.12.0) (2019-11-29)
 
 
