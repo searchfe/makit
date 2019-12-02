@@ -14,17 +14,17 @@ export enum TargetType {
 export class Target {
     private targetType: TargetType
     private _decl: TargetDeclaration
-    private rTarget: RegExp
+    private rTarget: RegExp = null
+    private glob: string = null
 
     constructor (target: TargetDeclaration) {
         this._decl = target
         if (typeof target === 'string') {
             if (target.indexOf('(') > -1) {
-                // Matching Mode
+                // Contains matching groups
                 this.rTarget = new RegExp('^' + extglob(target).replace(/\(\?:/g, '(') + '$')
             } else {
-                // Support Backward reference
-                this.rTarget = extglob.makeRe(target)
+                this.glob = target
             }
         } else {
             this.rTarget = target
@@ -44,11 +44,19 @@ export class Target {
         return this.targetType === TargetType.filepath
     }
 
-    public exec (targetFile: string) {
-        return this.rTarget.exec(targetFile)
+    public exec (targetFile: string): RegExpExecArray {
+        if (this.rTarget) return this.rTarget.exec(targetFile)
+        return extglob.isMatch(targetFile, this.glob) ? Target.execArrayFromString(targetFile) : null
     }
 
     public toString () {
         return inline(inspect(this._decl))
+    }
+
+    public static execArrayFromString (str: string): RegExpExecArray {
+        const arr = [str] as RegExpExecArray
+        arr.input = str
+        arr.index = 0
+        return arr
     }
 }
