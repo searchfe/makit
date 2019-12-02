@@ -144,9 +144,8 @@ export class Make {
         }
     }
 
-    public printGraph () {
-        console.log(chalk['cyan']('deps'))
-        console.log(this.graph.toString())
+    public getGraph () {
+        return this.graph.toString()
     }
 
     private withCache (target: string, fn: (...args: any[]) => Promise<TimeStamp>): Promise<TimeStamp> {

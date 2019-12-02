@@ -83,7 +83,7 @@ export class Makefile {
         rule.recipe = new Recipe(recipeDecl)
     }
 
-    public async make (target?: string): Promise<TimeStamp> {
+    public async make (target?: string): Promise<Make> {
         if (!target) {
             target = this.findFirstTargetOrThrow()
         }
@@ -94,7 +94,8 @@ export class Makefile {
             matchRule: target => this.matchRule(target),
             disableCheckCircular: this.disableCheckCircular
         })
-        return make.make(target)
+        await make.make(target)
+        return make
     }
 
     public on (event: string, fn: (...args: any[]) => void) {

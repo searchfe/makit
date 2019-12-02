@@ -50,12 +50,17 @@ const makit = global['makit']
 
 async function main () {
     if (targets.length) {
-        await Promise.all(targets.map(target => makit.make(target)))
+        const makes = await Promise.all(targets.map(target => makit.make(target)))
+        if (graph) {
+            console.log(chalk['cyan']('graph'))
+            makes.forEach(make => console.log(make.getGraph()))
+        }
     } else {
-        await makit.make()
-    }
-    if (graph) {
-        makit.printGraph()
+        const make = await makit.make()
+        if (graph) {
+            console.log(chalk['cyan']('graph'))
+            console.log(make.getGraph())
+        }
     }
 }
 

@@ -13,10 +13,17 @@ export class DirectedGraph<T> {
     private edges: Map<T, Set<T>> = new Map()
     private redges: Map<T, Set<T>> = new Map()
     private vertices: Map<T, VertexType> = new Map()
+    private root: T = null
+    private vertexToString: (v: T) => string
+
+    public constructor (vertexToString: (v: T) => string = x => x + '') {
+        this.vertexToString = vertexToString
+    }
 
     public addVertex (v: T, vertexType = VertexType.None) {
         const type = this.vertices.get(v) || VertexType.None
         this.vertices.set(v, type | vertexType)
+        if (!this.root) this.root = v
     }
 
     public addEdge (fr: T, to: T) {
@@ -29,8 +36,8 @@ export class DirectedGraph<T> {
         }
         this.redges.get(to).add(fr)
 
-        this.addVertex(to, VertexType.In)
         this.addVertex(fr, VertexType.Out)
+        this.addVertex(to, VertexType.In)
     }
 
     public hasEdge (fr: T, to: T) {
@@ -64,33 +71,23 @@ export class DirectedGraph<T> {
         return [...seen]
     }
 
-    public getRoots () {
-        const roots = []
-        for (const [vertex, vertextype] of this.vertices) {
-            if ((vertextype & VertexType.In) === 0) {
-                roots.push(vertex)
-            }
-        }
-        return roots
-    }
-
     public toTree () {
         const tree: Tree = {}
-        const nodes = new Map()
-        nodes.set(tree, tree)
+        const v2node = new Map([[this.root, tree]])
 
-        for (const root of this.getRoots()) {
-            this.preOrder(root, (vertex, stack) => {
-                const parentV = stack[stack.length - 1]
-                const parentNode = nodes.get(parentV) || tree
-                nodes.set(vertex, parentNode[vertex] = {})
-            })
-        }
+        this.preOrder(this.root, (vertex, stack, visited) => {
+            const parentV = stack[stack.length - 1]
+            const parentNode = v2node.get(parentV)
+            if (!parentNode) return
+            const childNode = parentNode[this.vertexToString(vertex)] = {}
+            v2node.set(vertex, childNode)
+            visited.clear()
+        })
         return tree
     }
 
     public toString () {
-        return treeify.asTree(this.toTree())
+        return this.vertexToString(this.root) + '\n' + treeify.asTree(this.toTree())
     }
 
     private preOrder (vertex: T, visitor: Visitor<T>, path: T[] = [], visited: Set<T> = new Set()): void {
