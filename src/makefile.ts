@@ -102,7 +102,7 @@ export class Makefile {
         this.emitter.on(event, fn)
     }
     public off (event: string, fn: (...args: any[]) => void) {
-        this.emitter && this.emitter.off(event, fn)
+        this.emitter && this.emitter.removeListener(event, fn)
     }
 
     private matchRule (target: string): [Rule, RegExpExecArray] {

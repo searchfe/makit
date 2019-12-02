@@ -3,7 +3,18 @@ node_js: 10
 jobs:
   include:
     - stage: test
-      name: 'Unit Test'
+      name: 'Unit Test (8)'
+      node_js: 8
+      install: npm ci
+      script: npm test
+    - stage: test
+      name: 'Unit Test (10)'
+      node_js: 10
+      install: npm ci
+      script: npm test
+    - stage: test
+      name: 'Unit Test (12)'
+      node_js: 12
       install: npm ci
       script: npm test
     - stage: test
