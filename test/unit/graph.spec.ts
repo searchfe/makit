@@ -48,26 +48,6 @@ describe('DirectedGraph', function () {
         })
     })
 
-    describe('.getRoots()', function () {
-        it('should be no roots for circular graph', function () {
-            const g = new DirectedGraph()
-            g.addEdge('a', 'b')
-            g.addEdge('b', 'c')
-            g.addEdge('c', 'a')
-            expect(g.getRoots()).toHaveLength(0)
-        })
-        it('should be no roots for self-circular', function () {
-            const g = new DirectedGraph()
-            g.addEdge('a', 'a')
-            expect(g.getRoots()).toHaveLength(0)
-        })
-        it('should be 1 root for a graph with a single edge', function () {
-            const g = new DirectedGraph()
-            g.addEdge('a', 'b')
-            expect(g.getRoots()).toEqual(['a'])
-        })
-    })
-
     describe('.getSinglePath()', function () {
         it('should return single element for roots', function () {
             const g = new DirectedGraph()
@@ -100,14 +80,7 @@ describe('DirectedGraph', function () {
         it('should construct a tree for graph with a single edge', function () {
             const g = new DirectedGraph()
             g.addEdge('a', 'b')
-            expect(g.toTree()).toEqual({ a: { b: {} } })
-        })
-        it('should construct a tree for graph with multiple roots', function () {
-            const g = new DirectedGraph()
-            g.addEdge('a', 'b')
-            g.addEdge('c', 'd')
-            g.addEdge('d', 'b')
-            expect(g.toTree()).toEqual({ a: { b: {} }, c: { d: { b: {} } } })
+            expect(g.toTree()).toEqual({ b: {} })
         })
     })
 
@@ -115,20 +88,7 @@ describe('DirectedGraph', function () {
         it('should print a tree for graph with a single edge', function () {
             const g = new DirectedGraph()
             g.addEdge('a', 'b')
-            expect(g.toString()).toEqual('└─ a\n   └─ b\n')
-        })
-        it('should print a tree for graph with multiple roots', function () {
-            const g = new DirectedGraph()
-            g.addEdge('a', 'b')
-            g.addEdge('c', 'd')
-            g.addEdge('d', 'b')
-            expect(g.toString()).toEqual(`├─ a
-│  └─ b
-└─ c
-   └─ d
-      └─ b
-`
-            )
+            expect(g.toString()).toEqual('a\n└─ b\n')
         })
     })
 })
