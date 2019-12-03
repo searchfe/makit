@@ -46,7 +46,7 @@ if (loglevel !== undefined) logger.setLevel(loglevel)
 if (!existsSync(makefile)) {
     throw new Error('makefile.js not found')
 }
-console.log(chalk['cyan']('conf'), makefile)
+logger.info(chalk['cyan']('conf'), makefile)
 require(makefile)
 const makit = global['makit']
 
