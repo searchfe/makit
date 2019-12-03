@@ -1,4 +1,5 @@
 import { Makefile } from '../../src/index'
+import { Logger, LogLevel } from '../../src/utils/logger'
 import { writeFileSync, statSync } from 'fs'
 import { removeSync } from 'fs-extra'
 
@@ -12,6 +13,7 @@ describe('local files', function () {
         removeSync(input0)
         removeSync(output1)
         removeSync(input1)
+        Logger.getOrCreate().setLevel(LogLevel.error)
     })
 
     it('should call recipe before make resolve', async () => {
@@ -26,7 +28,7 @@ describe('local files', function () {
         await mk.make(output0)
         expect(recipeTimes).toEqual(1)
         await mk.make(output0)
-        expect(recipeTimes).toBeGreaterThanOrEqual(1)
+        expect(recipeTimes).toEqual(1)
     })
 
     it('should remake if dependency changed', async () => {
