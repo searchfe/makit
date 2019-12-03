@@ -77,15 +77,12 @@ export class Make {
 
             logger.debug(target, `dmtime: ${dmtime}, mtime: ${mtime}`)
 
+            // depency mtime may equal to mtime when no io and async
             if (dmtime >= mtime) {
-                // depency mtime may equal to mtime when no io and async
                 if (!rule) {
                     throw new Error(`no rule matched target: "${target}"`)
                 }
-
-                const deps = context.getAllDependencies()
-                const msg = target + (deps.length ? ': ' + deps.join(', ') : '')
-                logger.info('make', msg)
+                logger.info('make', this.makeDetail(target, context))
 
                 const t = await rule.recipe.make(context)
                 logger.debug(target, 'write dynamic deps?', !!rule.hasDynamicDependencies)
@@ -95,13 +92,25 @@ export class Make {
                 return t
             }
 
-            const deps = context.getAllDependencies()
-            const msg = target + (deps.length ? ': ' + deps.join(', ') : '')
-            logger.info(chalk['grey']('skip'), msg)
+            logger.info(chalk['grey']('skip'), this.makeDetail(target, context))
             this.emit('skip', { target, parent, graph: this.graph })
 
             return mtime
+        }).catch(err => {
+            if (!err.makeStack) {
+                err.makeStack = []
+                err.target = target
+            } else {
+                err.makeStack.push(target)
+            }
+            throw err
         })
+    }
+
+    private makeDetail (target: string, context: Context) {
+        const deps = context.getAllDependencies()
+        const msg = target + (deps.length ? ': ' + deps.join(', ') : '')
+        return msg
     }
 
     private emit (event: string, msg: any) {

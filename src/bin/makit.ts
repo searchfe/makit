@@ -18,14 +18,12 @@ yargs.usage('$0 <TARGET>...')
     .option('loglevel', {
         alias: 'l',
         choices: [0, 1, 2, 3, 4],
-        default: 1,
         description: 'error, warning, info, verbose, debug'
     })
     .option('verbose', {
         alias: 'v',
         type: 'boolean',
-        default: false,
-        description: 'whether or not output entries'
+        description: 'set loglevel to verbose'
     })
     .option('graph', {
         alias: 'g',
@@ -33,13 +31,17 @@ yargs.usage('$0 <TARGET>...')
         default: false,
         description: 'output dependency graph'
     })
+    .conflicts('loglevel', 'verbose')
 
 const targets = yargs.argv._
 const makefile = resolve(yargs.argv.config as string)
 const verbose = yargs.argv.verbose as boolean
+const loglevel = yargs.argv.loglevel as number
 const graph = yargs.argv.graph as boolean
+const logger = Logger.getOrCreate()
 
-if (verbose) Logger.getOrCreate().setLevel(LogLevel.verbose)
+if (verbose !== undefined) Logger.getOrCreate().setLevel(LogLevel.verbose)
+if (loglevel !== undefined) logger.setLevel(loglevel)
 
 if (!existsSync(makefile)) {
     throw new Error('makefile.js not found')

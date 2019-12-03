@@ -56,11 +56,11 @@ export class DirectedGraph<T> {
         return circularPath
     }
 
-    public getSinglePath (vertex: T) {
-        const seen = new Set()
+    public getSinglePath (vertex: T): T[] {
+        const seen: Set<T> = new Set()
         while (true) {
             if (seen.has(vertex)) {
-                seen.add(this.circularString(vertex))
+                seen.add(vertex)
                 break
             }
             seen.add(vertex)

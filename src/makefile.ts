@@ -83,6 +83,7 @@ export class Makefile {
     }
 
     public async make (target?: string): Promise<Make> {
+        logger.resume()
         if (!target) {
             target = this.findFirstTargetOrThrow()
         }
@@ -93,7 +94,18 @@ export class Makefile {
             matchRule: target => this.matchRule(target),
             disableCheckCircular: this.disableCheckCircular
         })
-        await make.make(target)
+        try {
+            await make.make(target)
+        } catch (err) {
+            logger.suspend()
+            if (err.target) {
+                err.message = `${err.message} while making "${err.target}"`
+                if (err.makeStack.length) {
+                    err.message += '\n' + err.makeStack.map(x => `    required by "${x}"`).join('\n')
+                }
+            }
+            throw err
+        }
         return make
     }
 

@@ -6,13 +6,14 @@ export enum LogLevel {
     info = 2,
     verbose = 3,
     debug = 4,
-    default = 1
+    default = 2
 }
 
 export class Logger {
-    private constructor (private loglevel: LogLevel = LogLevel.default) { }
-
     private static logger: Logger = null
+    private suspended = false
+
+    private constructor (private loglevel: LogLevel = LogLevel.default) { }
 
     public static getOrCreate () {
         if (!Logger.logger) {
@@ -21,33 +22,41 @@ export class Logger {
         return Logger.logger
     }
 
+    public resume () {
+        this.suspended = false
+    }
+
+    public suspend () {
+        this.suspended = true
+    }
+
     public setLevel (level: LogLevel) {
         if (level < LogLevel.error || level > LogLevel.debug) throw new Error('invalid loglevel')
         this.loglevel = level
     }
 
     public error (title: string, ...args: any[]) {
-        if (this.loglevel < LogLevel.error) return
+        if (this.suspended || this.loglevel < LogLevel.error) return
         console.log(chalk['red'](title), this.stringify(args))
     }
 
     public warning (title: string, ...args: any[]) {
-        if (this.loglevel < LogLevel.warning) return
+        if (this.suspended || this.loglevel < LogLevel.warning) return
         console.log(chalk['yellow'](title), this.stringify(args))
     }
 
     public info (title: string, ...args: any[]) {
-        if (this.loglevel < LogLevel.info) return
+        if (this.suspended || this.loglevel < LogLevel.info) return
         console.log(chalk['cyan'](title), this.stringify(args))
     }
 
     public verbose (title: string, ...args: any[]) {
-        if (this.loglevel < LogLevel.verbose) return
+        if (this.suspended || this.loglevel < LogLevel.verbose) return
         console.log(chalk['grey'](title), this.stringify(args))
     }
 
     public debug (title: string, ...args: any[]) {
-        if (this.loglevel < LogLevel.debug) return
+        if (this.suspended || this.loglevel < LogLevel.debug) return
         console.log(chalk['bgRed'](title), ...args)
     }
 
