@@ -1,6 +1,7 @@
 import { Makefile } from '../../src/index'
 import { createMemoryFileSystem } from '../stub/memfs'
 import { FileSystem } from '../../src/utils/fs'
+import { Logger, LogLevel } from '../../src/utils/logger'
 
 const md5 = require('md5')
 
@@ -11,6 +12,7 @@ describe('glob', function () {
         fs = createMemoryFileSystem()
         fs.mkdirSync(process.cwd(), { recursive: true })
         mk = new Makefile(process.cwd(), fs)
+        Logger.getOrCreate().setLevel(LogLevel.error)
     })
 
     it('should support glob', async function () {

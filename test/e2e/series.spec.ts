@@ -1,4 +1,5 @@
 import { Makefile } from '../../src/index'
+import { Logger, LogLevel } from '../../src/utils/logger'
 import { createMemoryFileSystem } from '../stub/memfs'
 import { FileSystem } from '../../src/utils/fs'
 import { series } from '../../src/schedule/sequential-schedule'
@@ -11,6 +12,7 @@ describe('series', function () {
         fs = createMemoryFileSystem()
         fs.mkdirSync(process.cwd(), { recursive: true })
         mk = new Makefile(process.cwd(), fs)
+        Logger.getOrCreate().setLevel(LogLevel.error)
     })
 
     it('should build series one by one', async function () {

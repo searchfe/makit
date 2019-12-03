@@ -10,7 +10,7 @@ describe('recursive', function () {
         fs = createMemoryFileSystem()
         fs.mkdirSync(process.cwd(), { recursive: true })
         mk = new Makefile(process.cwd(), fs)
-        Logger.getOrCreate().setLevel(LogLevel.warning)
+        Logger.getOrCreate().setLevel(LogLevel.error)
     })
     it('should recursively resolve prerequisites', async function () {
         mk.addRule('a.js', [], ctx => ctx.writeTarget('a.js'))

@@ -9,7 +9,7 @@ describe('rude', function () {
     beforeEach(() => {
         fs = createMemoryFileSystem()
         mk = new Makefile(process.cwd(), fs)
-        Logger.getOrCreate().setLevel(LogLevel.default)
+        Logger.getOrCreate().setLevel(LogLevel.error)
     })
 
     it('should call corresponding recipe for ctx.make', async function () {

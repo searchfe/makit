@@ -10,7 +10,7 @@ describe('async', function () {
         fs = createMemoryFileSystem()
         fs.mkdirSync(process.cwd(), { recursive: true })
         mk = new Makefile(process.cwd(), fs)
-        Logger.getOrCreate().setLevel(LogLevel.default)
+        Logger.getOrCreate().setLevel(LogLevel.error)
     })
 
     it('should support async', async function () {

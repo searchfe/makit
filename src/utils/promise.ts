@@ -8,3 +8,11 @@ export function fromCallback<T> (fn: (cb: Callback<T>) => void): Promise<T> {
         })
     })
 }
+
+export function delay (second: number) {
+    return new Promise(resolve => {
+        setTimeout(function () {
+            resolve()
+        }, second)
+    })
+}

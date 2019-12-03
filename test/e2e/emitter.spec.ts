@@ -1,6 +1,10 @@
 import { Makefile, DirectedGraph } from '../../src/index'
+import { Logger, LogLevel } from '../../src/utils/logger'
 
 describe('emitter test', function () {
+    beforeEach(function () {
+        Logger.getOrCreate().setLevel(LogLevel.error)
+    })
     it('emit make & prepare event', async () => {
         const mk = new Makefile()
         mk.addRule('a', ['b'])

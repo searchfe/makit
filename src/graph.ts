@@ -60,8 +60,7 @@ export class DirectedGraph<T> {
         const seen: Set<T> = new Set()
         while (true) {
             if (seen.has(vertex)) {
-                seen.add(vertex)
-                break
+                return [...seen, vertex]
             }
             seen.add(vertex)
             const parents = this.redges.get(vertex)

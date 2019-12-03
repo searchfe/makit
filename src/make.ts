@@ -67,7 +67,7 @@ export class Make {
 
         return this.withCache(target, async (): Promise<TimeStamp> => {
             this.emit('making', { target, parent, graph: this.graph })
-            logger.verbose('prepare', target)
+            logger.debug('prepare', target)
             const [rule, match] = this.matchRule(target)
             const context = this.createContext({ target, match, rule })
             const [dmtime, mtime] = await Promise.all([
@@ -149,7 +149,7 @@ export class Make {
         }
         const circle = this.graph.checkCircular(begin)
         if (circle) {
-            throw new Error(`Circular detected while making "${begin}": ${circle.join(' <- ')}`)
+            throw new Error(`Circular detected: ${circle.join(' <- ')}`)
         }
     }
 

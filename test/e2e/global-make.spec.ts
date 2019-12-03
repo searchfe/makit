@@ -1,6 +1,7 @@
 import { Makefile } from '../../src/index'
 import { createMemoryFileSystem } from '../stub/memfs'
 import { FileSystem } from '../../src/utils/fs'
+import { Logger, LogLevel } from '../../src/utils/logger'
 
 describe('global make', function () {
     let fs: FileSystem
@@ -9,6 +10,7 @@ describe('global make', function () {
         fs = createMemoryFileSystem()
         fs.mkdirSync(process.cwd(), { recursive: true })
         mk = new Makefile(process.cwd(), fs)
+        Logger.getOrCreate().setLevel(LogLevel.error)
     })
 
     it('should support call another make inside recipe', async function () {
