@@ -1,3 +1,17 @@
+# [1.13.0](https://github.com/searchfe/makit/compare/v1.12.3...v1.13.0) (2019-12-03)
+
+
+### Bug Fixes
+
+* delay 3ms for each recipe, see [#14](https://github.com/searchfe/makit/issues/14) ([cbdfd5e](https://github.com/searchfe/makit/commit/cbdfd5e174d721320ebca32b8ab928dfb0000221))
+* dynamicDependenciesUpdatedAt default value ([e320c51](https://github.com/searchfe/makit/commit/e320c5158fb4a39a3f0d3f128c0f544b24ea4aa9))
+* log outputs in bin/makit respect to loglevel ([5bd03e8](https://github.com/searchfe/makit/commit/5bd03e8e50eeaada3b12c66be4bc2c92ba051c2a))
+
+
+### Features
+
+* add make stack in error.message ([328798a](https://github.com/searchfe/makit/commit/328798aab87c94ba213e291e0d81224f121ec197))
+
 ## [1.12.3](https://github.com/searchfe/makit/compare/v1.12.2...v1.12.3) (2019-12-02)
 
 
