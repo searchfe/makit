@@ -25,7 +25,7 @@ export class Context {
     public readonly rule: Rule
     public dependencies: string[]
 
-    private dynamicDependenciesUpdatedAt = 0
+    private dynamicDependenciesUpdatedAt
     private readonly dynamicDependencies: string[] = []
     private readonly makeImpl: ContextOptions['make']
     private readonly fs: FileSystem
@@ -37,6 +37,7 @@ export class Context {
         this.target = target
         this.dependencies = dependencies
         this.fs = fs
+        this.dynamicDependenciesUpdatedAt = Date.now()
         this.rule = rule
         this.makeImpl = make
     }

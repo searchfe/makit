@@ -65,46 +65,50 @@ export class Make {
         this.updateGraph(target, parent)
         this.checkCircular(target)
 
-        return this.withCache(target, async (): Promise<TimeStamp> => {
-            this.emit('making', { target, parent, graph: this.graph })
-            logger.debug('prepare', target)
-            const [rule, match] = this.matchRule(target)
-            const context = this.createContext({ target, match, rule })
-            const [dmtime, mtime] = await Promise.all([
-                this.resolveDependencies(target, context),
-                this.getModifiedTime(context.toFullPath(target))
-            ])
-
-            logger.debug(target, `dmtime: ${dmtime}, mtime: ${mtime}`)
-
-            // depency mtime may equal to mtime when no io and async
-            if (dmtime >= mtime) {
-                if (!rule) {
-                    throw new Error(`no rule matched target: "${target}"`)
+        return this
+            .withCache(target, () => this.doMake(target, parent))
+            .catch(err => {
+                if (err.makeStack) {
+                    err.makeStack.push(target)
+                } else {
+                    err.makeStack = []
+                    err.target = target
                 }
-                logger.info('make', this.makeDetail(target, context))
+                throw err
+            })
+    }
 
-                const t = await rule.recipe.make(context)
-                logger.debug(target, 'write dynamic deps?', !!rule.hasDynamicDependencies)
-                rule.hasDynamicDependencies && await context.writeDependency()
+    private async doMake (target: string, parent?: string): Promise<TimeStamp> {
+        this.emit('making', { target, parent, graph: this.graph })
+        logger.verbose('prepare', target)
+        const [rule, match] = this.matchRule(target)
+        const context = this.createContext({ target, match, rule })
+        const [dmtime, mtime] = await Promise.all([
+            this.resolveDependencies(target, context),
+            this.getModifiedTime(context.toFullPath(target))
+        ])
 
-                this.emit('maked', { target, parent, graph: this.graph })
-                return t
+        logger.debug(target, `dmtime: ${dmtime}, mtime: ${mtime}`)
+
+        // depency mtime may equal to mtime when no io and async
+        if (dmtime >= mtime) {
+            if (!rule) {
+                throw new Error(`no rule matched target: "${target}"`)
             }
+            logger.info('make', this.makeDetail(target, context))
 
-            logger.info(chalk['grey']('skip'), this.makeDetail(target, context))
-            this.emit('skip', { target, parent, graph: this.graph })
+            const t = await rule.recipe.make(context)
+            logger.debug(target, 'write dynamic deps?', !!rule.hasDynamicDependencies)
+            rule.hasDynamicDependencies && await context.writeDependency()
 
-            return mtime
-        }).catch(err => {
-            if (!err.makeStack) {
-                err.makeStack = []
-                err.target = target
-            } else {
-                err.makeStack.push(target)
-            }
-            throw err
-        })
+            this.emit('maked', { target, parent, graph: this.graph })
+            return t
+        }
+
+        logger.info(chalk['grey']('skip'), this.makeDetail(target, context))
+        this.emit('skip', { target, parent, graph: this.graph })
+
+        return mtime
     }
 
     private makeDetail (target: string, context: Context) {
