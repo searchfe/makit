@@ -88,7 +88,7 @@ export class Make {
             this.getModifiedTime(context.toFullPath(target))
         ])
 
-        logger.debug(target, `dmtime: ${dmtime}, mtime: ${mtime}`)
+        logger.debug(target, `mtime(${mtime}) - dmtime(${dmtime}) = ${mtime - dmtime}`)
 
         // depency mtime may equal to mtime when no io and async
         if (dmtime >= mtime) {

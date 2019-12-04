@@ -1,7 +1,7 @@
 import { resolve, dirname } from 'path'
 import { Logger } from './utils/logger'
 import { Rule } from './rule'
-import { fromCallback } from './utils/promise'
+import { delay, fromCallback } from './utils/promise'
 import { FileSystem } from './utils/fs'
 import { pick } from 'lodash'
 import { TimeStamp } from './utils/date'
@@ -37,7 +37,7 @@ export class Context {
         this.target = target
         this.dependencies = dependencies
         this.fs = fs
-        this.dynamicDependenciesUpdatedAt = Date.now()
+        this.dynamicDependenciesUpdatedAt = Date.now() / 1000
         this.rule = rule
         this.makeImpl = make
     }
@@ -46,15 +46,17 @@ export class Context {
         return [...this.dependencies, ...this.dynamicDependencies]
     }
 
-    public make (target: string) {
+    public async make (target: string) {
         this.dynamicDependencies.push(target)
-        this.dynamicDependenciesUpdatedAt = Date.now()
-        return this.makeImpl(target)
+        this.dynamicDependenciesUpdatedAt = Date.now() / 1000
+        const ret = await this.makeImpl(target)
+        await delay(30)
+        return ret
     }
 
     public async writeDependency () {
         const filepath = getDependencyFromTarget(this.target)
-        logger.debug(this.target, 'writing', filepath, 'with', this.dynamicDependencies, 'mtime', this.dynamicDependenciesUpdatedAt)
+        logger.debug(this.target, 'writing', filepath, 'with', this.dynamicDependencies, 'mtime', this.dynamicDependenciesUpdatedAt + 's')
         await this.outputFile(filepath, JSON.stringify(this.dynamicDependencies))
         await this.utimes(filepath, this.dynamicDependenciesUpdatedAt, this.dynamicDependenciesUpdatedAt)
     }

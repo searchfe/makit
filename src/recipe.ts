@@ -1,7 +1,6 @@
 import { Context } from './context'
 import { now, TimeStamp } from './utils/date'
 import { inline, limit } from './utils/string'
-import { delay } from './utils/promise'
 
 export type RecipeDeclaration =
     (this: Context, ctx: Context, done: (err?: Error) => any)
@@ -24,7 +23,6 @@ export class Recipe {
             })
         }
         await this.fn.call(context, context)
-        await delay(3)
         return now()
     }
 

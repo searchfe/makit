@@ -6,6 +6,7 @@ import { Prerequisites, PrerequisitesDeclaration } from './prerequisites'
 import { dependencyRecipe, rudeExtname, dynamicPrerequisites } from './rude'
 import { Target, TargetDeclaration } from './target'
 import { cwd } from 'process'
+import { series } from './schedule/sequential-schedule'
 import { Recipe, RecipeDeclaration } from './recipe'
 import { EventEmitter } from 'events'
 
@@ -63,7 +64,7 @@ export class Makefile {
         recipeDecl: RecipeDeclaration = defaultRecipe
     ) {
         if (targetDecl instanceof RegExp) throw new Error('rude() for RegExp not supported yet')
-        const rule = this.addRule(targetDecl, [prerequisitesDecl, dynamicPrerequisites()], recipeDecl)
+        const rule = this.addRule(targetDecl, series(prerequisitesDecl, dynamicPrerequisites()), recipeDecl)
         rule.hasDynamicDependencies = true
         logger.verbose('addRule', rule)
 
