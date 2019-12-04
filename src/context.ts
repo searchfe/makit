@@ -1,7 +1,7 @@
 import { resolve, dirname } from 'path'
 import { Logger } from './utils/logger'
 import { Rule } from './rule'
-import { delay, fromCallback } from './utils/promise'
+import { fromCallback } from './utils/promise'
 import { FileSystem } from './utils/fs'
 import { pick } from 'lodash'
 import { TimeStamp } from './utils/date'
@@ -50,7 +50,6 @@ export class Context {
         this.dynamicDependencies.push(target)
         this.dynamicDependenciesUpdatedAt = Date.now() / 1000
         const ret = await this.makeImpl(target)
-        await delay(30)
         return ret
     }
 

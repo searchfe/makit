@@ -66,8 +66,7 @@ export class Make {
         this.checkCircular(target)
 
         return this
-            .withCache(target, () => this.doMake(target, parent))
-            .catch(err => {
+            .withCache(target, () => this.doMake(target, parent).catch(err => {
                 if (err.makeStack) {
                     err.makeStack.push(target)
                 } else {
@@ -75,7 +74,7 @@ export class Make {
                     err.target = target
                 }
                 throw err
-            })
+            }))
     }
 
     private async doMake (target: string, parent?: string): Promise<TimeStamp> {
