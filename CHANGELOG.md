@@ -1,3 +1,10 @@
+## [1.13.2](https://github.com/searchfe/makit/compare/v1.13.1...v1.13.2) (2019-12-04)
+
+
+### Bug Fixes
+
+* delay before recipe ([4ebe711](https://github.com/searchfe/makit/commit/4ebe7112d835fa540ce39d637120e9b50f5166bb))
+
 ## [1.13.1](https://github.com/searchfe/makit/compare/v1.13.0...v1.13.1) (2019-12-04)
 
 
