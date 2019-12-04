@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/searchfe/makit/compare/v1.13.0...v1.13.1) (2019-12-04)
+
+
+### Bug Fixes
+
+* delay in ctx.make, fix dep utimes, invalidate dep ([677c727](https://github.com/searchfe/makit/commit/677c727b4abaa7ccfd6e5acfed03b74d0b9880bf))
+
 # [1.13.0](https://github.com/searchfe/makit/compare/v1.12.3...v1.13.0) (2019-12-03)
 
 
