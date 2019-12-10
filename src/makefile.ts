@@ -1,6 +1,7 @@
 import { Rule } from './rule'
+import { getFileSystem } from './fs/factory'
+import { FileSystem } from './types/fs'
 import { Make } from './make'
-import { FileSystem } from './utils/fs'
 import { Logger } from './utils/logger'
 import { Prerequisites, PrerequisitesDeclaration } from './prerequisites'
 import { dependencyRecipe, rudeExtname, dynamicPrerequisites } from './rude'
@@ -18,12 +19,12 @@ export class Makefile {
     public emitter: EventEmitter
     public disableCheckCircular = false
 
+    private fs: FileSystem
     private ruleMap: Map<TargetDeclaration, Rule> = new Map()
     private fileTargetRules: Map<string, Rule> = new Map()
     private matchingRules: Rule[] = []
-    private fs: FileSystem
 
-    constructor (root = cwd(), fs = require('fs')) {
+    constructor (root = cwd(), fs = getFileSystem()) {
         this.root = root
         this.fs = fs
     }

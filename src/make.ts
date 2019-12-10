@@ -1,14 +1,13 @@
 import { Context } from './context'
 import { TimeStamp } from './utils/date'
-import { fromCallback } from './utils/promise'
 import { max } from 'lodash'
 import { Rule } from './rule'
 import { getTargetFromDependency } from './rude'
-import { FileSystem } from './utils/fs'
 import chalk from 'chalk'
 import { DirectedGraph } from './graph'
 import { Logger } from './utils/logger'
 import { EventEmitter } from 'events'
+import { FileSystem } from './types/fs'
 
 // NOT_EXIST < EMPTY_DEPENDENCY < mtimeNs < Date.now()
 const NOT_EXIST: TimeStamp = -2
@@ -17,8 +16,8 @@ const logger = Logger.getOrCreate()
 
 export interface MakeOptions {
     root?: string
-    fs?: FileSystem
     emitter?: EventEmitter
+    fs: FileSystem
     disableCheckCircular?: boolean
     matchRule?: (target: string) => [Rule, RegExpExecArray]
 }
@@ -28,14 +27,14 @@ export class Make {
     private graph: DirectedGraph<string> = new DirectedGraph()
     private root: string
     private matchRule: (target: string) => [Rule, RegExpExecArray]
-    private fs: FileSystem
     private emitter: EventEmitter
     private disableCheckCircular: boolean
+    private fs: FileSystem
 
     constructor ({
         root = process.cwd(),
-        fs = require('fs'),
         matchRule,
+        fs,
         emitter,
         disableCheckCircular
     }: MakeOptions) {
@@ -52,10 +51,10 @@ export class Make {
             match = this.matchRule(target)[1]
         }
         return new Context({
-            fs: this.fs,
             target,
             match,
             rule,
+            fs: this.fs,
             root: this.root,
             make: (child: string) => this.make(child, target)
         })
@@ -122,7 +121,7 @@ export class Make {
 
     private async getModifiedTime (filepath: string): Promise<TimeStamp> {
         try {
-            const { mtimeMs } = await fromCallback(cb => this.fs.stat(filepath, cb))
+            const { mtimeMs } = await this.fs.stat(filepath)
             return mtimeMs
         } catch (error) {
             if (error.code === 'ENOENT') return NOT_EXIST

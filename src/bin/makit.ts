@@ -5,6 +5,7 @@ import * as yargs from 'yargs'
 import { existsSync } from 'fs'
 import { Logger, LogLevel } from '../utils/logger'
 import { resolve } from 'path'
+import { DataBase } from '../utils/db'
 
 type OptionValue = string | undefined
 
@@ -14,6 +15,11 @@ yargs.usage('$0 <TARGET>...')
         type: 'string',
         default: 'makefile.js',
         description: 'makefile path'
+    })
+    .option('database', {
+        alias: 'd',
+        default: './.makit.db',
+        description: 'database file, will be used for cache invalidation'
     })
     .option('loglevel', {
         alias: 'l',
@@ -37,8 +43,10 @@ const targets = yargs.argv._
 const makefile = resolve(yargs.argv.config as string)
 const verbose = yargs.argv.verbose as boolean
 const loglevel = yargs.argv.loglevel as number
+const database = yargs.argv.database as string
 const graph = yargs.argv.graph as boolean
 const logger = Logger.getOrCreate()
+DataBase.getOrCreate(database)
 
 if (verbose !== undefined) Logger.getOrCreate().setLevel(LogLevel.verbose)
 if (loglevel !== undefined) logger.setLevel(loglevel)

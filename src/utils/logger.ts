@@ -10,16 +10,16 @@ export enum LogLevel {
 }
 
 export class Logger {
-    private static logger: Logger = null
+    private static instance: Logger = null
     private suspended = false
 
     private constructor (private loglevel: LogLevel = LogLevel.default) { }
 
-    public static getOrCreate () {
-        if (!Logger.logger) {
-            Logger.logger = new Logger()
+    public static getOrCreate (...args: any[]) {
+        if (!Logger.instance) {
+            Logger.instance = new Logger(...args)
         }
-        return Logger.logger
+        return Logger.instance
     }
 
     public resume () {

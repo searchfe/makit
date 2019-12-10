@@ -1,11 +1,10 @@
 import { resolve, dirname } from 'path'
 import { Logger } from './utils/logger'
 import { Rule } from './rule'
-import { fromCallback } from './utils/promise'
-import { FileSystem } from './utils/fs'
 import { pick } from 'lodash'
 import { TimeStamp } from './utils/date'
 import { getDependencyFromTarget } from './rude'
+import { FileSystem } from './types/fs'
 
 const logger = Logger.getOrCreate()
 
@@ -19,7 +18,7 @@ interface ContextOptions {
     make: (target: string) => Promise<TimeStamp>
 }
 
-export class Context {
+export class Context implements FileSystem {
     public readonly target: string
     public readonly match
     public readonly rule: Rule
@@ -31,7 +30,7 @@ export class Context {
     private readonly fs: FileSystem
     private readonly root: string
 
-    constructor ({ target, match, rule, root, dependencies = [], fs = require('fs'), make }: ContextOptions) {
+    constructor ({ target, match, rule, root, dependencies = [], fs, make }: ContextOptions) {
         this.root = root
         this.match = match
         this.target = target
@@ -67,27 +66,21 @@ export class Context {
         })
     }
 
-    async mkdir (filepath: string, options?) {
-        return fromCallback(cb => this.fs.mkdir(this.toFullPath(filepath), options, cb))
-    }
-
-    mkdirSync (filepath: string, options) {
-        return this.fs.mkdirSync(this.toFullPath(filepath), options)
-    }
-
     async outputFile (filepath: string, content: string | Buffer) {
-        return this.writeFile(filepath, content).catch(e => {
+        filepath = this.toFullPath(filepath)
+        return this.writeFile(filepath, content).catch(async e => {
             if (e.code === 'ENOENT') {
-                return this.mkdir(dirname(filepath), { recursive: true })
-                    .then(() => this.writeFile(filepath, content))
+                await this.mkdir(dirname(filepath), { recursive: true })
+                return this.writeFile(filepath, content)
             }
             throw e
         })
     }
 
     outputFileSync (filepath: string, content: string | Buffer) {
+        filepath = this.toFullPath(filepath)
         try {
-            return this.fs.writeFileSync(this.toFullPath(filepath), content)
+            return this.fs.writeFileSync(filepath, content)
         } catch (e) {
             if (e.code === 'ENOENT') {
                 this.fs.mkdirSync(dirname(filepath), { recursive: true })
@@ -95,48 +88,6 @@ export class Context {
             }
             throw e
         }
-    }
-
-    async writeFile (filepath: string, content: string | Buffer) {
-        return fromCallback(cb => this.fs.writeFile(this.toFullPath(filepath), content, cb))
-    }
-
-    writeFileSync (filepath: string, content: string | Buffer) {
-        return this.fs.writeFileSync(this.toFullPath(filepath), content)
-    }
-
-    async readFile (filepath: string, encoding?: BufferEncoding): Promise<string>
-    async readFile (filepath: string, encoding = 'utf8'): Promise<string | Buffer> {
-        return fromCallback(cb => this.fs.readFile(this.toFullPath(filepath), encoding, cb))
-    }
-
-    readFileSync (filepath: string, encoding: BufferEncoding): string
-    readFileSync (filepath: string, encoding = 'utf8'): string | Buffer {
-        return this.fs.readFileSync(this.toFullPath(filepath), encoding)
-    }
-
-    unlinkSync (filepath: string) {
-        return this.fs.unlinkSync(this.toFullPath(filepath))
-    }
-
-    unlink (filepath: string) {
-        return fromCallback(cb => this.fs.unlink(this.toFullPath(filepath), cb))
-    }
-
-    exists (filepath: string) {
-        return fromCallback(cb => this.fs.exists(filepath, cb))
-    }
-
-    existsSync (filepath: string) {
-        return this.fs.existsSync(filepath)
-    }
-
-    utimes (filepath: string, atime: number, utime: number) {
-        return fromCallback(cb => this.fs.utimes(filepath, atime, utime, cb))
-    }
-
-    utimesSync (filepath: string, atime: number, utime: number) {
-        return this.fs.utimesSync(filepath, atime, utime)
     }
 
     async readDependency (i: number = 0): Promise<string> {
@@ -175,5 +126,66 @@ export class Context {
 
     toFullPath (filename: string) {
         return resolve(this.root, filename)
+    }
+
+    /**
+     * FileSystem Implements
+     */
+    async mkdir (filepath: string, options?) {
+        return this.fs.mkdir(this.toFullPath(filepath), options)
+    }
+
+    mkdirSync (filepath: string, options) {
+        return this.fs.mkdirSync(this.toFullPath(filepath), options)
+    }
+
+    async writeFile (filepath: string, content: string | Buffer) {
+        return this.fs.writeFile(this.toFullPath(filepath), content)
+    }
+
+    writeFileSync (filepath: string, content: string | Buffer) {
+        return this.fs.writeFileSync(this.toFullPath(filepath), content)
+    }
+
+    async readFile (filepath: string, encoding?: BufferEncoding): Promise<string>
+    async readFile (filepath: string, encoding = 'utf8'): Promise<string | Buffer> {
+        return this.fs.readFile(this.toFullPath(filepath), encoding)
+    }
+
+    readFileSync (filepath: string, encoding: BufferEncoding): string
+    readFileSync (filepath: string, encoding = 'utf8'): string | Buffer {
+        return this.fs.readFileSync(this.toFullPath(filepath), encoding)
+    }
+
+    unlinkSync (filepath: string) {
+        return this.fs.unlinkSync(this.toFullPath(filepath))
+    }
+
+    unlink (filepath: string) {
+        return this.fs.unlink(this.toFullPath(filepath))
+    }
+
+    exists (filepath: string) {
+        return this.fs.exists(this.toFullPath(filepath))
+    }
+
+    existsSync (filepath: string) {
+        return this.fs.existsSync(this.toFullPath(filepath))
+    }
+
+    utimes (filepath: string, atime: number, utime: number) {
+        return this.fs.utimes(this.toFullPath(filepath), atime, utime)
+    }
+
+    utimesSync (filepath: string, atime: number, utime: number) {
+        return this.fs.utimesSync(this.toFullPath(filepath), atime, utime)
+    }
+
+    stat (filepath: string) {
+        return this.fs.stat(this.toFullPath(filepath))
+    }
+
+    statSync (filepath: string) {
+        return this.fs.statSync(this.toFullPath(filepath))
     }
 }

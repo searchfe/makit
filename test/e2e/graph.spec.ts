@@ -1,13 +1,13 @@
 import { Makefile } from '../../src/index'
 import { Logger, LogLevel } from '../../src/utils/logger'
-import { createMemoryFileSystem } from '../stub/memfs'
-import { FileSystem } from '../../src/utils/fs'
+import { MemoryFileSystem } from '../../src/fs/memfs'
+import { FileSystem } from '../../src/types/fs'
 
 describe('graph', function () {
     let fs: FileSystem
     let mk: Makefile
     beforeEach(() => {
-        fs = createMemoryFileSystem()
+        fs = new MemoryFileSystem()
         fs.mkdirSync(process.cwd(), { recursive: true })
         mk = new Makefile(process.cwd(), fs)
         Logger.getOrCreate().setLevel(LogLevel.error)

@@ -1,4 +1,4 @@
-import { Callback } from './callback'
+import { Callback } from '../types/callback'
 
 export function fromCallback<T> (fn: (cb: Callback<T>) => void): Promise<T> {
     return new Promise((resolve, reject) => {
