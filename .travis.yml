@@ -1,6 +1,5 @@
 env:
   - CI=true
-node_js: 10
 jobs:
   include:
     - stage: test
@@ -20,15 +19,18 @@ jobs:
       script: npm test
     - stage: test
       name: 'Lint'
+      node_js: 10
       install: npm ci
       script: npm run lint
     - stage: test
       name: 'Coverage'
+      node_js: 10
       install: npm ci
       script: npm run coveralls
     - stage: release
       if: branch = master
       script: skip
+      node_js: 10
       deploy:
         provider: script
         skip_cleanup: true
