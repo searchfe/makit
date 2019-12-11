@@ -5,7 +5,7 @@ import * as yargs from 'yargs'
 import { existsSync } from 'fs'
 import { Logger, LogLevel } from '../utils/logger'
 import { resolve } from 'path'
-import { DataBase } from '../utils/db'
+import { IO } from '../io'
 
 type OptionValue = string | undefined
 
@@ -46,7 +46,7 @@ const loglevel = yargs.argv.loglevel as number
 const database = yargs.argv.database as string
 const graph = yargs.argv.graph as boolean
 const logger = Logger.getOrCreate()
-DataBase.getOrCreate(database)
+IO.getDataBase(database)
 
 if (verbose !== undefined) Logger.getOrCreate().setLevel(LogLevel.verbose)
 if (loglevel !== undefined) logger.setLevel(loglevel)

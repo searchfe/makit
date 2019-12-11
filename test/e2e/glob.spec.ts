@@ -1,17 +1,17 @@
 import { Makefile } from '../../src/index'
 import { MemoryFileSystem } from '../../src/fs/memfs'
-import { FileSystem } from '../../src/types/fs'
+import { IO } from '../../src/io'
 import { Logger, LogLevel } from '../../src/utils/logger'
 
 const md5 = require('md5')
 
 describe('glob', function () {
-    let fs: FileSystem
+    let fs
     let mk: Makefile
     beforeEach(() => {
-        fs = new MemoryFileSystem()
+        fs = IO.resetFileSystem(new MemoryFileSystem()).fs
         fs.mkdirSync(process.cwd(), { recursive: true })
-        mk = new Makefile(process.cwd(), fs)
+        mk = new Makefile(process.cwd())
         Logger.getOrCreate().setLevel(LogLevel.error)
     })
 

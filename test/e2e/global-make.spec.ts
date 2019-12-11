@@ -1,18 +1,18 @@
 import { Makefile } from '../../src/index'
 import { MemoryFileSystem } from '../../src/fs/memfs'
+import { IO } from '../../src/io'
 import { Logger, LogLevel } from '../../src/utils/logger'
 
 describe('global make', function () {
     let fs
-    let mk: Makefile
     beforeEach(() => {
-        fs = new MemoryFileSystem()
+        fs = IO.resetFileSystem(new MemoryFileSystem()).fs
         fs.mkdirSync(process.cwd(), { recursive: true })
-        mk = new Makefile(process.cwd(), fs)
         Logger.getOrCreate().setLevel(LogLevel.error)
     })
 
     it('should support call another make inside recipe', async function () {
+        const mk = new Makefile()
         fs.writeFileSync('a.js', 'a')
 
         mk.addRule('call.b.out', 'a.js', ctx => ctx.writeTarget('B'))
@@ -26,6 +26,7 @@ describe('global make', function () {
     })
 
     it('should support call another make inside prerequisites', async function () {
+        const mk = new Makefile()
         fs.writeFileSync('a.js', 'a')
 
         mk.addRule('call.b.out', 'a.js', ctx => ctx.writeTarget('B'))

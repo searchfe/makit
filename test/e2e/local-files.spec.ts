@@ -1,7 +1,9 @@
 import { Makefile } from '../../src/index'
+import { NodeFileSystem } from '../../src/fs/nodefs'
 import { Logger, LogLevel } from '../../src/utils/logger'
 import { writeFileSync, statSync } from 'fs'
 import { removeSync } from 'fs-extra'
+import { createEnv } from '../stub/create-env'
 
 describe('local files', function () {
     const output0 = 'test/e2e/bundle0.js.out'
@@ -9,6 +11,7 @@ describe('local files', function () {
     const input0 = 'test/e2e/input0.js.out'
     const input1 = 'test/e2e/input1.js.out'
     beforeEach(() => {
+        createEnv({ logLevel: 1, fs: new NodeFileSystem() })
         removeSync(output0)
         removeSync(input0)
         removeSync(output1)

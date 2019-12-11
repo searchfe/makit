@@ -1,7 +1,6 @@
 import { Context } from './context'
-import { now, TimeStamp } from './utils/date'
+import { TimeStamp } from './mtime'
 import { inline, limit } from './utils/string'
-import { delay } from './utils/promise'
 
 export type RecipeDeclaration =
     (this: Context, ctx: Context, done: (err?: Error) => any)
@@ -15,7 +14,6 @@ export class Recipe {
     }
 
     public async make (context: Context): Promise<TimeStamp> {
-        await delay(30)
         if (this.fn.length >= 2) {
             return new Promise((resolve, reject) => {
                 this.fn.call(context, context, (err, data) => {
@@ -25,7 +23,6 @@ export class Recipe {
             })
         }
         await this.fn.call(context, context)
-        return now()
     }
 
     public toString () {

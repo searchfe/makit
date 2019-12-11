@@ -1,10 +1,10 @@
 import { resolve, dirname } from 'path'
 import { Logger } from './utils/logger'
-import { Rule } from './rule'
+import { IO } from './io'
 import { pick } from 'lodash'
-import { TimeStamp } from './utils/date'
 import { getDependencyFromTarget } from './rude'
 import { FileSystem } from './types/fs'
+import { TimeStamp } from './mtime'
 
 const logger = Logger.getOrCreate()
 
@@ -14,30 +14,25 @@ interface ContextOptions {
     root: string
     dependencies?: string[]
     fs: FileSystem
-    rule: Rule
     make: (target: string) => Promise<TimeStamp>
 }
 
 export class Context implements FileSystem {
     public readonly target: string
     public readonly match
-    public readonly rule: Rule
     public dependencies: string[]
 
-    private dynamicDependenciesUpdatedAt
     private readonly dynamicDependencies: string[] = []
     private readonly makeImpl: ContextOptions['make']
     private readonly fs: FileSystem
     private readonly root: string
 
-    constructor ({ target, match, rule, root, dependencies = [], fs, make }: ContextOptions) {
+    constructor ({ target, match, root, dependencies = [], fs, make }: ContextOptions) {
         this.root = root
         this.match = match
         this.target = target
         this.dependencies = dependencies
         this.fs = fs
-        this.dynamicDependenciesUpdatedAt = Date.now() / 1000
-        this.rule = rule
         this.makeImpl = make
     }
 
@@ -47,21 +42,20 @@ export class Context implements FileSystem {
 
     public async make (target: string) {
         this.dynamicDependencies.push(target)
-        this.dynamicDependenciesUpdatedAt = Date.now() / 1000
         const ret = await this.makeImpl(target)
         return ret
     }
 
     public async writeDependency () {
+        logger.debug(this.target, 'writing', this.target, 'with', this.dynamicDependencies)
         const filepath = getDependencyFromTarget(this.target)
-        logger.debug(this.target, 'writing', filepath, 'with', this.dynamicDependencies, 'mtime', this.dynamicDependenciesUpdatedAt + 's')
         await this.outputFile(filepath, JSON.stringify(this.dynamicDependencies))
-        await this.utimes(filepath, this.dynamicDependenciesUpdatedAt, this.dynamicDependenciesUpdatedAt)
+        await IO.getMTime().setModifiedTime(this.toFullPath(filepath))
     }
 
     public clone (options: Partial<ContextOptions>) {
         return new Context({
-            ...pick(this, ['root', 'match', 'target', 'dependencies', 'fs', 'rule', 'make']),
+            ...pick(this, ['root', 'match', 'target', 'dependencies', 'fs', 'make']),
             ...options
         })
     }

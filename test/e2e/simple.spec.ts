@@ -1,4 +1,5 @@
 import { Makefile } from '../../src/index'
+import { IO } from '../../src/io'
 import { Logger, LogLevel } from '../../src/utils/logger'
 import { MemoryFileSystem } from '../../src/fs/memfs'
 import { FileSystem } from '../../src/types/fs'
@@ -7,9 +8,9 @@ describe('simple', function () {
     let fs: FileSystem
     let mk: Makefile
     beforeEach(() => {
-        fs = new MemoryFileSystem()
+        fs = IO.resetFileSystem(new MemoryFileSystem()).fs
         fs.mkdirSync(process.cwd(), { recursive: true })
-        mk = new Makefile(process.cwd(), fs)
+        mk = new Makefile()
         Logger.getOrCreate().setLevel(LogLevel.error)
     })
 

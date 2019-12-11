@@ -1,5 +1,6 @@
 import { Context } from './context'
-import { TimeStamp } from './utils/date'
+import { IO } from './io'
+import { TimeStamp, EMPTY_DEPENDENCY } from './mtime'
 import { max } from 'lodash'
 import { Rule } from './rule'
 import { getTargetFromDependency } from './rude'
@@ -7,17 +8,12 @@ import chalk from 'chalk'
 import { DirectedGraph } from './graph'
 import { Logger } from './utils/logger'
 import { EventEmitter } from 'events'
-import { FileSystem } from './types/fs'
 
-// NOT_EXIST < EMPTY_DEPENDENCY < mtimeNs < Date.now()
-const NOT_EXIST: TimeStamp = -2
-const EMPTY_DEPENDENCY: TimeStamp = -1
 const logger = Logger.getOrCreate()
 
 export interface MakeOptions {
     root?: string
     emitter?: EventEmitter
-    fs: FileSystem
     disableCheckCircular?: boolean
     matchRule?: (target: string) => [Rule, RegExpExecArray]
 }
@@ -29,16 +25,13 @@ export class Make {
     private matchRule: (target: string) => [Rule, RegExpExecArray]
     private emitter: EventEmitter
     private disableCheckCircular: boolean
-    private fs: FileSystem
 
     constructor ({
         root = process.cwd(),
         matchRule,
-        fs,
         emitter,
         disableCheckCircular
     }: MakeOptions) {
-        this.fs = fs
         this.root = root
         this.matchRule = matchRule
         this.emitter = emitter
@@ -53,8 +46,7 @@ export class Make {
         return new Context({
             target,
             match,
-            rule,
-            fs: this.fs,
+            fs: IO.getFileSystem(),
             root: this.root,
             make: (child: string) => this.make(child, target)
         })
@@ -81,26 +73,22 @@ export class Make {
         logger.verbose('prepare', target)
         const [rule, match] = this.matchRule(target)
         const context = this.createContext({ target, match, rule })
+        const fullpath = context.toFullPath(target)
         const [dmtime, mtime] = await Promise.all([
-            this.resolveDependencies(target, context),
-            this.getModifiedTime(context.toFullPath(target))
+            this.resolveDependencies(target, context, rule),
+            IO.getMTime().getModifiedTime(fullpath)
         ])
 
         logger.debug(target, `mtime(${mtime}) - dmtime(${dmtime}) = ${mtime - dmtime}`)
 
-        // depency mtime may equal to mtime when no io and async
+        // non-existing files have the same mtime(-2
         if (dmtime >= mtime) {
-            if (!rule) {
-                throw new Error(`no rule matched target: "${target}"`)
-            }
+            if (!rule) throw new Error(`no rule matched target: "${target}"`)
             logger.info('make', this.makeDetail(target, context))
-
-            const t = await rule.recipe.make(context)
-            logger.debug(target, 'write dynamic deps?', !!rule.hasDynamicDependencies)
-            rule.hasDynamicDependencies && await context.writeDependency()
-
+            await rule.recipe.make(context)
+            if (rule.hasDynamicDependencies) await context.writeDependency()
             this.emit('maked', { target, parent, graph: this.graph })
-            return t
+            return IO.getMTime().setModifiedTime(fullpath)
         }
 
         logger.info(chalk['grey']('skip'), this.makeDetail(target, context))
@@ -119,19 +107,9 @@ export class Make {
         this.emitter && this.emitter.emit(event, msg)
     }
 
-    private async getModifiedTime (filepath: string): Promise<TimeStamp> {
-        try {
-            const { mtimeMs } = await this.fs.stat(filepath)
-            return mtimeMs
-        } catch (error) {
-            if (error.code === 'ENOENT') return NOT_EXIST
-            throw error
-        }
-    }
-
-    private async resolveDependencies (target: string, context: Context): Promise<TimeStamp> {
-        if (!context.rule) return EMPTY_DEPENDENCY
-        const results = await context.rule.map(
+    private async resolveDependencies (target: string, context: Context, rule: Rule): Promise<TimeStamp> {
+        if (!rule) return EMPTY_DEPENDENCY
+        const results = await rule.map(
             context,
             (dep: string) => this.make(dep, target)
         )

@@ -1,18 +1,13 @@
 import { Makefile } from '../../src/index'
-import { Logger, LogLevel } from '../../src/utils/logger'
-import { MemoryFileSystem } from '../../src/fs/memfs'
-import { FileSystem } from '../../src/types/fs'
+import { createEnv } from '../stub/create-env'
 import { series } from '../../src/schedule/sequential-schedule'
 import 'jest-extended'
 
 describe('series', function () {
-    let fs: FileSystem
     let mk: Makefile
     beforeEach(() => {
-        fs = new MemoryFileSystem()
-        fs.mkdirSync(process.cwd(), { recursive: true })
-        mk = new Makefile(process.cwd(), fs)
-        Logger.getOrCreate().setLevel(LogLevel.error)
+        const env = createEnv({ logLevel: 1 })
+        mk = env.mk
     })
 
     it('should build series one by one', async function () {

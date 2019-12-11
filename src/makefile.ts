@@ -1,6 +1,4 @@
 import { Rule } from './rule'
-import { getFileSystem } from './fs/factory'
-import { FileSystem } from './types/fs'
 import { Make } from './make'
 import { Logger } from './utils/logger'
 import { Prerequisites, PrerequisitesDeclaration } from './prerequisites'
@@ -19,14 +17,12 @@ export class Makefile {
     public emitter: EventEmitter
     public disableCheckCircular = false
 
-    private fs: FileSystem
     private ruleMap: Map<TargetDeclaration, Rule> = new Map()
     private fileTargetRules: Map<string, Rule> = new Map()
     private matchingRules: Rule[] = []
 
-    constructor (root = cwd(), fs = getFileSystem()) {
+    constructor (root = cwd()) {
         this.root = root
-        this.fs = fs
     }
 
     public updateOrAddRule (
@@ -91,7 +87,6 @@ export class Makefile {
         }
         const make = new Make({
             root: this.root,
-            fs: this.fs,
             emitter: this.emitter,
             matchRule: target => this.matchRule(target),
             disableCheckCircular: this.disableCheckCircular

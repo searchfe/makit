@@ -1,5 +1,5 @@
 import { FileSystem } from '../types/fs'
-import { now, TimeStamp } from '../../src/utils/date'
+import { TimeStamp } from '../mtime'
 import { resolve } from 'path'
 import { MakeDirectoryOptions } from 'fs'
 import MemoryFileSystemImpl from 'memory-fs'
@@ -7,6 +7,7 @@ import MemoryFileSystemImpl from 'memory-fs'
 export class MemoryFileSystem implements FileSystem {
     private mtimes: Map<string, TimeStamp> = new Map()
     private fs = new MemoryFileSystemImpl()
+    private now = 10000
 
     async mkdir (path: string, options: MakeDirectoryOptions = {}) {
         this.mkdirSync(path, options)
@@ -29,8 +30,7 @@ export class MemoryFileSystem implements FileSystem {
     }
     writeFileSync (path: string, data: any) {
         const fullpath = resolve(path)
-        const n = now()
-        this.mtimes.set(fullpath, n)
+        this.mtimes.set(fullpath, this.now++)
         return this.fs.writeFileSync(fullpath, data)
     }
 
