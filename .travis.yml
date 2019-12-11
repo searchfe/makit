@@ -1,3 +1,4 @@
+node_js: 10
 env:
   - CI=true
 jobs:
@@ -30,9 +31,9 @@ jobs:
     - stage: release
       if: branch = master
       script: skip
-      node_js: 10
       deploy:
         provider: script
         skip_cleanup: true
         install: npm ci
+        node_js: 10
         script: npx semantic-release
