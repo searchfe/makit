@@ -63,11 +63,11 @@ export class Makefile {
         if (targetDecl instanceof RegExp) throw new Error('rude() for RegExp not supported yet')
         const rule = this.addRule(targetDecl, series(prerequisitesDecl, dynamicPrerequisites()), recipeDecl)
         rule.hasDynamicDependencies = true
-        logger.verbose('addRule', rule)
+        logger.verbose('RULE', 'adding rule', rule)
 
         const rude = this.addRule(targetDecl + rudeExtname, prerequisitesDecl, dependencyRecipe)
         rude.isDependencyTarget = true
-        logger.verbose('addRude', rude)
+        logger.verbose('RULE', 'adding rule', rude)
     }
 
     public updateRule (

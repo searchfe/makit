@@ -1,4 +1,8 @@
 import { FileSystemImpl } from '../types/fs-impl'
+import { Logger } from './logger'
+import { humanReadable } from './number'
+
+const l = Logger.getOrCreate()
 
 export interface Document<T> {
     [key: string]: T
@@ -23,11 +27,6 @@ export class DataBase {
         } catch (err) {
             if (err.code !== 'ENOENT') throw err
         }
-
-        process.on('SIGINT', () => {
-            this.syncToDisk()
-        })
-        process.on('SIGINT', () => this.syncToDisk())
     }
 
     public getDocument<T> (name: string): Document<T> {
@@ -43,6 +42,7 @@ export class DataBase {
     }
 
     public write<T> (doc: string, prop: string, val: T) {
+        l.debug('DTBS', () => `setting ${doc}.${prop} to`, val)
         this.dirty = true
         this.data[doc] = this.data[doc] || {}
         this.data[doc][prop] = val
@@ -56,10 +56,17 @@ export class DataBase {
     }
 
     public syncToDisk () {
-        if (!this.dirty) return false
-        this.fs.writeFileSync(this.filepath, JSON.stringify(this.data))
-        this.dirty = false
-        return true
+        if (!this.dirty) {
+            l.debug('DTBS', `documents clean, skip syncing`)
+            return false
+        } else {
+            l.verbose('DTBS', () => `syncing to disk ${this.filepath}`)
+            const data = Buffer.from(JSON.stringify(this.data), 'utf8')
+            this.fs.writeFileSync(this.filepath, data)
+            l.verbose('DTBS', () => `${humanReadable(data.length)} bytes written to ${this.filepath}`)
+            this.dirty = false
+            return true
+        }
     }
 
     private read () {

@@ -1,6 +1,7 @@
 import { inline } from './utils/string'
 import { inspect } from 'util'
 
+const inspectSymbol = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
 const extglob = require('extglob')
 const isGlob = require('is-glob')
 
@@ -49,7 +50,7 @@ export class Target {
         return extglob.isMatch(targetFile, this.glob) ? Target.execArrayFromString(targetFile) : null
     }
 
-    public toString () {
+    [inspectSymbol] () {
         return inline(inspect(this._decl))
     }
 

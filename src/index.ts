@@ -1,12 +1,17 @@
 import { Makefile } from './makefile'
 import { Logger, LogLevel } from './utils/logger'
 import { RecipeDeclaration } from './recipe'
+import { IO } from './io'
 import { PrerequisitesDeclaration } from './prerequisites'
 
 const makefile = global['makit'] = new Makefile()
 
 export function setVerbose (val: boolean = true) {
     Logger.getOrCreate().setLevel(val ? LogLevel.verbose : LogLevel.default)
+}
+
+export function setDebug (val: boolean = true) {
+    Logger.getOrCreate().setLevel(val ? LogLevel.debug : LogLevel.default)
 }
 
 export function setLoglevel (val: LogLevel) {
@@ -58,3 +63,9 @@ export { Context } from './context'
 export { DirectedGraph } from './graph'
 
 export { RecipeDeclaration } from './recipe'
+
+process.on('beforeExit', () => IO.getDataBase().syncToDisk())
+process.on('SIGINT', () => {
+    IO.getDataBase().syncToDisk()
+    process.exit(1)
+})

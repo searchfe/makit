@@ -1,6 +1,7 @@
 import { Context } from './context'
 import { TimeStamp } from './mtime'
 import { inline, limit } from './utils/string'
+const inspectSymbol = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
 
 export type RecipeDeclaration =
     (this: Context, ctx: Context, done: (err?: Error) => any)
@@ -25,7 +26,7 @@ export class Recipe {
         await this.fn.call(context, context)
     }
 
-    public toString () {
+    [inspectSymbol] () {
         return limit(inline(this.fn.toString()))
     }
 }

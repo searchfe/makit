@@ -85,7 +85,7 @@ export class DirectedGraph<T> {
         return tree
     }
 
-    public toString () {
+    public inspect () {
         return this.vertexToString(this.root) + '\n' + treeify.asTree(this.toTree())
     }
 

@@ -19,6 +19,8 @@ interface MetaDocument extends Document<number | string> {
     now?: number
 }
 
+const l = Logger.getOrCreate()
+
 export class MTime {
     private fs: FileSystem
     private db: DataBase
@@ -36,15 +38,13 @@ export class MTime {
     }
 
     public async setModifiedTime (fullpath: string, time: TimeStamp = this.now()): Promise<TimeStamp> {
-        Logger.getOrCreate().debug(fullpath, `setting to ${time}`)
         try {
             const { mtimeMs } = await this.fs.stat(fullpath)
             this.db.write('mtime', fullpath, { mtimeMs, time })
-            Logger.getOrCreate().debug(fullpath, `mtimeMs:${mtimeMs}, time:${time}`)
             return time
         } catch (error) {
             if (error.code === 'ENOENT') {
-                Logger.getOrCreate().debug(fullpath, `not exist, failed to set mtime`)
+                l.debug(fullpath, `not exist, skip set mtime`)
                 return NOT_EXIST
             }
             throw error
@@ -59,7 +59,6 @@ export class MTime {
                 entry = { mtimeMs, time: this.now() }
                 this.db.write('mtime', fullpath, entry)
             }
-            Logger.getOrCreate().debug(fullpath, `mtimeMs:${mtimeMs}, time:${entry.time}`)
             return entry.time
         } catch (error) {
             if (error.code === 'ENOENT') return NOT_EXIST

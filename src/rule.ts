@@ -4,6 +4,7 @@ import { Target } from './target'
 import { Recipe } from './recipe'
 import debugFactory from 'debug'
 
+const inspect = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
 const debug = debugFactory('makit:rule')
 
 export class Rule {
@@ -34,7 +35,7 @@ export class Rule {
         return this.target.exec(targetFile)
     }
 
-    public toString () {
-        return '\n' + this.target.toString() + ': ' + this.prerequisites.toString() + '\n  ' + this.recipe.toString()
+    [inspect] () {
+        return '\n' + this.target[inspect]() + ': ' + this.prerequisites.inspect() + '\n  ' + this.recipe[inspect]()
     }
 }

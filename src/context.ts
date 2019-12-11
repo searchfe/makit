@@ -1,5 +1,5 @@
 import { resolve, dirname } from 'path'
-import { Logger } from './utils/logger'
+import { Logger, hlTarget } from './utils/logger'
 import { IO } from './io'
 import { pick } from 'lodash'
 import { getDependencyFromTarget } from './rude'
@@ -21,8 +21,8 @@ export class Context implements FileSystem {
     public readonly target: string
     public readonly match
     public dependencies: string[]
+    public dynamicDependencies: string[] = []
 
-    private readonly dynamicDependencies: string[] = []
     private readonly makeImpl: ContextOptions['make']
     private readonly fs: FileSystem
     private readonly root: string
@@ -36,10 +36,6 @@ export class Context implements FileSystem {
         this.makeImpl = make
     }
 
-    public getAllDependencies () {
-        return [...this.dependencies, ...this.dynamicDependencies]
-    }
-
     public async make (target: string) {
         this.dynamicDependencies.push(target)
         const ret = await this.makeImpl(target)
@@ -47,7 +43,7 @@ export class Context implements FileSystem {
     }
 
     public async writeDependency () {
-        logger.debug(this.target, 'writing', this.target, 'with', this.dynamicDependencies)
+        logger.debug('RUDE', 'writing', hlTarget(this.target), 'with', this.dynamicDependencies)
         const filepath = getDependencyFromTarget(this.target)
         await this.outputFile(filepath, JSON.stringify(this.dynamicDependencies))
         await IO.getMTime().setModifiedTime(this.toFullPath(filepath))

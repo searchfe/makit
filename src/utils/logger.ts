@@ -9,6 +9,10 @@ export enum LogLevel {
     default = 2
 }
 
+export function hlTarget (str: string) {
+    return chalk['cyan'](str)
+}
+
 export class Logger {
     private static instance: Logger = null
     private suspended = false
@@ -37,30 +41,30 @@ export class Logger {
 
     public error (title: string, ...args: any[]) {
         if (this.suspended || this.loglevel < LogLevel.error) return
-        console.log(chalk['red'](title), this.stringify(args))
+        this.doLog(chalk.red(title), args)
     }
 
     public warning (title: string, ...args: any[]) {
         if (this.suspended || this.loglevel < LogLevel.warning) return
-        console.log(chalk['yellow'](title), this.stringify(args))
+        this.doLog(chalk.yellow(title), args)
     }
 
     public info (title: string, ...args: any[]) {
         if (this.suspended || this.loglevel < LogLevel.info) return
-        console.log(chalk['cyan'](title), this.stringify(args))
+        this.doLog(chalk.cyan(title), args)
     }
 
     public verbose (title: string, ...args: any[]) {
         if (this.suspended || this.loglevel < LogLevel.verbose) return
-        console.log(chalk['grey'](title), this.stringify(args))
+        this.doLog(chalk.gray(title), args)
     }
 
     public debug (title: string, ...args: any[]) {
         if (this.suspended || this.loglevel < LogLevel.debug) return
-        console.log(chalk['bgRed'](title), ...args)
+        this.doLog(chalk.magenta(title), args)
     }
 
-    private stringify (args) {
-        return args.map(x => (x && x.toString && x.toString()) || x).join(' ')
+    private doLog (title, args) {
+        console.log(chalk.inverse(title), ...args.map(x => typeof x === 'function' ? x() : x))
     }
 }

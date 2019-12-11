@@ -1,4 +1,5 @@
 import { Context } from './context'
+import { relation } from './utils/number'
 import { IO } from './io'
 import { TimeStamp, EMPTY_DEPENDENCY } from './mtime'
 import { max } from 'lodash'
@@ -6,10 +7,10 @@ import { Rule } from './rule'
 import { getTargetFromDependency } from './rude'
 import chalk from 'chalk'
 import { DirectedGraph } from './graph'
-import { Logger } from './utils/logger'
+import { Logger, hlTarget } from './utils/logger'
 import { EventEmitter } from 'events'
 
-const logger = Logger.getOrCreate()
+const l = Logger.getOrCreate()
 
 export interface MakeOptions {
     root?: string
@@ -70,8 +71,13 @@ export class Make {
 
     private async doMake (target: string, parent?: string): Promise<TimeStamp> {
         this.emit('making', { target, parent, graph: this.graph })
-        logger.verbose('prepare', target)
+        l.verbose('PREP', hlTarget(target))
         const [rule, match] = this.matchRule(target)
+        if (rule) {
+            l.debug('RULE', hlTarget(target), 'rule found:', rule)
+        } else {
+            l.debug('RULE', hlTarget(target), 'rule not found')
+        }
         const context = this.createContext({ target, match, rule })
         const fullpath = context.toFullPath(target)
         const [dmtime, mtime] = await Promise.all([
@@ -79,28 +85,30 @@ export class Make {
             IO.getMTime().getModifiedTime(fullpath)
         ])
 
-        logger.debug(target, `mtime(${mtime}) - dmtime(${dmtime}) = ${mtime - dmtime}`)
+        l.debug('TIME', hlTarget(target), () => `mtime(${mtime}) ${relation(mtime, dmtime)} dmtime(${dmtime})`)
 
         // non-existing files have the same mtime(-2
         if (dmtime >= mtime) {
             if (!rule) throw new Error(`no rule matched target: "${target}"`)
-            logger.info('make', this.makeDetail(target, context))
+            l.info('MAKE', () => this.makeDetail(target, context))
             await rule.recipe.make(context)
             if (rule.hasDynamicDependencies) await context.writeDependency()
             this.emit('maked', { target, parent, graph: this.graph })
             return IO.getMTime().setModifiedTime(fullpath)
         }
 
-        logger.info(chalk['grey']('skip'), this.makeDetail(target, context))
+        l.info(chalk.grey('SKIP'), () => this.makeDetail(target, context))
         this.emit('skip', { target, parent, graph: this.graph })
 
         return mtime
     }
 
     private makeDetail (target: string, context: Context) {
-        const deps = context.getAllDependencies()
-        const msg = target + (deps.length ? ': ' + deps.join(', ') : '')
-        return msg
+        const deps = [
+            ...context.dependencies,
+            ...context.dynamicDependencies.map(dep => `${dep}(dynamic)`)
+        ]
+        return hlTarget(target) + ': ' + deps.join(', ')
     }
 
     private emit (event: string, msg: any) {
@@ -113,8 +121,9 @@ export class Make {
             context,
             (dep: string) => this.make(dep, target)
         )
-        logger.debug(target, 'dependencies', context.dependencies)
-        logger.debug(target, 'timestamps', results)
+        l.debug('TIME', hlTarget(target), () => 'dependencies: ' +
+            context.dependencies.map((dep, i) => `${dep}(${results[i]})`)
+        )
         return max(results) || EMPTY_DEPENDENCY
     }
 

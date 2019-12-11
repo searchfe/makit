@@ -26,7 +26,7 @@ export class Prerequisites {
         return this.schedule.map<T>(ctx, fn)
     }
 
-    public toString () {
+    public inspect () {
         return inline(inspect(this._decl))
     }
 }
