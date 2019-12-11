@@ -29,11 +29,10 @@ jobs:
       install: npm ci
       script: npm run coveralls
     - stage: release
+      node_js: 10
       if: branch = master
       script: skip
       deploy:
         provider: script
         skip_cleanup: true
-        install: npm ci
-        node_js: 10
         script: npx semantic-release
