@@ -17,6 +17,6 @@ export function createEnv ({
     if (!fs.existsSync(process.cwd())) {
         fs.mkdirSync(process.cwd(), { recursive: true })
     }
-    Logger.getOrCreate().setLevel(process.env.CI ? 4 : logLevel)
+    Logger.getOrCreate().setLevel(process.env.TRAVIS ? 4 : logLevel)
     return { fs, db, mk }
 }

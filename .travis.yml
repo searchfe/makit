@@ -1,6 +1,6 @@
 node_js: 10
 env:
-  - CI=true
+  - TRAVIS=true
 jobs:
   include:
     - stage: test
