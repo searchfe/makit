@@ -14,7 +14,9 @@ export function createEnv ({
     const { db } = IO.resetFileSystem(fs)
     const mk = new Makefile()
 
-    fs.mkdirSync(process.cwd(), { recursive: true })
+    if (!fs.existsSync(process.cwd())) {
+        fs.mkdirSync(process.cwd(), { recursive: true })
+    }
     Logger.getOrCreate().setLevel(logLevel)
     return { fs, db, mk }
 }

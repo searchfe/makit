@@ -11,7 +11,7 @@ describe('local files', function () {
     const input0 = 'test/e2e/input0.js.out'
     const input1 = 'test/e2e/input1.js.out'
     beforeEach(() => {
-        createEnv({ logLevel: 1, fs: new NodeFileSystem() })
+        createEnv({ logLevel: 4, fs: new NodeFileSystem() })
         removeSync(output0)
         removeSync(input0)
         removeSync(output1)
