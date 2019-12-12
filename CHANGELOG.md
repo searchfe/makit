@@ -1,3 +1,11 @@
+# [1.14.0](https://github.com/searchfe/makit/compare/v1.13.2...v1.14.0) (2019-12-12)
+
+
+### Features
+
+* mtime db syncing, consistent logger ([3c4ef65](https://github.com/searchfe/makit/commit/3c4ef652258aa232b42c9da6d5d4823ccf3b7b4e))
+* stable mtime ([767f186](https://github.com/searchfe/makit/commit/767f1862d3215ff921ef0970720937ec92c70edd))
+
 ## [1.13.2](https://github.com/searchfe/makit/compare/v1.13.1...v1.13.2) (2019-12-04)
 
 

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;rule&quot; | makit</title>
+	<title>MetaDocument | makit</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,55 +56,58 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_rule_.html">&quot;rule&quot;</a>
+					<a href="../modules/_mtime_.html">&quot;mtime&quot;</a>
+				</li>
+				<li>
+					<a href="_mtime_.metadocument.html">MetaDocument</a>
 				</li>
 			</ul>
-			<h1>External module &quot;rule&quot;</h1>
+			<h1>Interface MetaDocument</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<a href="_utils_db_.document.html" class="tsd-signature-type">Document</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">MetaDocument</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
+				<h3 class="tsd-before-signature">Indexable</h3>
+				<div class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
-							<h3>Classes</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_rule_.rule.html" class="tsd-kind-icon">Rule</a></li>
-							</ul>
-						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Variables</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_rule_.html#debug" class="tsd-kind-icon">debug</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_rule_.html#inspect" class="tsd-kind-icon">inspect</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_mtime_.metadocument.html#now" class="tsd-kind-icon">now</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="debug" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> debug</h3>
-					<div class="tsd-signature tsd-kind-icon">debug<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;debugFactory(&#x27;makit:rule&#x27;)</span></div>
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a name="now" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> now</h3>
+					<div class="tsd-signature tsd-kind-icon">now<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/364ed34/src/rule.ts#L8">rule.ts:8</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="inspect" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> inspect</h3>
-					<div class="tsd-signature tsd-kind-icon">inspect<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"inspect"</span><span class="tsd-signature-symbol"> =&nbsp;Symbol.for(&#x27;nodejs.util.inspect.custom&#x27;) || &#x27;inspect&#x27;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/364ed34/src/rule.ts#L7">rule.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/364ed34/src/mtime.ts#L19">mtime.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -117,20 +120,44 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_rule_.html">"rule"</a>
+						<a href="../modules/_mtime_.html">"mtime"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_rule_.rule.html" class="tsd-kind-icon">Rule</a>
+						<a href="../classes/_mtime_.mtime.html" class="tsd-kind-icon">MTime</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_mtime_.mtimedocument.html" class="tsd-kind-icon">MTime<wbr>Document</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_mtime_.mtimeentry.html" class="tsd-kind-icon">MTime<wbr>Entry</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_mtime_.metadocument.html" class="tsd-kind-icon">Meta<wbr>Document</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+								<a href="_mtime_.metadocument.html#now" class="tsd-kind-icon">now</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/_mtime_.html#timestamp" class="tsd-kind-icon">Time<wbr>Stamp</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_mtime_.html#empty_dependency" class="tsd-kind-icon">EMPTY_<wbr>DEPENDENCY</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_mtime_.html#not_exist" class="tsd-kind-icon">NOT_<wbr>EXIST</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_rule_.html#debug" class="tsd-kind-icon">debug</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_rule_.html#inspect" class="tsd-kind-icon">inspect</a>
+						<a href="../modules/_mtime_.html#l" class="tsd-kind-icon">l</a>
 					</li>
 				</ul>
 			</nav>
