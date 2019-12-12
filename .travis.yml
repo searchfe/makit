@@ -1,3 +1,4 @@
+language: js
 node_js: 10
 jobs:
   include:
@@ -28,10 +29,9 @@ jobs:
       script: npm run coveralls
     - stage: release
       if: branch = master
+      node_js: lts/*
       script: skip
       deploy:
         provider: script
         skip_cleanup: true
-        script:
-          - nvm install lts/*
-          - npx semantic-release
+        script: npx semantic-release
