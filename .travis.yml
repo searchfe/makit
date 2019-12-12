@@ -1,4 +1,6 @@
 node_js: 10
+env:
+  - TRAVIS=true
 jobs:
   include:
     - stage: test
@@ -27,10 +29,11 @@ jobs:
       install: npm ci
       script: npm run coveralls
     - stage: release
-      node_js: 10
       if: branch = master
       script: skip
       deploy:
         provider: script
         skip_cleanup: true
-        script: npx semantic-release
+        script:
+          - nvm install lts/*
+          - npx semantic-release
