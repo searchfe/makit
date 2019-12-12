@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/searchfe/makit/compare/v1.14.0...v1.15.0) (2019-12-12)
+
+
+### Features
+
+* better log ([ad89204](https://github.com/searchfe/makit/commit/ad892042b1ac774932fe9996d26963ac02212440))
+
 # [1.14.0](https://github.com/searchfe/makit/compare/v1.13.2...v1.14.0) (2019-12-12)
 
 
