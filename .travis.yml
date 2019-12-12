@@ -1,6 +1,4 @@
 node_js: 10
-env:
-  - TRAVIS=true
 jobs:
   include:
     - stage: test
