@@ -46,6 +46,7 @@ export class Makefile {
         const prerequisites = new Prerequisites(prerequisitesDecl)
         const recipe = new Recipe(recipeDecl)
         const rule = new Rule(target, prerequisites, recipe)
+        logger.verbose('RULE', 'adding rule', rule)
         if (target.isFilePath()) {
             this.fileTargetRules.set(target.decl, rule)
         } else {
@@ -63,11 +64,9 @@ export class Makefile {
         if (targetDecl instanceof RegExp) throw new Error('rude() for RegExp not supported yet')
         const rule = this.addRule(targetDecl, series(prerequisitesDecl, dynamicPrerequisites()), recipeDecl)
         rule.hasDynamicDependencies = true
-        logger.verbose('RULE', 'adding rule', rule)
 
         const rude = this.addRule(targetDecl + rudeExtname, prerequisitesDecl, dependencyRecipe)
         rude.isDependencyTarget = true
-        logger.verbose('RULE', 'adding rule', rude)
     }
 
     public updateRule (

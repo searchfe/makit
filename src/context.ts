@@ -37,14 +37,15 @@ export class Context implements FileSystem {
     }
 
     public async make (target: string) {
+        logger.debug('RUDE', 'context.make called with', hlTarget(target), 'while making', hlTarget(this.target))
         this.dynamicDependencies.push(target)
         const ret = await this.makeImpl(target)
         return ret
     }
 
     public async writeDependency () {
-        logger.debug('RUDE', 'writing', hlTarget(this.target), 'with', this.dynamicDependencies)
         const filepath = getDependencyFromTarget(this.target)
+        logger.debug('RUDE', 'writing', filepath, 'with', this.dynamicDependencies)
         await this.outputFile(filepath, JSON.stringify(this.dynamicDependencies))
         await IO.getMTime().setModifiedTime(this.toFullPath(filepath))
     }

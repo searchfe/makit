@@ -6,6 +6,8 @@ import { Schedule } from './schedule/schedule'
 import { SequentialSchedule } from './schedule/sequential-schedule'
 import { ConcurrentSchedule } from './schedule/concurrent-schedule'
 
+const inspectSymbol = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
+
 export type TargetHandler<T> = (target: string) => T
 export type Resolver = (context: Context) => (string[] | string | Promise<string | string[]>)
 export type PrerequisiteItem = string | Resolver | SequentialSchedule | PrerequisiteArray
@@ -26,7 +28,7 @@ export class Prerequisites {
         return this.schedule.map<T>(ctx, fn)
     }
 
-    public inspect () {
+    [inspectSymbol] () {
         return inline(inspect(this._decl))
     }
 }

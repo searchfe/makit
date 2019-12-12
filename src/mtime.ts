@@ -2,7 +2,7 @@ import { TimeStamp } from './mtime'
 import { Document, DataBase } from './utils/db'
 import { IO } from './io'
 import { FileSystem } from './types/fs'
-import { Logger } from './utils/logger'
+import { Logger, hlTarget } from './utils/logger'
 
 // NOT_EXIST < EMPTY_DEPENDENCY < mtimeNs < Date.now()
 export const NOT_EXIST: TimeStamp = -2
@@ -41,10 +41,11 @@ export class MTime {
         try {
             const { mtimeMs } = await this.fs.stat(fullpath)
             this.db.write('mtime', fullpath, { mtimeMs, time })
+            l.debug('TIME', hlTarget(fullpath), `time set to`, time)
             return time
         } catch (error) {
             if (error.code === 'ENOENT') {
-                l.debug(fullpath, `not exist, skip set mtime`)
+                l.debug('TIME', hlTarget(fullpath), `not exist, skip set mtime`)
                 return NOT_EXIST
             }
             throw error

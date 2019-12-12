@@ -36,6 +36,20 @@ export class Rule {
     }
 
     [inspect] () {
-        return '\n' + this.target[inspect]() + ': ' + this.prerequisites.inspect() + '\n  ' + this.recipe[inspect]()
+        let str = '\n'
+        str += this.target[inspect]() + ':'
+        const deps = this.prerequisites[inspect]()
+        if (deps) {
+            str += ' ' + deps
+        }
+        if (this.hasDynamicDependencies) {
+            if (deps) {
+                str += ','
+            }
+            str += ' [...dynamic]'
+        }
+        str += '\n'
+        str += '  ' + this.recipe[inspect]()
+        return str
     }
 }

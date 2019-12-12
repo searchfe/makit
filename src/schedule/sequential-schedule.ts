@@ -1,8 +1,11 @@
 import { Schedule } from './schedule'
 import { Context } from '../context'
+import { inspect } from 'util'
 import { SingleSchedule } from './single-schedule'
 import { ConcurrentSchedule } from './concurrent-schedule'
 import { PrerequisiteArray, TargetHandler } from '../prerequisites'
+
+const inspectSymbol = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
 
 export class SequentialSchedule implements Schedule {
     constructor (private tasks: PrerequisiteArray) {}
@@ -23,6 +26,11 @@ export class SequentialSchedule implements Schedule {
 
     public static is (val: any): val is SequentialSchedule {
         return val instanceof SequentialSchedule
+    }
+
+    [inspectSymbol] () {
+        const deps = this.tasks.map(task => inspect(task))
+        return `series(${deps.join(', ')})`
     }
 }
 
