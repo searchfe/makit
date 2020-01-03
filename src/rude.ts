@@ -27,7 +27,7 @@ export function dynamicPrerequisites () {
         try {
             json = JSON.parse(fileContent)
         } catch (err) {
-            Logger.getOrCreate().warning('dynamic deps', 'corrupted', depTarget, err, 'removing...')
+            Logger.getOrCreate().warning('dynamic deps', 'corrupted', depTarget, err.message, 'removing...')
             await ctx.unlink(depTarget)
         }
         return json
