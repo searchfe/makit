@@ -1,3 +1,10 @@
+## [1.15.1](https://github.com/searchfe/makit/compare/v1.15.0...v1.15.1) (2020-01-03)
+
+
+### Bug Fixes
+
+* simple message for corrupted dep files ([568fb5d](https://github.com/searchfe/makit/commit/568fb5d4edd1c8576db9429906ef38dbc28fca13))
+
 # [1.15.0](https://github.com/searchfe/makit/compare/v1.14.0...v1.15.0) (2019-12-12)
 
 
