@@ -1,5 +1,8 @@
 import chalk from 'chalk'
 
+export type FunctionMessage = () => string
+export type LogMessage = string | FunctionMessage
+
 export enum LogLevel {
     error = 0,
     warning = 1,
@@ -17,11 +20,11 @@ export class Logger {
     private static instance: Logger = null
     private suspended = false
 
-    private constructor (private loglevel: LogLevel = LogLevel.default) { }
+    private constructor (private logLevel: LogLevel = LogLevel.default) { }
 
-    public static getOrCreate (...args: any[]) {
+    public static getOrCreate (logLevel?: LogLevel) {
         if (!Logger.instance) {
-            Logger.instance = new Logger(...args)
+            Logger.instance = new Logger(logLevel)
         }
         return Logger.instance
     }
@@ -36,35 +39,35 @@ export class Logger {
 
     public setLevel (level: LogLevel) {
         if (level < LogLevel.error || level > LogLevel.debug) throw new Error('invalid loglevel')
-        this.loglevel = level
+        this.logLevel = level
     }
 
-    public error (title: string, ...args: any[]) {
-        if (this.suspended || this.loglevel < LogLevel.error) return
+    public error (title: string, ...args: LogMessage[]) {
+        if (this.suspended || this.logLevel < LogLevel.error) return
         this.doLog(chalk.red(title), args)
     }
 
-    public warning (title: string, ...args: any[]) {
-        if (this.suspended || this.loglevel < LogLevel.warning) return
+    public warning (title: string, ...args: LogMessage[]) {
+        if (this.suspended || this.logLevel < LogLevel.warning) return
         this.doLog(chalk.yellow(title), args)
     }
 
-    public info (title: string, ...args: any[]) {
-        if (this.suspended || this.loglevel < LogLevel.info) return
+    public info (title: string, ...args: LogMessage[]) {
+        if (this.suspended || this.logLevel < LogLevel.info) return
         this.doLog(chalk.cyan(title), args)
     }
 
-    public verbose (title: string, ...args: any[]) {
-        if (this.suspended || this.loglevel < LogLevel.verbose) return
+    public verbose (title: string, ...args: LogMessage[]) {
+        if (this.suspended || this.logLevel < LogLevel.verbose) return
         this.doLog(chalk.gray(title), args)
     }
 
-    public debug (title: string, ...args: any[]) {
-        if (this.suspended || this.loglevel < LogLevel.debug) return
+    public debug (title: string, ...args: LogMessage[]) {
+        if (this.suspended || this.logLevel < LogLevel.debug) return
         this.doLog(chalk.magenta(title), args)
     }
 
-    private doLog (title, args) {
+    private doLog (title: string, args: LogMessage[]) {
         console.log(chalk.inverse(title), ...args.map(x => typeof x === 'function' ? x() : x))
     }
 }

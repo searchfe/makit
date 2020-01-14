@@ -1,4 +1,5 @@
 import { FileSystem } from '../types/fs'
+import { inspect } from 'util'
 import { Logger } from '../utils/logger'
 import { humanReadable } from '../utils/number'
 import { DocumentCollection } from './document-collection'
@@ -36,7 +37,7 @@ export class DataBase {
     }
 
     public write<T> (doc: string, prop: string, newValue: T) {
-        l.debug('DTBS', () => `setting ${doc}.${prop} to`, newValue)
+        l.debug('DTBS', () => `setting ${doc}.${prop} to ${inspect(newValue)}`)
         this.dirty = true
         this.data[doc] = this.data[doc] || {}
         this.data[doc][prop] = newValue
