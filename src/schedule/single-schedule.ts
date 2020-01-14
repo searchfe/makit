@@ -2,7 +2,7 @@ import { Context } from '../context'
 import { Schedule } from './schedule'
 import { SequentialSchedule } from './sequential-schedule'
 import { ConcurrentSchedule } from './concurrent-schedule'
-import { Resolver, TargetHandler } from '../prerequisites'
+import { Resolver, TargetHandler } from '../models/prerequisites'
 
 export class SingleSchedule implements Schedule {
     constructor (private task: string | Resolver) {}

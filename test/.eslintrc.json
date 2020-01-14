@@ -20,6 +20,8 @@
     "no-var": 2,
     "prefer-const": 2,
     "no-labels": "off",
+    "no-new": "off",
+    "no-throw-literal": "off",
     "indent": ["error", 4],
     "no-var": 2,
     "prefer-const": 2,

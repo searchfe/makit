@@ -1,5 +1,5 @@
 import { Makefile } from '../../src/index'
-import { MemoryFileSystem } from '../../src/fs/memfs'
+import { MemoryFileSystem } from '../../src/fs/memfs-impl'
 import { IO } from '../../src/io'
 import { Logger, LogLevel } from '../../src/utils/logger'
 

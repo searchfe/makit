@@ -1,6 +1,6 @@
-import { Context } from './context'
-import { TimeStamp } from './mtime'
-import { inline, limit } from './utils/string'
+import { Context } from '../context'
+import { TimeStamp } from '../fs/time-stamp'
+import { inline, limit } from '../utils/string'
 const inspectSymbol = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
 
 export type RecipeDeclaration =
@@ -15,15 +15,18 @@ export class Recipe {
     }
 
     public async make (context: Context): Promise<TimeStamp> {
-        if (this.fn.length >= 2) {
-            return new Promise((resolve, reject) => {
-                this.fn.call(context, context, (err, data) => {
-                    if (err) reject(err)
-                    else resolve(data)
-                })
-            })
+        // Case: make('foo')
+        if (this.fn.length < 2) {
+            return this.fn.call(context, context)
         }
-        await this.fn.call(context, context)
+
+        // Case: make('foo', cb)
+        return new Promise((resolve, reject) => {
+            this.fn.call(context, context, (err, data) => {
+                if (err) reject(err)
+                else resolve(data)
+            })
+        })
     }
 
     [inspectSymbol] () {

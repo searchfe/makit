@@ -1,5 +1,5 @@
 import { FileSystem } from '../types/fs'
-import { TimeStamp } from '../mtime'
+import { TimeStamp } from './time-stamp'
 import { resolve } from 'path'
 import { MakeDirectoryOptions } from 'fs'
 import MemoryFileSystemImpl from 'memory-fs'

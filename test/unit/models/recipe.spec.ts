@@ -1,4 +1,4 @@
-import { Recipe } from '../../src/recipe'
+import { Recipe } from '../../../src/models/recipe'
 
 describe('Recipe', function () {
     const fakeContext: any = {

@@ -1,7 +1,7 @@
-import { NodeFileSystem } from './fs/nodefs'
+import { NodeFileSystem } from './fs/nodefs-impl'
 import { FileSystem } from './types/fs'
-import { MTime } from './mtime'
-import { DataBase } from './utils/db'
+import { MTime } from './fs/mtime'
+import { DataBase } from './db'
 
 export class IO {
     static fs: FileSystem
@@ -27,12 +27,12 @@ export class IO {
         if (this.db) this.db.clear()
     }
 
-    static resetFileSystem (fs: FileSystem) {
-        this.fs = fs
+    static resetFileSystem (newFS: FileSystem) {
+        this.fs = newFS
         delete this.mtime
         delete this.db
         return {
-            fs: fs,
+            fs: newFS,
             db: this.getDataBase(),
             mtime: this.getMTime()
         }

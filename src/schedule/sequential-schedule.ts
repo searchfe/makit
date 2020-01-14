@@ -3,7 +3,7 @@ import { Context } from '../context'
 import { inspect } from 'util'
 import { SingleSchedule } from './single-schedule'
 import { ConcurrentSchedule } from './concurrent-schedule'
-import { PrerequisiteArray, TargetHandler } from '../prerequisites'
+import { PrerequisiteArray, TargetHandler } from '../models/prerequisites'
 
 const inspectSymbol = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
 

@@ -1,8 +1,8 @@
-import { Makefile } from './makefile'
+import { Makefile } from './models/makefile'
 import { Logger, LogLevel } from './utils/logger'
-import { RecipeDeclaration } from './recipe'
+import { RecipeDeclaration } from './models/recipe'
 import { IO } from './io'
-import { PrerequisitesDeclaration } from './prerequisites'
+import { PrerequisitesDeclaration } from './models/prerequisites'
 
 const makefile = global['makit'] = new Makefile()
 
@@ -56,16 +56,19 @@ export function disableCheckCircular () {
     makefile.disableCheckCircular = true
 }
 
-export { Makefile } from './makefile'
+export { Makefile } from './models/makefile'
 
 export { Context } from './context'
 
-export { DirectedGraph } from './graph'
+export { DirectedGraph } from './utils/graph'
 
-export { RecipeDeclaration } from './recipe'
+export { RecipeDeclaration } from './models/recipe'
 
-process.on('beforeExit', () => IO.getDataBase().syncToDisk())
+// Sync DB disk for normal exit
+process.on('exit', () => IO.getDataBase().syncToDisk())
+
 process.on('SIGINT', () => {
     IO.getDataBase().syncToDisk()
+    // Continue to exit, otherwise SIGINT is ignored
     process.exit(1)
 })

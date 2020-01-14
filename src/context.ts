@@ -2,9 +2,9 @@ import { resolve, dirname } from 'path'
 import { Logger, hlTarget } from './utils/logger'
 import { IO } from './io'
 import { pick } from 'lodash'
-import { getDependencyFromTarget } from './rude'
+import { getDependencyFromTarget } from './models/rude'
 import { FileSystem } from './types/fs'
-import { TimeStamp } from './mtime'
+import { TimeStamp } from './fs/time-stamp'
 
 const logger = Logger.getOrCreate()
 

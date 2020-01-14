@@ -1,5 +1,5 @@
 import { Makefile } from '../../src/index'
-import { NodeFileSystem } from '../../src/fs/nodefs'
+import { NodeFileSystem } from '../../src/fs/nodefs-impl'
 import { writeFileSync, statSync } from 'fs'
 import { removeSync } from 'fs-extra'
 import { createEnv } from '../stub/create-env'

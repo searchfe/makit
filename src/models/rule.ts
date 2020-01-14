@@ -1,4 +1,4 @@
-import { Context } from './context'
+import { Context } from '../context'
 import { TargetHandler, Prerequisites } from './prerequisites'
 import { Target } from './target'
 import { Recipe } from './recipe'

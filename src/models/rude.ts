@@ -1,5 +1,5 @@
-import { series } from './schedule/sequential-schedule'
-import { Logger } from './utils/logger'
+import { series } from '../schedule/sequential-schedule'
+import { Logger } from '../utils/logger'
 
 export const rudeExtname = '.rude.dep'
 

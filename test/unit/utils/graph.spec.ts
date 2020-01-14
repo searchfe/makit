@@ -1,4 +1,4 @@
-import { DirectedGraph } from '../../src/graph'
+import { DirectedGraph } from '../../../src/utils/graph'
 
 describe('DirectedGraph', function () {
     describe('.hasEdge()', function () {

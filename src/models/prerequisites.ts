@@ -1,10 +1,8 @@
-import { Context } from './context'
-import { inline } from './utils/string'
+import { Context } from '../context'
+import { inline } from '../utils/string'
 import { inspect } from 'util'
-import { normalizeToArray } from './utils/array'
-import { Schedule } from './schedule/schedule'
-import { SequentialSchedule } from './schedule/sequential-schedule'
-import { ConcurrentSchedule } from './schedule/concurrent-schedule'
+import { normalizeToArray } from '../utils/array'
+import { Schedule, SequentialSchedule, ConcurrentSchedule } from '../schedule'
 
 const inspectSymbol = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
 

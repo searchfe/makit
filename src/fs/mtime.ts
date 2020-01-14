@@ -1,23 +1,12 @@
-import { TimeStamp } from './mtime'
-import { Document, DataBase } from './utils/db'
-import { IO } from './io'
-import { FileSystem } from './types/fs'
-import { Logger, hlTarget } from './utils/logger'
+import { TimeStamp } from './time-stamp'
+import { DataBase } from '../db'
+import { IO } from '../io'
+import { FileSystem } from '../types/fs'
+import { Logger, hlTarget } from '../utils/logger'
 
-// NOT_EXIST < EMPTY_DEPENDENCY < mtimeNs < Date.now()
-export const NOT_EXIST: TimeStamp = -2
-export const EMPTY_DEPENDENCY: TimeStamp = -1
-export type TimeStamp = number
-
-interface MTimeEntry {
-    mtimeMs: TimeStamp
-    time: TimeStamp
-}
-interface MTimeDocument extends Document<MTimeEntry> {}
-
-interface MetaDocument extends Document<number | string> {
-    now?: number
-}
+// MTIME_NOT_EXIST < MTIME_EMPTY_DEPENDENCY < mtimeNs < Date.now()
+export const MTIME_NOT_EXIST: TimeStamp = -2
+export const MTIME_EMPTY_DEPENDENCY: TimeStamp = -1
 
 const l = Logger.getOrCreate()
 
@@ -46,7 +35,7 @@ export class MTime {
         } catch (error) {
             if (error.code === 'ENOENT') {
                 l.debug('TIME', hlTarget(fullpath), `not exist, skip set mtime`)
-                return NOT_EXIST
+                return MTIME_NOT_EXIST
             }
             throw error
         }
@@ -62,7 +51,7 @@ export class MTime {
             }
             return entry.time
         } catch (error) {
-            if (error.code === 'ENOENT') return NOT_EXIST
+            if (error.code === 'ENOENT') return MTIME_NOT_EXIST
             throw error
         }
     }

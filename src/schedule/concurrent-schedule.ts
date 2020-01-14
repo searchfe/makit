@@ -3,7 +3,7 @@ import { flatten } from 'lodash'
 import { SequentialSchedule } from './sequential-schedule'
 import { SingleSchedule } from './single-schedule'
 import { Context } from '../context'
-import { PrerequisiteArray, TargetHandler } from '../prerequisites'
+import { PrerequisiteArray, TargetHandler } from '../models/prerequisites'
 
 export class ConcurrentSchedule implements Schedule {
     constructor (private tasks: PrerequisiteArray) {}

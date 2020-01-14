@@ -1,4 +1,4 @@
-import { inline } from './utils/string'
+import { inline } from '../utils/string'
 import { inspect } from 'util'
 
 const inspectSymbol = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
@@ -54,7 +54,7 @@ export class Target {
         return inline(inspect(this._decl))
     }
 
-    public static execArrayFromString (str: string): RegExpExecArray {
+    private static execArrayFromString (str: string): RegExpExecArray {
         const arr = [str] as RegExpExecArray
         arr.input = str
         arr.index = 0

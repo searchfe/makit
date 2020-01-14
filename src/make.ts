@@ -1,12 +1,13 @@
 import { Context } from './context'
 import { relation } from './utils/number'
 import { IO } from './io'
-import { TimeStamp, EMPTY_DEPENDENCY } from './mtime'
+import { MTIME_EMPTY_DEPENDENCY } from './fs/mtime'
+import { TimeStamp } from './fs/time-stamp'
 import { max } from 'lodash'
-import { Rule } from './rule'
-import { getTargetFromDependency } from './rude'
+import { Rule } from './models/rule'
+import { getTargetFromDependency } from './models/rude'
 import chalk from 'chalk'
-import { DirectedGraph } from './graph'
+import { DirectedGraph } from './utils/graph'
 import { Logger, hlTarget } from './utils/logger'
 import { EventEmitter } from 'events'
 
@@ -116,7 +117,7 @@ export class Make {
     }
 
     private async resolveDependencies (target: string, context: Context, rule: Rule): Promise<TimeStamp> {
-        if (!rule) return EMPTY_DEPENDENCY
+        if (!rule) return MTIME_EMPTY_DEPENDENCY
         const results = await rule.map(
             context,
             (dep: string) => this.make(dep, target)
@@ -124,7 +125,7 @@ export class Make {
         l.debug('TIME', hlTarget(target), () => 'dependencies: ' +
             context.dependencies.map((dep, i) => `${dep}(${results[i]})`)
         )
-        return max(results) || EMPTY_DEPENDENCY
+        return max(results) || MTIME_EMPTY_DEPENDENCY
     }
 
     private updateGraph (target: string, parent?: string) {
