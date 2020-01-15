@@ -3,7 +3,7 @@ import { Logger, hlTarget } from './utils/logger'
 import { IO } from './io'
 import { pick } from 'lodash'
 import { getDependencyFromTarget } from './models/rude'
-import { FileSystem } from './types/fs'
+import { FileSystem } from './fs/file-system'
 import { TimeStamp } from './fs/time-stamp'
 
 const logger = Logger.getOrCreate()

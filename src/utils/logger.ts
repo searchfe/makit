@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 
 export type FunctionMessage = () => string
-export type LogMessage = string | FunctionMessage
+export type LogMessage = any | FunctionMessage
 
 export enum LogLevel {
     error = 0,

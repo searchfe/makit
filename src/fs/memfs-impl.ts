@@ -1,9 +1,12 @@
-import { FileSystem } from '../types/fs'
+import { FileSystem } from './file-system'
 import { TimeStamp } from './time-stamp'
 import { resolve } from 'path'
 import { MakeDirectoryOptions } from 'fs'
 import MemoryFileSystemImpl from 'memory-fs'
 
+/**
+ * memory-fs 对 FileSystem 接口的封装。目前这个类只用于跑测试。
+ */
 export class MemoryFileSystem implements FileSystem {
     private mtimes: Map<string, TimeStamp> = new Map()
     private fs = new MemoryFileSystemImpl()

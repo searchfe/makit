@@ -1,4 +1,4 @@
-import { FileSystem } from '../types/fs'
+import { FileSystem } from './file-system'
 import * as fs from 'fs'
 import { fromCallback } from '../utils/promise'
 

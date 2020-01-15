@@ -1,7 +1,6 @@
 import { TimeStamp } from './time-stamp'
 import { DataBase } from '../db'
-import { IO } from '../io'
-import { FileSystem } from '../types/fs'
+import { FileSystem } from './file-system'
 import { Logger, hlTarget } from '../utils/logger'
 
 // MTIME_NOT_EXIST < MTIME_EMPTY_DEPENDENCY < mtimeNs < Date.now()
@@ -15,8 +14,8 @@ export class MTime {
     private db: DataBase
     private static instance: MTime
 
-    constructor (fs: FileSystem) {
-        this.db = IO.getDataBase()
+    constructor (db: DataBase, fs: FileSystem) {
+        this.db = db
         this.fs = fs
     }
 
@@ -56,6 +55,9 @@ export class MTime {
         }
     }
 
+    /**
+     * 简单的校验，就可以不依赖数据库的并发一致性。
+     */
     private queryAndValidate (fullpath: string, mtimeMs: TimeStamp) {
         const entry = this.db.query('mtime', fullpath)
         if (!entry) return null

@@ -1,4 +1,5 @@
 import { Makefile } from '../../src/index'
+import { delay } from '../../src/utils/promise'
 import { NodeFileSystem } from '../../src/fs/nodefs-impl'
 import { writeFileSync, statSync } from 'fs'
 import { removeSync } from 'fs-extra'
@@ -42,7 +43,11 @@ describe('local files', function () {
             recipeTimes++
         })
         await mk.make(output1)
+
+        // say, we touched that file manually before next make
+        await delay(50)
         writeFileSync(input1, Math.random())
+
         await mk.make(output1)
         expect(recipeTimes).toEqual(2)
     })

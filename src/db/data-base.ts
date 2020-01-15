@@ -1,4 +1,4 @@
-import { FileSystem } from '../types/fs'
+import { FileSystem } from '../fs/file-system'
 import { inspect } from 'util'
 import { Logger } from '../utils/logger'
 import { humanReadable } from '../utils/number'

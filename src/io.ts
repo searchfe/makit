@@ -1,5 +1,5 @@
 import { NodeFileSystem } from './fs/nodefs-impl'
-import { FileSystem } from './types/fs'
+import { FileSystem } from './fs/file-system'
 import { MTime } from './fs/mtime'
 import { DataBase } from './db'
 
@@ -13,8 +13,11 @@ export class IO {
         return this.fs
     }
 
-    static getMTime (fs: FileSystem = this.getFileSystem()): MTime {
-        if (!this.mtime) this.mtime = new MTime(fs)
+    static getMTime (
+        db: DataBase = IO.getDataBase(),
+        fs: FileSystem = this.getFileSystem()
+    ): MTime {
+        if (!this.mtime) this.mtime = new MTime(db, fs)
         return this.mtime
     }
 
