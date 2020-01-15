@@ -45,8 +45,8 @@ export class DirectedGraph<T> {
         return this.edges.get(fr)!.has(to)
     }
 
-    public checkCircular (begin: T) {
-        let circularPath
+    public checkCircular (begin: T): T[] | null {
+        let circularPath: T[] | null = null
 
         this.preOrder(begin, (node, path, visited) => {
             if (visited.has(node)) {
@@ -91,7 +91,7 @@ export class DirectedGraph<T> {
 
     public toString () {
         if (!this.root) return '[Empty Tree]'
-        return this.vertexToString(this.root) + '\n' + treeify.asTree(this.toTree())
+        return this.vertexToString(this.root) + '\n' + treeify.asTree(this.toTree(), false, false)
     }
 
     private preOrder (vertex: T | undefined, visitor: Visitor<T>, path: T[] = [], visited: Set<T> = new Set()): void {

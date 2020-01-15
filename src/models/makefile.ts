@@ -100,7 +100,7 @@ export class Makefile {
             if (err.target) {
                 err.message = `${err.message} while making "${err.target}"`
                 if (err.makeStack.length) {
-                    err.message += '\n' + err.makeStack.map(x => `    required by "${x}"`).join('\n')
+                    err.message += '\n' + err.makeStack.map((x: string) => `    required by "${x}"`).join('\n')
                 }
             }
             throw err

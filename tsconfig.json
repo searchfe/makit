@@ -2,14 +2,11 @@
   "compilerOptions": {
     "target": "esnext",
     "declaration": true,
-    "skipLibCheck": true,
     "module": "CommonJS",
     "outDir": "dist",
-    "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "downlevelIteration": true,
     "strict": true,
     "suppressImplicitAnyIndexErrors": true
   },

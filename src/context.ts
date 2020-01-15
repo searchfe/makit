@@ -1,7 +1,7 @@
 import { resolve, dirname } from 'path'
+import { MakeDirectoryOptions } from 'fs'
 import { Logger, hlTarget } from './utils/logger'
 import { IO } from './io'
-import { pick } from 'lodash'
 import { getDependencyFromTarget } from './models/rude'
 import { FileSystem } from './fs/file-system'
 import { TimeStamp } from './fs/time-stamp'
@@ -19,7 +19,7 @@ interface ContextOptions {
 
 export class Context implements FileSystem {
     public readonly target: string
-    public readonly match
+    public readonly match: RegExpExecArray | null
     public dependencies: string[]
     public dynamicDependencies: string[] = []
 
@@ -48,13 +48,6 @@ export class Context implements FileSystem {
         logger.debug('RUDE', 'writing', filepath, 'with', this.dynamicDependencies)
         await this.outputFile(filepath, JSON.stringify(this.dynamicDependencies))
         await IO.getMTime().setModifiedTime(this.toFullPath(filepath))
-    }
-
-    public clone (options: Partial<ContextOptions>) {
-        return new Context({
-            ...pick(this, ['root', 'match', 'target', 'dependencies', 'fs', 'make']),
-            ...options
-        })
     }
 
     async outputFile (filepath: string, content: string | Buffer) {
@@ -122,11 +115,11 @@ export class Context implements FileSystem {
     /**
      * FileSystem Implements
      */
-    async mkdir (filepath: string, options?) {
+    async mkdir (filepath: string, options?: number | string | MakeDirectoryOptions | null) {
         return this.fs.mkdir(this.toFullPath(filepath), options)
     }
 
-    mkdirSync (filepath: string, options) {
+    mkdirSync (filepath: string, options: number | string | MakeDirectoryOptions | null) {
         return this.fs.mkdirSync(this.toFullPath(filepath), options)
     }
 

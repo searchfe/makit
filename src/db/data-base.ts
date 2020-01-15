@@ -22,7 +22,7 @@ export class DataBase {
     private data: DocumentCollection = {}
     private dirty = false
 
-    constructor (filepath: string, fs) {
+    constructor (filepath: string, fs: FileSystem) {
         this.fs = fs
         this.filepath = filepath
         this.readFromDisk()
@@ -69,13 +69,14 @@ export class DataBase {
     }
 
     private readFromDisk () {
-        let str, data
+        let str: string, data: any
 
         try {
             str = this.fs.readFileSync(this.filepath, 'utf8')
         } catch (err) {
             if (err.code === 'ENOENT') {
                 // ignore if not exists, will be created on first sync
+                str = '{}'
             } else {
                 throw err
             }

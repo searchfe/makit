@@ -9,8 +9,15 @@ export class SingleSchedule implements Schedule {
 
     public async map<T> (ctx: Context, fn: TargetHandler<T>): Promise<T[]> {
         if (typeof this.task === 'string') {
+            // 存在分组匹配
             if (this.task.match(/\$\d/)) {
-                return [await fn(this.task.replace(/\$(\d+)/g, (_, i) => ctx.match[i]))]
+                return [
+                    // 从 match 数组获得匹配的分组
+                    await fn(this.task.replace(
+                        /\$(\d+)/g,
+                        (_, i) => ctx.match![i])
+                    )
+                ]
             }
             return [await fn(this.task)]
         }

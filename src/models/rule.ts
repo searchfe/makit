@@ -37,6 +37,12 @@ export class Rule {
 
     [inspect] () {
         let str = '\n'
+        /**
+         * Symbols are not allowed to index an object,
+         * we need `suppressImplicitAnyIndexErrors` to suppress errors.
+         *
+         * see: https://github.com/microsoft/TypeScript/issues/1863
+         */
         str += this.target[inspect]() + ':'
         const deps = this.prerequisites[inspect]()
         if (deps) {

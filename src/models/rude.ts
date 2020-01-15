@@ -1,4 +1,5 @@
 import { series } from '../schedule/sequential-schedule'
+import { Context } from '../context'
 import { Logger } from '../utils/logger'
 
 export const rudeExtname = '.rude.dep'
@@ -34,7 +35,7 @@ export function dynamicPrerequisites () {
     })
 }
 
-export async function dependencyRecipe (ctx) {
+export async function dependencyRecipe (ctx: Context) {
     try {
         await ctx.unlink(ctx.targetFullPath())
     } catch (err) {

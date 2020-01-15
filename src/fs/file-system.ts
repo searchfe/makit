@@ -22,11 +22,11 @@ export interface FileSystem {
     mkdirSync(path: string, options?: number | string | MakeDirectoryOptions | null): void;
 
     unlink(path: string): Promise<void>
-    unlinkSync(path: string)
+    unlinkSync(path: string): void
 
     exists(path: string): Promise<boolean>
     existsSync(path: string): boolean
 
     utimes(path: string, atime: number, mtime: number): Promise<void>
-    utimesSync(path: string, atime: number, mtime: number)
+    utimesSync(path: string, atime: number, mtime: number): void
 }

@@ -12,25 +12,10 @@
     "promise"
   ],
   "rules": {
-    "no-var": 2,
     "no-dupe-class-members": "off",
-    "prefer-const": 2,
-    "no-labels": "off",
     "indent": ["error", 4],
-    "jasmine/prefer-jasmine-matcher": "off",
-    "no-var": 2,
-    "prefer-const": 2,
-    "no-labels": "off",
-    "@typescript-eslint/indent": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-object-literal-type-assertion": "off",
-    "@typescript-eslint/no-use-before-define": "off",
-    "@typescript-eslint/interface-name-prefix": "off",
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "debug" }],
     "no-unused-vars": "off",
-    "no-useless-constructor": "off",
-    "import/export": "off"
+    "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "debug" }],
+    "no-useless-constructor": "off"
   }
 }
