@@ -13,7 +13,7 @@ export class DirectedGraph<T> {
     private edges: Map<T, Set<T>> = new Map()
     private redges: Map<T, Set<T>> = new Map()
     private vertices: Map<T, VertexType> = new Map()
-    private root: T = null
+    private root?: T
     private vertexToString: (v: T) => string
 
     public constructor (vertexToString: (v: T) => string = x => x + '') {
@@ -30,11 +30,11 @@ export class DirectedGraph<T> {
         if (!this.edges.has(fr)) {
             this.edges.set(fr, new Set())
         }
-        this.edges.get(fr).add(to)
+        this.edges.get(fr)!.add(to)
         if (!this.redges.has(to)) {
             this.redges.set(to, new Set())
         }
-        this.redges.get(to).add(fr)
+        this.redges.get(to)!.add(fr)
 
         this.addVertex(fr, VertexType.Out)
         this.addVertex(to, VertexType.In)
@@ -42,7 +42,7 @@ export class DirectedGraph<T> {
 
     public hasEdge (fr: T, to: T) {
         if (!this.edges.has(fr)) return false
-        return this.edges.get(fr).has(to)
+        return this.edges.get(fr)!.has(to)
     }
 
     public checkCircular (begin: T) {
@@ -90,10 +90,12 @@ export class DirectedGraph<T> {
     }
 
     public toString () {
+        if (!this.root) return '[Empty Tree]'
         return this.vertexToString(this.root) + '\n' + treeify.asTree(this.toTree())
     }
 
-    private preOrder (vertex: T, visitor: Visitor<T>, path: T[] = [], visited: Set<T> = new Set()): void {
+    private preOrder (vertex: T | undefined, visitor: Visitor<T>, path: T[] = [], visited: Set<T> = new Set()): void {
+        if (!vertex) return
         visitor(vertex, path, visited)
 
         if (visited.has(vertex)) return

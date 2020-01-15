@@ -10,7 +10,7 @@ const logger = Logger.getOrCreate()
 
 interface ContextOptions {
     target: string
-    match: RegExpExecArray
+    match: RegExpExecArray | null
     root: string
     dependencies?: string[]
     fs: FileSystem

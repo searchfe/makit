@@ -15,8 +15,8 @@ export enum TargetType {
 export class Target {
     private targetType: TargetType
     private _decl: TargetDeclaration
-    private rTarget: RegExp = null
-    private glob: string = null
+    private rTarget?: RegExp
+    private glob?: string
 
     constructor (target: TargetDeclaration) {
         this._decl = target
@@ -45,7 +45,7 @@ export class Target {
         return this.targetType === TargetType.filepath
     }
 
-    public exec (targetFile: string): RegExpExecArray {
+    public exec (targetFile: string): RegExpExecArray | null {
         if (this.rTarget) return this.rTarget.exec(targetFile)
         return extglob.isMatch(targetFile, this.glob) ? Target.execArrayFromString(targetFile) : null
     }

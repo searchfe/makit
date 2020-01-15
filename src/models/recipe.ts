@@ -1,10 +1,11 @@
 import { Context } from '../context'
+import { Callback } from '../utils/promise'
 import { TimeStamp } from '../fs/time-stamp'
 import { inline, limit } from '../utils/string'
 const inspectSymbol = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
 
 export type RecipeDeclaration =
-    (this: Context, ctx: Context, done: (err?: Error) => any)
+    (this: Context, ctx: Context, done?: Callback<any>)
     => (any | Promise<any>)
 
 export class Recipe {

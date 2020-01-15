@@ -17,7 +17,7 @@ export function hlTarget (str: string) {
 }
 
 export class Logger {
-    private static instance: Logger = null
+    private static instance: Logger
     private suspended = false
 
     private constructor (private logLevel: LogLevel = LogLevel.default) { }

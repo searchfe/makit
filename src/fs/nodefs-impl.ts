@@ -3,7 +3,7 @@ import * as fs from 'fs'
 import { fromCallback } from '../utils/promise'
 
 export class NodeFileSystem implements FileSystem {
-    stat (path: string, options?: fs.BigIntOptions): Promise<fs.BigIntStats> {
+    stat (path: string, options?: fs.BigIntOptions): Promise<fs.Stats> {
         return fromCallback(cb => options ? fs.stat(path, options, cb) : fs.stat(path, cb))
     }
     statSync (path: string): fs.Stats {

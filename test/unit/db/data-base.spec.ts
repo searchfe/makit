@@ -94,12 +94,28 @@ describe('DataBase', () => {
     })
 
     describe('#clear()', () => {
-        it('should clear documents', () => {
+        it('should clear specified document', () => {
             const db = new DataBase('foo', {
-                readFileSync: () => '{"doc": {"prop": "FOO"}}'
+                readFileSync: () => JSON.stringify({
+                    doc1: { foo: 'FOO' },
+                    doc2: { bar: 'BAR' }
+                })
+            })
+            db.clear('doc1')
+            expect(db.query('doc1', 'foo')).toEqual(undefined)
+            expect(db.query('doc2', 'bar')).toEqual('BAR')
+        })
+
+        it('should clear all if document not specified', () => {
+            const db = new DataBase('foo', {
+                readFileSync: () => JSON.stringify({
+                    doc1: { foo: 'FOO' },
+                    doc2: { bar: 'BAR' }
+                })
             })
             db.clear()
-            expect(db.query('foo', 'prop')).toEqual(undefined)
+            expect(db.query('doc1', 'foo')).toEqual(undefined)
+            expect(db.query('doc2', 'bar')).toEqual(undefined)
         })
     })
 

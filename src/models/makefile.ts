@@ -14,7 +14,7 @@ const logger = Logger.getOrCreate()
 
 export class Makefile {
     public root: string
-    public emitter: EventEmitter
+    public emitter = new EventEmitter()
     public disableCheckCircular = false
 
     private ruleMap: Map<TargetDeclaration, Rule> = new Map()
@@ -75,6 +75,9 @@ export class Makefile {
         recipeDecl: RecipeDeclaration = defaultRecipe
     ) {
         const rule = this.ruleMap.get(targetDecl)
+        if (!rule) {
+            throw new Error(`rule for "${targetDecl}" not found`)
+        }
         rule.prerequisites = new Prerequisites(prerequisitesDecl)
         rule.recipe = new Recipe(recipeDecl)
     }
@@ -106,19 +109,18 @@ export class Makefile {
     }
 
     public on (event: string, fn: (...args: any[]) => void) {
-        this.emitter = this.emitter || new EventEmitter()
         this.emitter.on(event, fn)
     }
     public off (event: string, fn: (...args: any[]) => void) {
-        this.emitter && this.emitter.removeListener(event, fn)
+        this.emitter.removeListener(event, fn)
     }
 
-    private matchRule (target: string): [Rule, RegExpExecArray] {
+    private matchRule (target: string): [Rule, RegExpExecArray] | null {
         if (this.fileTargetRules.has(target)) {
             const match: RegExpExecArray = [target] as RegExpExecArray
             match.input = target
             match.index = 0
-            return [this.fileTargetRules.get(target), match]
+            return [this.fileTargetRules.get(target)!, match]
         }
         for (let i = this.matchingRules.length - 1; i >= 0; i--) {
             const rule = this.matchingRules[i]
@@ -127,7 +129,7 @@ export class Makefile {
                 return [rule, match]
             }
         }
-        return [null, null]
+        return null
     }
 
     private findFirstTarget (): string {

@@ -1,7 +1,7 @@
 import { FileSystem } from './file-system'
 import { TimeStamp } from './time-stamp'
 import { resolve } from 'path'
-import { MakeDirectoryOptions } from 'fs'
+import { MakeDirectoryOptions, Stats } from 'fs'
 import MemoryFileSystemImpl from 'memory-fs'
 
 /**
@@ -20,10 +20,10 @@ export class MemoryFileSystem implements FileSystem {
         options.recursive ? this.fs.mkdirpSync(fullpath) : this.fs.mkdirSync(fullpath)
     }
 
-    readFile (path: string, encoding: string) {
+    readFile (path: string, encoding?: string) {
         return this.readFileSync(path, encoding)
     }
-    readFileSync (path: string, encoding: string) {
+    readFileSync (path: string, encoding?: string) {
         const fullpath = resolve(path)
         return this.fs.readFileSync(fullpath, encoding)
     }
@@ -49,9 +49,9 @@ export class MemoryFileSystem implements FileSystem {
             throw err
         }
         return {
-            mtime: new Date(this.mtimes.get(fullpath)),
+            mtime: new Date(this.mtimes.get(fullpath)!),
             mtimeMs: this.mtimes.get(fullpath)
-        }
+        } as Stats
     }
 
     async unlink (path: string) {

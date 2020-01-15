@@ -15,16 +15,16 @@ const l = Logger.getOrCreate()
 
 export interface MakeOptions {
     root?: string
-    emitter?: EventEmitter
+    emitter: EventEmitter
     disableCheckCircular?: boolean
-    matchRule?: (target: string) => [Rule, RegExpExecArray]
+    matchRule: (target: string) => [Rule, RegExpExecArray] | null
 }
 
 export class Make {
     private making: Map<string, Promise<TimeStamp>> = new Map()
     private graph: DirectedGraph<string> = new DirectedGraph()
     private root: string
-    private matchRule: (target: string) => [Rule, RegExpExecArray]
+    private matchRule: (target: string) => [Rule, RegExpExecArray] | null
     private emitter: EventEmitter
     private disableCheckCircular: boolean
 
@@ -40,10 +40,10 @@ export class Make {
         this.disableCheckCircular = disableCheckCircular || false
     }
 
-    public createContext ({ target, match, rule }: { target: string, match: RegExpExecArray, rule?: Rule}) {
+    public createContext ({ target, match, rule }: { target: string, match: RegExpExecArray | null, rule?: Rule}) {
         if (rule && rule.isDependencyTarget) {
             target = getTargetFromDependency(target)
-            match = this.matchRule(target)[1]
+            match = this.matchRule(target)![1]
         }
         return new Context({
             target,
@@ -73,12 +73,13 @@ export class Make {
     private async doMake (target: string, parent?: string): Promise<TimeStamp> {
         this.emit('making', { target, parent, graph: this.graph })
         l.verbose('PREP', hlTarget(target))
-        const [rule, match] = this.matchRule(target)
-        if (rule) {
-            l.debug('RULE', hlTarget(target), 'rule found:', rule)
+        const result = this.matchRule(target)
+        if (result) {
+            l.debug('RULE', hlTarget(target), 'rule found:', result[0])
         } else {
             l.debug('RULE', hlTarget(target), 'rule not found')
         }
+        const [rule, match] = result || [undefined, null]
         const context = this.createContext({ target, match, rule })
         const fullpath = context.toFullPath(target)
         const [dmtime, mtime] = await Promise.all([
@@ -116,7 +117,7 @@ export class Make {
         this.emitter && this.emitter.emit(event, msg)
     }
 
-    private async resolveDependencies (target: string, context: Context, rule: Rule): Promise<TimeStamp> {
+    private async resolveDependencies (target: string, context: Context, rule?: Rule): Promise<TimeStamp> {
         if (!rule) return MTIME_EMPTY_DEPENDENCY
         const results = await rule.map(
             context,
@@ -151,6 +152,6 @@ export class Make {
         if (!this.making.has(target)) {
             this.making.set(target, fn())
         }
-        return this.making.get(target)
+        return this.making.get(target)!
     }
 }

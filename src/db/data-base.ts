@@ -47,7 +47,7 @@ export class DataBase {
     public clear (doc?: string) {
         this.dirty = true
         if (!doc) this.data = {}
-        this.data[doc] = {}
+        else this.data[doc] = {}
     }
 
     public syncToDisk () {
