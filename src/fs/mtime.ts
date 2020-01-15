@@ -20,7 +20,7 @@ export class MTime {
     }
 
     public now (): TimeStamp {
-        const time = this.db.query('meta', 'now', 0) + 1
+        const time = +this.db.query('meta', 'now', 0) + 1
         this.db.write('meta', 'now', time)
         return time
     }
