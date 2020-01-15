@@ -28,7 +28,7 @@ export class DataBase {
         this.readFromDisk()
     }
 
-    public query<T> (doc: string, prop: string, defaultValue?: T) {
+    query<T> (doc: string, prop: string, defaultValue?: T) {
         if (!this.data[doc]) {
             return defaultValue
         }
@@ -36,7 +36,7 @@ export class DataBase {
         return value !== undefined ? value : defaultValue
     }
 
-    public write<T> (doc: string, prop: string, newValue: T) {
+    write<T> (doc: string, prop: string, newValue: T) {
         l.debug('DTBS', () => `setting ${doc}.${prop} to ${inspect(newValue)}`)
         this.dirty = true
         this.data[doc] = this.data[doc] || {}
@@ -44,28 +44,27 @@ export class DataBase {
         return this.data[doc][prop]
     }
 
-    public clear (doc?: string) {
+    clear (doc?: string) {
         this.dirty = true
-        if (!doc) this.data = {}
-        else this.data[doc] = {}
+        if (doc) this.data[doc] = {}
+        else this.data = {}
     }
 
-    public syncToDisk () {
+    syncToDisk () {
         if (!this.dirty) {
             l.debug('DTBS', `documents clean, skip syncing`)
             return false
-        } else {
-            l.verbose('DTBS', () => `syncing to disk ${this.filepath}`)
-            const data = Buffer.from(JSON.stringify(this.data), 'utf8')
-
-            // Note: should be synchronous to handle exit event,
-            // after which microtasks will not be scheduled or called.
-            this.fs.writeFileSync(this.filepath, data)
-
-            l.verbose('DTBS', () => `${humanReadable(data.length)} bytes written to ${this.filepath}`)
-            this.dirty = false
-            return true
         }
+        l.verbose('DTBS', () => `syncing to disk ${this.filepath}`)
+        const data = Buffer.from(JSON.stringify(this.data), 'utf8')
+
+        // Note: should be synchronous to handle exit event,
+        // after which microtasks will not be scheduled or called.
+        this.fs.writeFileSync(this.filepath, data)
+
+        l.verbose('DTBS', () => `${humanReadable(data.length)} bytes written to ${this.filepath}`)
+        this.dirty = false
+        return true
     }
 
     private readFromDisk () {

@@ -1,7 +1,7 @@
-import { humanReadable } from '../../../src/utils/number'
+import { humanReadable, relation } from '../../../src/utils/number'
 
 describe('number', function () {
-    describe('humanReadable()', function () {
+    describe('.humanReadable()', function () {
         it('should format 1000 to 1,000', function () {
             expect(humanReadable(1000)).toEqual('1,000')
         })
@@ -16,6 +16,24 @@ describe('number', function () {
 
         it('should format -1234 to -1,245', function () {
             expect(humanReadable(-1234)).toEqual('-1,234')
+        })
+    })
+
+    describe('.relation()', function () {
+        it('should return > if lhs is greater', function () {
+            expect(relation(3, 2)).toEqual('>')
+        })
+
+        it('should return < if rhs is greater', function () {
+            expect(relation(3, 8)).toEqual('<')
+        })
+
+        it('should return === when equal', function () {
+            expect(relation(2, 2)).toEqual('=')
+        })
+
+        it('should return ? when not comparable', function () {
+            expect(relation(0, NaN)).toEqual('?')
         })
     })
 })
