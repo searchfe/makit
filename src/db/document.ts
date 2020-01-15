@@ -4,4 +4,3 @@
 export interface Document<T> {
     [key: string]: T
 }
-
