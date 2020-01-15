@@ -48,31 +48,31 @@ describe('DirectedGraph', function () {
         })
     })
 
-    describe('.getSinglePath()', function () {
+    describe('.findPathToRoot()', function () {
         it('should return single element for roots', function () {
             const g = new DirectedGraph()
             g.addEdge('a', 'b')
-            expect(g.getSinglePath('a')).toEqual(['a'])
+            expect(g.findPathToRoot('a')).toEqual(['a'])
         })
         it('should return all ascendants', function () {
             const g = new DirectedGraph()
             g.addEdge('a', 'b')
             g.addEdge('b', 'c')
-            expect(g.getSinglePath('c')).toEqual(['c', 'b', 'a'])
+            expect(g.findPathToRoot('c')).toEqual(['c', 'b', 'a'])
         })
         it('should return the first path for multiple parents', function () {
             const g = new DirectedGraph()
             g.addEdge('a', 'b')
             g.addEdge('b', 'c')
             g.addEdge('d', 'c')
-            expect(g.getSinglePath('c')).toEqual(['c', 'b', 'a'])
+            expect(g.findPathToRoot('c')).toEqual(['c', 'b', 'a'])
         })
         it('should print circular if there is one', function () {
             const g = new DirectedGraph()
             g.addEdge('a', 'b')
             g.addEdge('b', 'c')
             g.addEdge('c', 'a')
-            expect(g.getSinglePath('a')).toEqual(['a', 'c', 'b', 'a'])
+            expect(g.findPathToRoot('a')).toEqual(['a', 'c', 'b', 'a'])
         })
     })
 
@@ -80,7 +80,7 @@ describe('DirectedGraph', function () {
         it('should construct a tree for graph with a single edge', function () {
             const g = new DirectedGraph()
             g.addEdge('a', 'b')
-            expect(g.toTree()).toEqual({ b: {} })
+            expect((g as any).toTree()).toEqual({ b: {} })
         })
     })
 

@@ -1,7 +1,11 @@
 import * as treeify from 'treeify'
 
+const inspect = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
+
 type Visitor<T> = (vertex: T, stack: T[], visited: Set<T>) => (void | false)
+
 type Tree = { [key: string]: Tree }
+
 enum VertexType {
     None = 0,
     In = 1,
@@ -16,17 +20,17 @@ export class DirectedGraph<T> {
     private root?: T
     private vertexToString: (v: T) => string
 
-    public constructor (vertexToString: (v: T) => string = x => x + '') {
+    constructor (vertexToString: (v: T) => string = x => x + '') {
         this.vertexToString = vertexToString
     }
 
-    public addVertex (v: T, vertexType = VertexType.None) {
+    addVertex (v: T, vertexType = VertexType.None) {
         const type = this.vertices.get(v) || VertexType.None
         this.vertices.set(v, type | vertexType)
         if (!this.root) this.root = v
     }
 
-    public addEdge (fr: T, to: T) {
+    addEdge (fr: T, to: T) {
         if (!this.edges.has(fr)) {
             this.edges.set(fr, new Set())
         }
@@ -40,12 +44,17 @@ export class DirectedGraph<T> {
         this.addVertex(to, VertexType.In)
     }
 
-    public hasEdge (fr: T, to: T) {
+    hasEdge (fr: T, to: T) {
         if (!this.edges.has(fr)) return false
         return this.edges.get(fr)!.has(to)
     }
 
-    public checkCircular (begin: T): T[] | null {
+    /**
+     * 是否存在环状结构
+     *
+     * 如果存在返回一个 circuit，否则返回 null
+     */
+    checkCircular (begin: T): T[] | null {
         let circularPath: T[] | null = null
 
         this.preOrder(begin, (node, path, visited) => {
@@ -56,47 +65,76 @@ export class DirectedGraph<T> {
         return circularPath
     }
 
-    public getSinglePath (vertex: T): T[] {
+    /**
+     * 获取一条从 root 到 vertex 的路径
+     */
+    findPathToRoot (vertex: T): T[] {
         const seen: Set<T> = new Set()
         while (true) {
-            if (seen.has(vertex)) {
-                return [...seen, vertex]
-            }
-            seen.add(vertex)
+            if (seen.has(vertex)) return [...seen, vertex]
+            else seen.add(vertex)
+
             const parents = this.redges.get(vertex)
             if (!parents || !parents.size) break
+
             vertex = parents.values().next().value
         }
         return [...seen]
     }
 
-    public toTree () {
+    getSinglePath (vertex: T): T[] {
+        console.warn(
+            '[makit] .getSinglePath() is deprecated, ' +
+            'use .findPathToRoot() instead'
+        )
+        return this.findPathToRoot(vertex)
+    }
+
+    [inspect] () {
+        return this.toString()
+    }
+
+    /**
+     * 文本形式展示为树状结构
+     */
+    toString () {
+        if (!this.root) return '[Empty Tree]'
+        const root = this.vertexToString(this.root)
+        const tree = treeify.asTree(this.toTree(), false, false)
+        return `${root}\n${tree}`
+    }
+
+    /**
+     * 转化为 Plain Object 表示的树，用于 treeify
+     *
+     * 注意：使用前需要先调用 checkCircular()，
+     * 或从数据上确保它是一棵树。
+     */
+    private toTree () {
         const tree: Tree = {}
-        const v2node = new Map([[this.root, tree]])
+        const nodes = new Map([[this.root, tree]])
 
         this.preOrder(this.root, (vertex, stack, visited) => {
-            const parentV = stack[stack.length - 1]
-            const parentNode = v2node.get(parentV)
+            const parentVertex = stack[stack.length - 1]
+            const parentNode = nodes.get(parentVertex)
             if (!parentNode) return
+
             const childNode = parentNode[this.vertexToString(vertex)] = {}
-            v2node.set(vertex, childNode)
+            nodes.set(vertex, childNode)
+            /**
+             * 输出树时需要禁用 visited：
+             *
+             * 输出过的节点可能同时是其他节点的子节点，
+             * 这个父子关系同样要写出来。
+             */
             visited.clear()
         })
         return tree
     }
 
-    public inspect () {
-        return this.toString()
-    }
-
-    public toString () {
-        if (!this.root) return '[Empty Tree]'
-        return this.vertexToString(this.root) + '\n' + treeify.asTree(this.toTree(), false, false)
-    }
-
     private preOrder (vertex: T | undefined, visitor: Visitor<T>, path: T[] = [], visited: Set<T> = new Set()): void {
         if (!vertex) return
-        visitor(vertex, path, visited)
+        else visitor(vertex, path, visited)
 
         if (visited.has(vertex)) return
         else visited.add(vertex)
@@ -106,9 +144,5 @@ export class DirectedGraph<T> {
             this.preOrder(child, visitor, path, visited)
         }
         path.pop()
-    }
-
-    private circularString (vertex: T) {
-        return `[Circular(${vertex})]`
     }
 }
