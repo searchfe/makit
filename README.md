@@ -13,21 +13,21 @@
 
 Purposes and Principles:
 
-* Minimal Concepts. It's important to keep Makefile simple and stupid.
-* Less Limits. We do not use recipes return values, don't even requrie a recipe, and don't check the actual output.
-* JavaScript Style. Async callbacks & Promises are supported, automatic variables are replaced by JavaScript names, wildcards are replaced by JavaScript RegExp and globs.
+* Minimal Concepts. It's intended to be a general purpose build automation tool just like GNU Make. Do not introduce unnecessary concept to keep it simple and stupid.
+* Less Restrictions. It should be as open as GNU Make, makit doesn't expect recipes return anything, doesn't even requrie a recipe for its rule definition, and doesn't care about the actual output of recipes.
+* JavaScript Style. Recipes can be written as callback style, Promise style or just synchronous style. Automatic variables are replaced by camelCased equivalents. Wildcard in static patterns are replaced by JavaScript RegExp and globs.
 
 API Spec: <https://searchfe.github.io/makit/modules/_index_.html>
 
 ## Get Started
 
-Basically, the syntax is as simple as Makefile, a rule consists of 3 parts:
+Basically, the syntax is as simple as Makefiles but with a `.js` extension. A Makefile.js contains a set of rules, each of which consists of 3 parts:
 
-* **target**: either a filepath string, a glob string, or a RegExp object
-* **prerequisites**: list of filepath strings, a function that returns a list of strings, or list of strings and functions, async functions are also supported
-* **recipe**: an optional function, can be async
+* **target**: either a filepath string, a glob string, or a RegExp object.
+* **prerequisites**: list of filepath strings, functions that return a list of strings, or list of strings and functions. functions here can be either sync or async.
+* **recipe**: an optional function, can be either sync or async.
 
-Write a makefile.js containing the following contents:
+Suppose we have a makefile.js containing the following contents:
 
 ```javascript
 const { rule } = require('makit')
@@ -41,12 +41,14 @@ rule('a1.min.js', ['a.js'], function () {
 })
 ```
 
-See [/demo](https://github.com/searchfe/makit/tree/master/demo) directory for details.
-More details see the typedoc for [.rule()](https://searchfe.github.io/makit/modules/_index_.html#rule.)
+When we run `makit`(which is equivelant to `make all` cause `all` is the first rule), makit tries to make the target `all` which requires `a1.min.js` so the second rule will be applied firstly and its recipe is called to generate the target `a1.min.js`. The prerequisites for `all` has been fully resolved now and makit then tries to call its recipe, which is not defined for the above case so makit will just skip call the recipe and assume the target `all` is made successfully.
+
+See [/demo](https://github.com/searchfe/makit/tree/master/demo) directory for a working demo.
+For more details see the typedoc for [.rule()](https://searchfe.github.io/makit/modules/_index_.html#rule.)
 
 ## Async (Promise & Callbacks)
 
-When the recipe returns a Promise, it'll be awaited.
+When the recipe returns a Promise, that promise will be awaited.
 
 ```javascript
 rule('a1.min.js', ['a.js'], async function () {
@@ -62,7 +64,7 @@ rule('a1.min.js', ['a.js'], async ctx => {
 })
 ```
 
-Callback functions are also supported:
+Callback style functions also work:
 
 ```javascript
 rule('clean', [], (ctx, done) => rimraf('{*.md5,*.min.js}', done))
@@ -78,13 +80,13 @@ rule('*.js.md5', ctx => ctx.target.replace('.md5', ''), async function () {
 })
 ```
 
-The prerequisites function can also return a `Promise<string>` or `Promise<string[]>`.
+Similarly, async prerequisites functions, i.e. functions of return type `Promise<string>` or `Promise<string[]>`, are also supported.
 
 
-## Match Groups and Backward Reference
+## Matching Groups and Backward Reference
 
 Makit uses [extglob](https://www.npmjs.com/package/extglob) to match target names.
-And it's extended to support match groups for reference in prerequisites.
+Furthermore it's extended to support match groups which can be referenced in prerequisites.
 
 ```javascript
 // `makit output/app/app.js` will make app.js.md5 from a.ts
@@ -96,10 +98,8 @@ make('output/app/app.js')
 
 ## Dynamic Prerequisites
 
-It's sometimes handy to call `make()` within the recipe,
-these dynamically prerequisites will not be recorded into the dependency tree.
-Thus makit will NOT remake the target when any of these prerequisites changed.
-For example: 
+It's sometimes handy to call `make()` within the recipe, but global `make()` is not valid in recipes.
+For example the following rule is **NOT** valid:
 
 ```javascript
 const { rule, make } = require('makit')
@@ -111,36 +111,7 @@ rule('bundle.js', 'a.js', async (ctx) => {
 })
 ```
 
-Suppose we have the above `makefile.js` and run `makit bundle.js` to get the file `bundle.js`.
-Make changes to `b.js` and then remake bundle via `makit bundle.js`.
-The recipe for `bundle.js` will not be called cause `b.js` is not in the dependency tree.
-To fix this, just Take `b.js` into the prerequisites and makit will do the rest:
-
-```javascript
-const { rule, make } = require('makit')
-
-rule('bundle.js', ['a.js', 'b.js'] async (ctx) => {
-    const js = (await ctx.readFile('a.js')) + (await ctx.readFile('b.js'))
-    return ctx.writeTarget(js)
-})
-```
-
-When it comes to dynamic prerequisites (like bundling AMD requires) it's recommended to
-provide another rule to make the dependency list.
-
-```javascript
-const { series, rule } = require('makit')
-
-rule(
-    'bundle.js',
-    series('bundle.js.dep', ctx => ctx.readFileSync('bundle.js.dep').split('\n'),
-    ctx => {/* do the bundle */}
-)
-
-rule('bundle.js.dep', 'bundle.js', ctx => { /* analyze the dependencies of bundle.js */ })
-```
-
-We introduced `rude()` and `ctx.make` to facilitate this situation:
+We introduce `rude()` to facilitate this situation, a `ctx.make` API is available inside the recipe of `rude`:
 
 ```javascript
 const { rude } = require('makit')
@@ -155,5 +126,5 @@ rude(
 )
 ```
 
-A pseudo rule targeting `bundle.js.rude.dep`, which contains the dependencies during the last run,
+A pseudo rule with `bundle.js.rude.dep` as target, the contents of which is the actual dependencies,
 will be generated for each `rude()`.
