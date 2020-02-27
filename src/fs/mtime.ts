@@ -36,20 +36,26 @@ export const MTIME_EMPTY_DEPENDENCY: TimeStamp = -1
  */
 export class MTime {
     private static instance: MTime
-    private fs: FileSystem
-    private db: DataBase
 
-    constructor (db: DataBase, fs: FileSystem) {
-        this.db = db
-        this.fs = fs
-    }
+    constructor (private readonly db: DataBase, private readonly fs: FileSystem) {}
 
+    /**
+     * 获取严格递增的当前时间戳
+     *
+     * @return 严格递增的当前时间戳
+     */
     now (): TimeStamp {
         const time = +this.db.query('meta', 'now', 0) + 1
         this.db.write('meta', 'now', time)
         return time
     }
 
+    /**
+     * 设置文件修改时间，不传则设置为现在
+     *
+     * @param fullpath  文件全路径
+     * @param time  时间戳
+     */
     async setModifiedTime (fullpath: string, time: TimeStamp = this.now()): Promise<TimeStamp> {
         const mtimeMs = await this.getModifiedTimeFromFileSystem(fullpath)
         if (mtimeMs === MTIME_NOT_EXIST) return mtimeMs
@@ -59,6 +65,12 @@ export class MTime {
         return time
     }
 
+    /**
+     * 获取文件修改时间
+     *
+     * @param fullpath 文件全路径
+     * @return 时间戳的 Promise
+     */
     async getModifiedTime (fullpath: string): Promise<TimeStamp> {
         const mtimeMs = await this.getModifiedTimeFromFileSystem(fullpath)
         if (mtimeMs === MTIME_NOT_EXIST) return mtimeMs
@@ -88,8 +100,7 @@ export class MTime {
      */
     private queryAndValidate (fullpath: string, mtimeMs: TimeStamp) {
         const entry = this.db.query('mtime', fullpath)
-        if (!entry) return null
-        if (entry.mtimeMs !== mtimeMs) return null
+        if (!entry || entry.mtimeMs !== mtimeMs) return null
         return entry
     }
 }

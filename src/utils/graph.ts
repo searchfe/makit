@@ -1,4 +1,4 @@
-import * as treeify from 'treeify'
+import { asTree } from 'treeify'
 
 const inspect = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
 
@@ -24,12 +24,24 @@ export class DirectedGraph<T> {
         this.vertexToString = vertexToString
     }
 
+    /**
+     * 增加一个点
+     *
+     * @param v 要增加的点
+     * @param vertexType 点的类型（空、入、出、出入）
+     */
     addVertex (v: T, vertexType = VertexType.None) {
         const type = this.vertices.get(v) || VertexType.None
         this.vertices.set(v, type | vertexType)
         if (!this.root) this.root = v
     }
 
+    /**
+     * 增加一条边
+     *
+     * @param fr 边的起点
+     * @param to 边的终点
+     */
     addEdge (fr: T, to: T) {
         if (!this.edges.has(fr)) {
             this.edges.set(fr, new Set())
@@ -44,6 +56,13 @@ export class DirectedGraph<T> {
         this.addVertex(to, VertexType.In)
     }
 
+    /**
+     * 检查是否包含边
+     *
+     * @param fr 起点
+     * @param to 终点
+     * @return 包含返回 true 否则 false
+     */
     hasEdge (fr: T, to: T) {
         if (!this.edges.has(fr)) return false
         return this.edges.get(fr)!.has(to)
@@ -52,7 +71,7 @@ export class DirectedGraph<T> {
     /**
      * 是否存在环状结构
      *
-     * 如果存在返回一个 circuit，否则返回 null
+     * @return 如果存在返回一个 circuit，否则返回 null
      */
     checkCircular (begin: T): T[] | null {
         let circularPath: T[] | null = null
@@ -67,6 +86,9 @@ export class DirectedGraph<T> {
 
     /**
      * 获取一条从 root 到 vertex 的路径
+     *
+     * @param vertex 路径的终点
+     * @return 从 root 到 vertex 的路径
      */
     findPathToRoot (vertex: T): T[] {
         const seen: Set<T> = new Set()
@@ -82,6 +104,12 @@ export class DirectedGraph<T> {
         return [...seen]
     }
 
+    /**
+     * 获取一条从 root 到 vertex 的路径
+     *
+     * @param vertex 路径的终点
+     * @return 从 root 到 vertex 的路径
+     */
     getSinglePath (vertex: T): T[] {
         console.warn(
             '[makit] .getSinglePath() is deprecated, ' +
@@ -95,12 +123,14 @@ export class DirectedGraph<T> {
     }
 
     /**
-     * 文本形式展示为树状结构
+     * 以第一个点为根的树的文本表示
+     *
+     * @return 树的 ASCII 文本表示
      */
     toString () {
         if (!this.root) return '[Empty Tree]'
         const root = this.vertexToString(this.root)
-        const tree = treeify.asTree(this.toTree(), false, false)
+        const tree = asTree(this.toTree(), false, false)
         return `${root}\n${tree}`
     }
 
@@ -109,6 +139,8 @@ export class DirectedGraph<T> {
      *
      * 注意：使用前需要先调用 checkCircular()，
      * 或从数据上确保它是一棵树。
+     *
+     * @return 转为 Plain Object 的树状结构
      */
     private toTree () {
         const tree: Tree = {}
