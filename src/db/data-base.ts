@@ -17,12 +17,10 @@ const l = Logger.getOrCreate()
  */
 export class DataBase {
     private static instance: DataBase
-    private filepath: string
     private data: DocumentCollection = {}
     private dirty = false
 
-    constructor (filepath: string, private readonly fs: FileSystem) {
-        this.filepath = filepath
+    constructor (private readonly filepath: string, private readonly fs: FileSystem) {
         this.readFromDisk()
     }
 

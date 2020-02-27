@@ -18,11 +18,8 @@ export class DirectedGraph<T> {
     private redges: Map<T, Set<T>> = new Map()
     private vertices: Map<T, VertexType> = new Map()
     private root?: T
-    private vertexToString: (v: T) => string
 
-    constructor (vertexToString: (v: T) => string = x => x + '') {
-        this.vertexToString = vertexToString
-    }
+    constructor (private readonly vertexToString: (v: T) => string = x => String(x) + '') {}
 
     /**
      * 增加一个点
