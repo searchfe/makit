@@ -1,3 +1,10 @@
+## [1.15.2](https://github.com/searchfe/makit/compare/v1.15.1...v1.15.2) (2020-05-08)
+
+
+### Bug Fixes
+
+* add chalk to dependencies ([7b55d2b](https://github.com/searchfe/makit/commit/7b55d2ba3c6627a608397f1c453476e5aabdd7ba))
+
 ## [1.15.1](https://github.com/searchfe/makit/compare/v1.15.0...v1.15.1) (2020-01-03)
 
 
