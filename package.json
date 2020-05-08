@@ -82,6 +82,7 @@
     "typedoc": "^0.15.0"
   },
   "dependencies": {
+    "chalk": "^4.0.0",
     "extglob": "^3.0.0",
     "is-glob": "^4.0.1",
     "lodash": "^4.17.15",
