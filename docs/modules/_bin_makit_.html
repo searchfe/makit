@@ -79,6 +79,7 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_bin_makit_.html#argv" class="tsd-kind-icon">argv</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_bin_makit_.html#database" class="tsd-kind-icon">database</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_bin_makit_.html#debug" class="tsd-kind-icon">debug</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_bin_makit_.html#graph" class="tsd-kind-icon">graph</a></li>
@@ -107,7 +108,7 @@
 					<div class="tsd-signature tsd-kind-icon">Option<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1d9b62d/src/bin/makit.ts#L10">bin/makit.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/9a0c12f/src/bin/makit.ts#L10">bin/makit.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -115,32 +116,47 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Variables</h2>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="database" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> database</h3>
-					<div class="tsd-signature tsd-kind-icon">database<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;yargs.argv.database as string</span></div>
+					<a name="argv" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> argv</h3>
+					<div class="tsd-signature tsd-kind-icon">argv<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;yargs.usage(&#x27;$0 &lt;TARGET&gt;...&#x27;).option(&#x27;config&#x27;, {alias: &#x27;c&#x27;,type: &#x27;string&#x27;,default: &#x27;makefile.js&#x27;,description: &#x27;makefile path&#x27;}).option(&#x27;database&#x27;, {alias: &#x27;d&#x27;,default: &#x27;./.makit.db&#x27;,description: &#x27;database file, will be used for cache invalidation&#x27;}).option(&#x27;verbose&#x27;, {alias: &#x27;v&#x27;,type: &#x27;boolean&#x27;,description: &#x27;set loglevel to verbose&#x27;}).option(&#x27;debug&#x27;, {alias: &#x27;v&#x27;,type: &#x27;boolean&#x27;,description: &#x27;set loglevel to debug&#x27;}).option(&#x27;loglevel&#x27;, {alias: &#x27;l&#x27;,choices: [0, 1, 2, 3, 4],description: &#x27;error, warning, info, verbose, debug&#x27;}).option(&#x27;graph&#x27;, {alias: &#x27;g&#x27;,type: &#x27;boolean&#x27;,default: false,description: &#x27;output dependency graph&#x27;}).conflicts(&#x27;loglevel&#x27;, &#x27;verbose&#x27;).argv</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1d9b62d/src/bin/makit.ts#L52">bin/makit.ts:52</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/9a0c12f/src/bin/makit.ts#L12">bin/makit.ts:12</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="database" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> database</h3>
+					<div class="tsd-signature tsd-kind-icon">database<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;argv.database as string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/9a0c12f/src/bin/makit.ts#L53">bin/makit.ts:53</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="debug" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> debug</h3>
-					<div class="tsd-signature tsd-kind-icon">debug<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;yargs.argv.debug as boolean</span></div>
+					<div class="tsd-signature tsd-kind-icon">debug<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;argv.debug as boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1d9b62d/src/bin/makit.ts#L50">bin/makit.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/9a0c12f/src/bin/makit.ts#L51">bin/makit.ts:51</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="graph" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> graph</h3>
-					<div class="tsd-signature tsd-kind-icon">graph<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;yargs.argv.graph as boolean</span></div>
+					<div class="tsd-signature tsd-kind-icon">graph<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;argv.graph as boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1d9b62d/src/bin/makit.ts#L53">bin/makit.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/9a0c12f/src/bin/makit.ts#L54">bin/makit.ts:54</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -150,27 +166,27 @@
 					<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <a href="../classes/_utils_logger_.logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol"> =&nbsp;Logger.getOrCreate()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1d9b62d/src/bin/makit.ts#L54">bin/makit.ts:54</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/9a0c12f/src/bin/makit.ts#L55">bin/makit.ts:55</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="loglevel" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> loglevel</h3>
-					<div class="tsd-signature tsd-kind-icon">loglevel<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;yargs.argv.loglevel as number</span></div>
+					<div class="tsd-signature tsd-kind-icon">loglevel<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;argv.loglevel as number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1d9b62d/src/bin/makit.ts#L51">bin/makit.ts:51</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/9a0c12f/src/bin/makit.ts#L52">bin/makit.ts:52</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="makefile" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> makefile</h3>
-					<div class="tsd-signature tsd-kind-icon">makefile<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;resolve(yargs.argv.config as string)</span></div>
+					<div class="tsd-signature tsd-kind-icon">makefile<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;resolve(argv.config as string)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1d9b62d/src/bin/makit.ts#L48">bin/makit.ts:48</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/9a0c12f/src/bin/makit.ts#L49">bin/makit.ts:49</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -180,27 +196,27 @@
 					<div class="tsd-signature tsd-kind-icon">makit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;global[&#x27;makit&#x27;]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1d9b62d/src/bin/makit.ts#L66">bin/makit.ts:66</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/9a0c12f/src/bin/makit.ts#L67">bin/makit.ts:67</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="targets" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> targets</h3>
-					<div class="tsd-signature tsd-kind-icon">targets<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;yargs.argv._</span></div>
+					<div class="tsd-signature tsd-kind-icon">targets<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;argv._</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1d9b62d/src/bin/makit.ts#L47">bin/makit.ts:47</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/9a0c12f/src/bin/makit.ts#L48">bin/makit.ts:48</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="verbose" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> verbose</h3>
-					<div class="tsd-signature tsd-kind-icon">verbose<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;yargs.argv.verbose as boolean</span></div>
+					<div class="tsd-signature tsd-kind-icon">verbose<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;argv.verbose as boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/1d9b62d/src/bin/makit.ts#L49">bin/makit.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/9a0c12f/src/bin/makit.ts#L50">bin/makit.ts:50</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -217,7 +233,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/1d9b62d/src/bin/makit.ts#L68">bin/makit.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/9a0c12f/src/bin/makit.ts#L69">bin/makit.ts:69</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -241,6 +257,9 @@
 				<ul class="before-current">
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_bin_makit_.html#optionvalue" class="tsd-kind-icon">Option<wbr>Value</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_bin_makit_.html#argv" class="tsd-kind-icon">argv</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_bin_makit_.html#database" class="tsd-kind-icon">database</a>

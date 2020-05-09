@@ -1,3 +1,10 @@
+## [1.15.4](https://github.com/searchfe/makit/compare/v1.15.3...v1.15.4) (2020-05-09)
+
+
+### Bug Fixes
+
+* use yargs.argv ([9a0c12f](https://github.com/searchfe/makit/commit/9a0c12f679ae4d1372cf09c5d3c57a4454f0112d))
+
 ## [1.15.3](https://github.com/searchfe/makit/compare/v1.15.2...v1.15.3) (2020-05-08)
 
 
