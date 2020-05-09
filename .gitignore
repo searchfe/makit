@@ -63,3 +63,4 @@ typings/
 dist/
 
 test/e2e/*.out
+.makit.db

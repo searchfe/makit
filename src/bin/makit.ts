@@ -9,7 +9,7 @@ import { IO } from '../io'
 
 type OptionValue = string | undefined
 
-yargs.usage('$0 <TARGET>...')
+const argv = yargs.usage('$0 <TARGET>...')
     .option('config', {
         alias: 'c',
         type: 'string',
@@ -43,14 +43,15 @@ yargs.usage('$0 <TARGET>...')
         description: 'output dependency graph'
     })
     .conflicts('loglevel', 'verbose')
+    .argv
 
-const targets = yargs.argv._
-const makefile = resolve(yargs.argv.config as string)
-const verbose = yargs.argv.verbose as boolean
-const debug = yargs.argv.debug as boolean
-const loglevel = yargs.argv.loglevel as number
-const database = yargs.argv.database as string
-const graph = yargs.argv.graph as boolean
+const targets = argv._
+const makefile = resolve(argv.config as string)
+const verbose = argv.verbose as boolean
+const debug = argv.debug as boolean
+const loglevel = argv.loglevel as number
+const database = argv.database as string
+const graph = argv.graph as boolean
 const logger = Logger.getOrCreate()
 IO.getDataBase(database)
 
