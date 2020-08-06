@@ -2,7 +2,7 @@ import { Makefile } from '../../src/index'
 import { IO } from '../../src/io'
 import { Logger, LogLevel } from '../../src/utils/logger'
 import { MemoryFileSystem } from '../../src/fs/memfs-impl'
-import { FileSystem } from '../../src/types/fs'
+import { FileSystem } from '../../src/fs/file-system'
 
 describe('simple', function () {
     let fs: FileSystem

@@ -1,25 +1,32 @@
 #!/usr/bin/env node
 
 import chalk from 'chalk'
-import * as yargs from 'yargs'
+import yargs from 'yargs'
 import { existsSync } from 'fs'
-import { Logger, LogLevel } from '../utils/logger'
-import { resolve } from 'path'
+import { join } from 'path'
+import { Make } from '../make'
+import { Logger } from '../utils/logger'
 import { IO } from '../io'
+import { parse } from '../config'
 
 type OptionValue = string | undefined
 
-const argv = yargs.usage('$0 <TARGET>...')
-    .option('config', {
-        alias: 'c',
+const argv = yargs.usage('$0 [OPTION] <TARGET>...')
+    .option('makefile', {
+        alias: 'm',
         type: 'string',
-        default: 'makefile.js',
-        description: 'makefile path'
+        description: 'makefile path, defaults to "makefile.js"'
     })
     .option('database', {
         alias: 'd',
-        default: './.makit.db',
-        description: 'database file, will be used for cache invalidation'
+        type: 'string',
+        description: 'database file, will be used for cache invalidation, defaults to "./.makit.db"'
+    })
+    .option('require', {
+        alias: 'r',
+        type: 'array',
+        string: true,
+        description: 'require a module before loading makefile.js or makefile.ts'
     })
     .option('verbose', {
         alias: 'v',
@@ -39,46 +46,28 @@ const argv = yargs.usage('$0 <TARGET>...')
     .option('graph', {
         alias: 'g',
         type: 'boolean',
-        default: false,
-        description: 'output dependency graph'
+        description: 'output dependency graph, defaults to false'
     })
+    .help('help')
     .conflicts('loglevel', 'verbose')
     .argv
 
-const targets = argv._
-const makefile = resolve(argv.config as string)
-const verbose = argv.verbose as boolean
-const debug = argv.debug as boolean
-const loglevel = argv.loglevel as number
-const database = argv.database as string
-const graph = argv.graph as boolean
-const logger = Logger.getOrCreate()
-IO.getDataBase(database)
-
-if (verbose !== undefined) Logger.getOrCreate().setLevel(LogLevel.verbose)
-if (debug !== undefined) Logger.getOrCreate().setLevel(LogLevel.debug)
-if (loglevel !== undefined) logger.setLevel(loglevel)
-
-if (!existsSync(makefile)) {
-    throw new Error('makefile.js not found')
-}
-logger.info(chalk['cyan']('CONF'), makefile)
-require(makefile)
-const makit = global['makit']
-
 async function main () {
-    if (targets.length) {
-        const makes = await Promise.all(targets.map(target => makit.make(target)))
-        if (graph) {
-            console.log(chalk['cyan']('TREE'))
-            makes.forEach(make => console.log(make.getGraph()))
-        }
-    } else {
-        const make = await makit.make()
-        if (graph) {
-            console.log(chalk['cyan']('TREE'))
-            console.log(make.getGraph())
-        }
+    const pkgjson = join(process.cwd(), 'package.json')
+    const conf = parse(argv, existsSync(pkgjson) ? require(pkgjson) : {})
+    Logger.getOrCreate(conf.loglevel)
+    IO.getOrCreateDataBase(conf.database)
+
+    Logger.getOrCreate().info(chalk['cyan']('CONF'), conf.makefile)
+    for (const specifier of conf.require) require(specifier)
+    require(conf.makefile)
+
+    const makit = global['makit']
+    const targets = argv._
+    const tasks: Make[] = await Promise.all(targets.length ? targets.map((target: string) => makit.make(target)) : [makit.make()])
+    if (conf.graph) {
+        console.log(chalk['cyan']('TREE'))
+        tasks.forEach(make => console.log(make.getGraph()))
     }
 }
 

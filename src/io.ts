@@ -14,14 +14,14 @@ export class IO {
     }
 
     static getMTime (
-        db: DataBase = IO.getDataBase(),
+        db: DataBase = IO.getOrCreateDataBase(),
         fs: FileSystem = this.getFileSystem()
     ): MTime {
         if (!this.mtime) this.mtime = new MTime(db, fs)
         return this.mtime
     }
 
-    static getDataBase (filepath: string = '.makit.db', fs: FileSystem = this.getFileSystem()) {
+    static getOrCreateDataBase (filepath: string = '.makit.db', fs: FileSystem = this.getFileSystem()) {
         if (!this.db) this.db = new DataBase(filepath, fs)
         return this.db
     }
@@ -36,7 +36,7 @@ export class IO {
         delete this.db
         return {
             fs: newFS,
-            db: this.getDataBase(),
+            db: this.getOrCreateDataBase(),
             mtime: this.getMTime()
         }
     }

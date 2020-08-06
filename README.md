@@ -46,6 +46,42 @@ When we run `makit`(which is equivelant to `make all` cause `all` is the first r
 See [/demo](https://github.com/searchfe/makit/tree/master/demo) directory for a working demo.
 For more details see the typedoc for [.rule()](https://searchfe.github.io/makit/modules/_index_.html#rule.)
 
+## Config
+
+The `makit` CLI supports `--help` to print usage info:
+
+```
+makit.js [OPTION] <TARGET>...
+
+Options:
+  --version       Show version number                             [boolean]
+  --makefile, -m  makefile path                                    [string]
+  --database, -d  database file, will be used for cache invalidation
+                                                   [default: "./.makit.db"]
+  --require, -r   require a module before loading makefile.js or
+                  makefile.ts                         [array] [default: []]
+  --verbose, -v   set loglevel to verbose                         [boolean]
+  --debug, -v     set loglevel to debug                           [boolean]
+  --loglevel, -l  error, warning, info, verbose, debug
+                                                   [choices: 0, 1, 2, 3, 4]
+  --graph, -g     output dependency graph        [boolean] [default: false]
+  --help          Show help                                       [boolean]
+```
+
+Or specify in `package.json`:
+
+```json
+{
+  "name": "your package name",
+  "dependencies": {},
+  "makit": {
+    "loglevel": 2,
+    "makefile": "makefile.ts",
+    "require": ["ts-node/register"]
+  }
+}
+```
+
 ## Async (Promise & Callbacks)
 
 When the recipe returns a Promise, that promise will be awaited.
@@ -83,7 +119,7 @@ rule('*.js.md5', ctx => ctx.target.replace('.md5', ''), async function () {
 Similarly, async prerequisites functions, i.e. functions of return type `Promise<string>` or `Promise<string[]>`, are also supported.
 
 
-## Matching Groups and Backward Reference
+## Matching Groups and Reference
 
 Makit uses [extglob](https://www.npmjs.com/package/extglob) to match target names.
 Furthermore it's extended to support match groups which can be referenced in prerequisites.

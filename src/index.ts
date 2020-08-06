@@ -65,10 +65,10 @@ export { DirectedGraph } from './utils/graph'
 export { RecipeDeclaration } from './models/recipe'
 
 // Sync DB disk for normal exit
-process.on('exit', () => IO.getDataBase().syncToDisk())
+process.on('exit', () => IO.getOrCreateDataBase().syncToDisk())
 
 process.on('SIGINT', () => {
-    IO.getDataBase().syncToDisk()
+    IO.getOrCreateDataBase().syncToDisk()
     // Continue to exit, otherwise SIGINT is ignored
     process.exit(1)
 })
