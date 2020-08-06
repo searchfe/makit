@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/searchfe/makit/compare/v1.15.4...v1.16.0) (2020-08-06)
+
+
+### Features
+
+* --require arguemnt and package.json entry ([f4a5bf1](https://github.com/searchfe/makit/commit/f4a5bf18163fa0671778910e6647d521691f71c4))
+
 ## [1.15.4](https://github.com/searchfe/makit/compare/v1.15.3...v1.15.4) (2020-05-09)
 
 

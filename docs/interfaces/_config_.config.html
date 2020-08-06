@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;fs/mtime&quot; | makit</title>
+	<title>Config | makit</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,78 +56,95 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_fs_mtime_.html">&quot;fs/mtime&quot;</a>
+					<a href="../modules/_config_.html">&quot;config&quot;</a>
+				</li>
+				<li>
+					<a href="_config_.config.html">Config</a>
 				</li>
 			</ul>
-			<h1>External module &quot;fs/mtime&quot;</h1>
+			<h1>Interface Config</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">Config</span>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Classes</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_fs_mtime_.mtime.html" class="tsd-kind-icon">MTime</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Variables</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="_fs_mtime_.html#mtime_empty_dependency" class="tsd-kind-icon">MTIME_<wbr>EMPTY_<wbr>DEPENDENCY</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="_fs_mtime_.html#mtime_not_exist" class="tsd-kind-icon">MTIME_<wbr>NOT_<wbr>EXIST</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_fs_mtime_.html#l" class="tsd-kind-icon">l</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_config_.config.html#database" class="tsd-kind-icon">database</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_config_.config.html#graph" class="tsd-kind-icon">graph</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_config_.config.html#loglevel" class="tsd-kind-icon">loglevel</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_config_.config.html#makefile" class="tsd-kind-icon">makefile</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_config_.config.html#require" class="tsd-kind-icon">require</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
-					<a name="mtime_empty_dependency" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> MTIME_<wbr>EMPTY_<wbr>DEPENDENCY</h3>
-					<div class="tsd-signature tsd-kind-icon">MTIME_<wbr>EMPTY_<wbr>DEPENDENCY<span class="tsd-signature-symbol">:</span> <a href="_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol"> =&nbsp;-1</span></div>
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="database" class="tsd-anchor"></a>
+					<h3>database</h3>
+					<div class="tsd-signature tsd-kind-icon">database<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/d2fd9cc/src/fs/mtime.ts#L23">fs/mtime.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/d2fd9cc/src/config.ts#L17">config.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
-					<a name="mtime_not_exist" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> MTIME_<wbr>NOT_<wbr>EXIST</h3>
-					<div class="tsd-signature tsd-kind-icon">MTIME_<wbr>NOT_<wbr>EXIST<span class="tsd-signature-symbol">:</span> <a href="_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol"> =&nbsp;-2</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="graph" class="tsd-anchor"></a>
+					<h3>graph</h3>
+					<div class="tsd-signature tsd-kind-icon">graph<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/d2fd9cc/src/fs/mtime.ts#L14">fs/mtime.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/d2fd9cc/src/config.ts#L18">config.ts:18</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>表示文件不存在，时间戳设为最旧。让它和它的依赖处于 stale 状态。</p>
-						</div>
-					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="l" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> l</h3>
-					<div class="tsd-signature tsd-kind-icon">l<span class="tsd-signature-symbol">:</span> <a href="../classes/_utils_logger_.logger.html" class="tsd-signature-type">Logger</a><span class="tsd-signature-symbol"> =&nbsp;Logger.getOrCreate()</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="loglevel" class="tsd-anchor"></a>
+					<h3>loglevel</h3>
+					<div class="tsd-signature tsd-kind-icon">loglevel<span class="tsd-signature-symbol">:</span> <a href="../enums/_utils_logger_.loglevel.html" class="tsd-signature-type">LogLevel</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/d2fd9cc/src/fs/mtime.ts#L9">fs/mtime.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/d2fd9cc/src/config.ts#L16">config.ts:16</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>获取单例日志对象</p>
-						</div>
-					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="makefile" class="tsd-anchor"></a>
+					<h3>makefile</h3>
+					<div class="tsd-signature tsd-kind-icon">makefile<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/d2fd9cc/src/config.ts#L19">config.ts:19</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="require" class="tsd-anchor"></a>
+					<h3>require</h3>
+					<div class="tsd-signature tsd-kind-icon">require<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/d2fd9cc/src/config.ts#L20">config.ts:20</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -138,23 +155,44 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_fs_mtime_.html">"fs/mtime"</a>
+						<a href="../modules/_config_.html">"config"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_fs_mtime_.mtime.html" class="tsd-kind-icon">MTime</a>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_config_.config.html" class="tsd-kind-icon">Config</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_config_.config.html#database" class="tsd-kind-icon">database</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_config_.config.html#graph" class="tsd-kind-icon">graph</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_config_.config.html#loglevel" class="tsd-kind-icon">loglevel</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_config_.config.html#makefile" class="tsd-kind-icon">makefile</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_config_.config.html#require" class="tsd-kind-icon">require</a>
+							</li>
+						</ul>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="_fs_mtime_.html#mtime_empty_dependency" class="tsd-kind-icon">MTIME_<wbr>EMPTY_<wbr>DEPENDENCY</a>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_config_.html#rawconfig" class="tsd-kind-icon">raw<wbr>Config</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="_fs_mtime_.html#mtime_not_exist" class="tsd-kind-icon">MTIME_<wbr>NOT_<wbr>EXIST</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_config_.html#lookupmakefile" class="tsd-kind-icon">lookup<wbr>Makefile</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_fs_mtime_.html#l" class="tsd-kind-icon">l</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_config_.html#parse" class="tsd-kind-icon">parse</a>
 					</li>
 				</ul>
 			</nav>

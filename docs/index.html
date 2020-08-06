@@ -107,6 +107,34 @@ rule(<span class="hljs-string">'a1.min.js'</span>, [<span class="hljs-string">'a
 				<p>When we run <code>makit</code>(which is equivelant to <code>make all</code> cause <code>all</code> is the first rule), makit tries to make the target <code>all</code> which requires <code>a1.min.js</code> so the second rule will be applied firstly and its recipe is called to generate the target <code>a1.min.js</code>. The prerequisites for <code>all</code> has been fully resolved now and makit then tries to call its recipe, which is not defined for the above case so makit will just skip call the recipe and assume the target <code>all</code> is made successfully.</p>
 				<p>See <a href="https://github.com/searchfe/makit/tree/master/demo">/demo</a> directory for a working demo.
 				For more details see the typedoc for <a href="https://searchfe.github.io/makit/modules/_index_.html#rule.">.rule()</a></p>
+				<a href="#config" id="config" style="color: inherit; text-decoration: none;">
+					<h2>Config</h2>
+				</a>
+				<p>The <code>makit</code> CLI supports <code>--help</code> to print usage info:</p>
+				<pre><code>makit.js [OPTION] <span class="hljs-symbol">&lt;TARGET&gt;</span>...
+
+Option<span class="hljs-variable">s:</span>
+  --<span class="hljs-keyword">version</span>       Show <span class="hljs-keyword">version</span> <span class="hljs-keyword">number</span>                             [boolean]
+  --makefile, -<span class="hljs-keyword">m</span>  makefile path                                    [<span class="hljs-built_in">string</span>]
+  --database, -d  database <span class="hljs-keyword">file</span>, will <span class="hljs-keyword">be</span> used <span class="hljs-keyword">for</span> cache invalidation
+                                                   [defaul<span class="hljs-variable">t:</span> <span class="hljs-string">"./.makit.db"</span>]
+  --require, -r   require <span class="hljs-keyword">a</span> module before loading makefile.js <span class="hljs-built_in">or</span>
+                  makefile.<span class="hljs-keyword">ts</span>                         [array] [defaul<span class="hljs-variable">t:</span> []]
+  --<span class="hljs-keyword">verbose</span>, -v   <span class="hljs-keyword">set</span> loglevel <span class="hljs-keyword">to</span> <span class="hljs-keyword">verbose</span>                         [boolean]
+  --<span class="hljs-keyword">debug</span>, -v     <span class="hljs-keyword">set</span> loglevel <span class="hljs-keyword">to</span> <span class="hljs-keyword">debug</span>                           [boolean]
+  --loglevel, -<span class="hljs-keyword">l</span>  error, warning, info, <span class="hljs-keyword">verbose</span>, <span class="hljs-keyword">debug</span>
+                                                   [choice<span class="hljs-variable">s:</span> <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]
+  --graph, -g     output dependency graph        [boolean] [defaul<span class="hljs-variable">t:</span> false]
+  --<span class="hljs-keyword">help</span>          Show <span class="hljs-keyword">help</span>                                       [boolean]</code></pre><p>Or specify in <code>package.json</code>:</p>
+				<pre><code class="language-json">{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"your package name"</span>,
+  <span class="hljs-attr">"dependencies"</span>: {},
+  <span class="hljs-attr">"makit"</span>: {
+    <span class="hljs-attr">"loglevel"</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-attr">"makefile"</span>: <span class="hljs-string">"makefile.ts"</span>,
+    <span class="hljs-attr">"require"</span>: [<span class="hljs-string">"ts-node/register"</span>]
+  }
+}</code></pre>
 				<a href="#async-promise-amp-callbacks" id="async-promise-amp-callbacks" style="color: inherit; text-decoration: none;">
 					<h2>Async (Promise &amp; Callbacks)</h2>
 				</a>
@@ -133,8 +161,8 @@ rule(<span class="hljs-string">'*.js.md5'</span>, ctx =&gt; ctx.target.replace(<
     <span class="hljs-keyword">await</span> <span class="hljs-keyword">this</span>.writeTarget(md5(src))
 })</code></pre>
 				<p>Similarly, async prerequisites functions, i.e. functions of return type <code>Promise&lt;string&gt;</code> or <code>Promise&lt;string[]&gt;</code>, are also supported.</p>
-				<a href="#matching-groups-and-backward-reference" id="matching-groups-and-backward-reference" style="color: inherit; text-decoration: none;">
-					<h2>Matching Groups and Backward Reference</h2>
+				<a href="#matching-groups-and-reference" id="matching-groups-and-reference" style="color: inherit; text-decoration: none;">
+					<h2>Matching Groups and Reference</h2>
 				</a>
 				<p>Makit uses <a href="https://www.npmjs.com/package/extglob">extglob</a> to match target names.
 				Furthermore it&#39;s extended to support match groups which can be referenced in prerequisites.</p>
@@ -178,6 +206,9 @@ rude(
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_bin_makit_.html">"bin/makit"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_config_.html">"config"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_context_.html">"context"</a>
