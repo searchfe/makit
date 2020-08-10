@@ -26,6 +26,7 @@ export class Logger {
         if (!Logger.instance) {
             Logger.instance = new Logger(logLevel)
         }
+        logLevel !== undefined && Logger.instance.setLevel(logLevel)
         return Logger.instance
     }
 
