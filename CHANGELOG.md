@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/searchfe/makit/compare/v1.16.0...v1.16.1) (2020-08-10)
+
+
+### Bug Fixes
+
+* don't setLevel when not specified ([ef05b48](https://github.com/searchfe/makit/commit/ef05b4830d6595bb1c05251e7e52173618cf1e43))
+
 # [1.16.0](https://github.com/searchfe/makit/compare/v1.15.4...v1.16.0) (2020-08-06)
 
 
