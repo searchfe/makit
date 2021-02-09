@@ -103,13 +103,10 @@ export class Makefile {
         } catch (err) {
             logger.suspend()
             if (err.target) {
-                err.message = `${err.message} while making "${err.target}"`
-                for (const dependant of make.getGraph().findPathToRoot(err.target).slice(1)) {
-                    err.message += `\n    required by "${dependant}"`
-                }
-                // if (err.makeStack.length) {
-                    // err.message += '\n' + err.makeStack.map((x: string) => `    required by "${x}"`).join('\n')
-                // }
+                const chain = make.getGraph().findPathToRoot(err.target)
+                const target = chain.shift()
+                err.message = `${err.message} while making "${target}"`
+                for (const dep of chain) err.message += `\n    required by "${dep}"`
             }
             throw err
         }

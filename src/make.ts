@@ -58,18 +58,12 @@ export class Make {
         if (parent) this.graph.addEdge(parent, target)
         else this.graph.addVertex(target)
 
-        this.checkCircular(target)
+        if (!this.disableCheckCircular) this.checkCircular(target)
 
-        return this
-            .withCache(target, () => this.doMake(target, parent).catch(err => {
-                if (err.makeStack) {
-                    err.makeStack.push(target)
-                } else {
-                    err.makeStack = []
-                    err.target = target
-                }
-                throw err
-            }))
+        return this.withCache(target, () => this.doMake(target, parent).catch(err => {
+            if (err.target === undefined) err.target = target
+            throw err
+        }))
     }
 
     private async doMake (target: string, parent?: string): Promise<TimeStamp> {
@@ -132,9 +126,6 @@ export class Make {
     }
 
     private checkCircular (begin: string) {
-        if (this.disableCheckCircular) {
-            return
-        }
         const circle = this.graph.checkCircular(begin)
         if (circle) {
             throw new Error(`Circular detected: ${circle.join(' -> ')}`)
