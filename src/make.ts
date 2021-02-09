@@ -55,7 +55,9 @@ export class Make {
     }
 
     public async make (target: string, parent?: string): Promise<TimeStamp> {
-        this.updateGraph(target, parent)
+        if (parent) this.graph.addEdge(parent, target)
+        else this.graph.addVertex(target)
+
         this.checkCircular(target)
 
         return this
@@ -129,26 +131,21 @@ export class Make {
         return max(results) || MTIME_EMPTY_DEPENDENCY
     }
 
-    private updateGraph (target: string, parent?: string) {
-        if (parent) this.graph.addEdge(parent, target)
-        else this.graph.addVertex(target)
-    }
-
     private checkCircular (begin: string) {
         if (this.disableCheckCircular) {
             return
         }
         const circle = this.graph.checkCircular(begin)
         if (circle) {
-            throw new Error(`Circular detected: ${circle.join(' <- ')}`)
+            throw new Error(`Circular detected: ${circle.join(' -> ')}`)
         }
     }
 
     public getGraph () {
-        return this.graph.toString()
+        return this.graph
     }
 
-    private withCache (target: string, fn: (...args: any[]) => Promise<TimeStamp>): Promise<TimeStamp> {
+    private withCache<T> (target: string, fn: () => Promise<TimeStamp>): Promise<TimeStamp> {
         if (!this.making.has(target)) {
             this.making.set(target, fn())
         }

@@ -67,7 +67,7 @@ async function main () {
     const tasks: Make[] = await Promise.all(targets.length ? targets.map((target: string) => makit.make(target)) : [makit.make()])
     if (conf.graph) {
         console.log(chalk['cyan']('TREE'))
-        tasks.forEach(make => console.log(make.getGraph()))
+        tasks.forEach(make => console.log(make.getGraph().toString()))
     }
 }
 

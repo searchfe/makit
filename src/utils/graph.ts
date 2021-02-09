@@ -74,22 +74,23 @@ export class DirectedGraph<T> {
         let circularPath: T[] | null = null
 
         this.preOrder(begin, (node, path, visited) => {
-            if (visited.has(node)) {
-                circularPath = [...path, node].reverse()
+            if (visited.has(node) && !circularPath) {
+                circularPath = [...path, node]
             }
         })
         return circularPath
     }
 
     /**
-     * 获取一条从 root 到 vertex 的路径
+     * 获取一条从 vertex 到 root 的路径
      *
-     * @param vertex 路径的终点
-     * @return 从 root 到 vertex 的路径
+     * @param vertex 路径的起点
+     * @return 从 vertex 到 root 的路径
      */
     findPathToRoot (vertex: T): T[] {
         const seen: Set<T> = new Set()
         while (true) {
+            // 出现循环引用时，数组收尾相同
             if (seen.has(vertex)) return [...seen, vertex]
             else seen.add(vertex)
 
@@ -99,20 +100,6 @@ export class DirectedGraph<T> {
             vertex = parents.values().next().value
         }
         return [...seen]
-    }
-
-    /**
-     * 获取一条从 root 到 vertex 的路径
-     *
-     * @param vertex 路径的终点
-     * @return 从 root 到 vertex 的路径
-     */
-    getSinglePath (vertex: T): T[] {
-        console.warn(
-            '[makit] .getSinglePath() is deprecated, ' +
-            'use .findPathToRoot() instead'
-        )
-        return this.findPathToRoot(vertex)
     }
 
     [inspect] () {

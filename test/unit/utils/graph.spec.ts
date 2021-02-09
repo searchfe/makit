@@ -38,7 +38,7 @@ describe('DirectedGraph', function () {
             g.addEdge('a', 'b')
             g.addEdge('b', 'c')
             g.addEdge('c', 'a')
-            expect(g.checkCircular('a')).toEqual(['a', 'c', 'b', 'a'])
+            expect(g.checkCircular('a')).toEqual(['a', 'b', 'c', 'a'])
         })
 
         it('should return true if there\'s self-circle', function () {

@@ -82,6 +82,11 @@ export class Makefile {
         rule.recipe = new Recipe(recipeDecl)
     }
 
+    /**
+     * makit 命令入口
+     *
+     * 命令行调用 makit <target> 由本方法处理，具体的依赖递归解决由 Make 对象处理。
+     */
     public async make (target?: string): Promise<Make> {
         logger.resume()
         if (!target) {
@@ -99,9 +104,12 @@ export class Makefile {
             logger.suspend()
             if (err.target) {
                 err.message = `${err.message} while making "${err.target}"`
-                if (err.makeStack.length) {
-                    err.message += '\n' + err.makeStack.map((x: string) => `    required by "${x}"`).join('\n')
+                for (const dependant of make.getGraph().findPathToRoot(err.target).slice(1)) {
+                    err.message += `\n    required by "${dependant}"`
                 }
+                // if (err.makeStack.length) {
+                    // err.message += '\n' + err.makeStack.map((x: string) => `    required by "${x}"`).join('\n')
+                // }
             }
             throw err
         }

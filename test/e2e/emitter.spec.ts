@@ -14,7 +14,7 @@ describe('emitter test', function () {
             rs.push(['making', target, parent])
         })
         const mkFn = ({ target, parent, graph }) => {
-            rs.push(['maked', target, parent, (graph as DirectedGraph<string>).getSinglePath(target)])
+            rs.push(['maked', target, parent, (graph as DirectedGraph<string>).findPathToRoot(target)])
         }
         mk.on('maked', mkFn)
         await mk.make('a')
