@@ -1,11 +1,10 @@
-import { Context } from './context'
+import { Task } from './task'
 import { relation } from './utils/number'
 import { IO } from './io'
 import { MTIME_EMPTY_DEPENDENCY } from './fs/mtime'
 import { TimeStamp } from './fs/time-stamp'
-import { max } from 'lodash'
 import { Rule } from './models/rule'
-import { getTargetFromDependency } from './models/rude'
+import { isRudeDependencyFile } from './models/rude'
 import chalk from 'chalk'
 import { DirectedGraph } from './utils/graph'
 import { Logger, hlTarget } from './utils/logger'
@@ -20,18 +19,25 @@ export interface MakeOptions {
     matchRule: (target: string) => [Rule, RegExpExecArray] | null
 }
 
+/**
+ * 一个 Make 对象表示一次 make
+ * 每次 make 的入口 target 是唯一的，其依赖图是一个有序图，用 checkCircular 来确保这一点
+ */
 export class Make {
-    private making: Map<string, Promise<TimeStamp>> = new Map()
-    private graph: DirectedGraph<string> = new DirectedGraph()
+    public dependencyGraph: DirectedGraph<string> = new DirectedGraph()
+
+    private tasks: Map<string, Task> = new Map()
     private root: string
     private matchRule: (target: string) => [Rule, RegExpExecArray] | null
     private emitter: EventEmitter
     private disableCheckCircular: boolean
+    private isMaking = false
+    private targetQueue: string[] = []
 
     constructor ({
         root = process.cwd(),
         matchRule,
-        emitter,
+        emitter = new EventEmitter(),
         disableCheckCircular
     }: MakeOptions) {
         this.root = root
@@ -40,106 +46,102 @@ export class Make {
         this.disableCheckCircular = disableCheckCircular || false
     }
 
-    public createContext ({ target, match, rule }: { target: string, match: RegExpExecArray | null, rule?: Rule}) {
-        if (rule && rule.isDependencyTarget) {
-            target = getTargetFromDependency(target)
-            match = this.matchRule(target)![1]
+    public async make (target: string, parent?: string): Promise<TimeStamp> {
+        await this.buildDependencyGraph(target, parent)
+        for (const node of this.dependencyGraph.preOrder(target)) {
+            if (this.tasks.get(node)!.isReady()) this.targetQueue.push(node)
         }
-        return new Context({
+        l.verbose('GRAF', `0-indegree ${this.targetQueue}`)
+        return new Promise((resolve, reject) => {
+            const task = this.tasks.get(target)!
+            task.addPromise(resolve, reject)
+            this.startMake()
+        })
+    }
+
+    private startMake () {
+        if (this.isMaking) return
+        this.isMaking = true
+
+        while (this.targetQueue.length) {
+            const target = this.targetQueue.shift()!
+            this.doMake(target)
+                .then(() => this.tasks.get(target)!.resolve())
+                .catch((err) => {
+                    // 让 target 以及依赖 target 的目标对应的 make promise 失败
+                    const dependants = this.dependencyGraph.getAncestors(target)
+                    err['target'] = target
+                    for (const dependant of dependants) {
+                        this.tasks.get(dependant)!.reject(err)
+                    }
+                })
+        }
+        this.isMaking = false
+    }
+
+    private buildDependencyGraph (node: string, parent?: string) {
+        l.verbose('GRAF', 'node:', node, 'parent:', parent)
+        this.dependencyGraph.addVertex(node)
+        if (parent && !this.dependencyGraph.hasEdge(parent, node)) {
+            this.dependencyGraph.addEdge(parent, node)
+            this.tasks.get(parent)!.pendingDependencyCount++
+        }
+        if (!this.disableCheckCircular) this.dependencyGraph.checkCircular(node)
+        if (this.tasks.has(node)) return
+
+        const result = this.matchRule(node)
+        const [rule, match] = result || [undefined, null]
+
+        const task = this.createTask({ target: node, match, rule })
+        this.tasks.set(node, task)
+
+        l.debug('DEPS', hlTarget(node), task.getDependencies())
+        for (const dep of task.getDependencies()) this.buildDependencyGraph(dep, node)
+    }
+
+    private async doMake (target: string) {
+        const task = this.tasks.get(target)!
+        task.start()
+
+        this.emitter.emit('making', { target, graph: this.dependencyGraph })
+        l.verbose('PREP', hlTarget(target))
+
+        let dmtime = MTIME_EMPTY_DEPENDENCY
+        for (const dep of this.dependencyGraph.getChildren(target)) {
+            dmtime = Math.max(dmtime, this.tasks.get(dep)!.mtime!)
+        }
+
+        l.debug('TIME', hlTarget(target), () => `mtime(${task.mtime}) ${relation(task.mtime, dmtime)} dmtime(${dmtime})`)
+
+        if (dmtime < task.mtime) {
+            l.info(chalk.grey('SKIP'), task)
+            this.emitter.emit('skip', { target, graph: this.dependencyGraph })
+        } else {
+            l.info('MAKE', task)
+            if (!task.rule) throw new Error(`no rule matched target: "${target}"`)
+            await task.rule.recipe.make(task.ctx)
+            if (task.rule.hasDynamicDependencies) await task.writeDependency()
+            this.emitter.emit('maked', { target, graph: this.dependencyGraph })
+            await task.updateMtime()
+        }
+        for (const dependant of this.dependencyGraph.getParents(target)) {
+            const dependantTask = this.tasks.get(dependant)!
+            --dependantTask.pendingDependencyCount
+            if (dependantTask.isReady()) {
+                this.targetQueue.push(dependant)
+                this.startMake()
+            }
+        }
+    }
+
+    private createTask ({ target, match, rule }: { target: string, match: RegExpExecArray | null, rule?: Rule}) {
+        return Task.create({
             target,
             match,
             fs: IO.getFileSystem(),
             root: this.root,
+            rule,
             make: (child: string) => this.make(child, target)
         })
-    }
-
-    public async make (target: string, parent?: string): Promise<TimeStamp> {
-        if (parent) this.graph.addEdge(parent, target)
-        else this.graph.addVertex(target)
-
-        if (!this.disableCheckCircular) this.checkCircular(target)
-
-        return this.withCache(target, () => this.doMake(target, parent).catch(err => {
-            if (err.target === undefined) err.target = target
-            throw err
-        }))
-    }
-
-    private async doMake (target: string, parent?: string): Promise<TimeStamp> {
-        this.emit('making', { target, parent, graph: this.graph })
-        l.verbose('PREP', hlTarget(target))
-        const result = this.matchRule(target)
-        if (result) {
-            l.debug('RULE', hlTarget(target), 'rule found:', result[0])
-        } else {
-            l.debug('RULE', hlTarget(target), 'rule not found')
-        }
-        const [rule, match] = result || [undefined, null]
-        const context = this.createContext({ target, match, rule })
-        const fullpath = context.toFullPath(target)
-        const [dmtime, mtime] = await Promise.all([
-            this.resolveDependencies(target, context, rule),
-            IO.getMTime().getModifiedTime(fullpath)
-        ])
-
-        l.debug('TIME', hlTarget(target), () => `mtime(${mtime}) ${relation(mtime, dmtime)} dmtime(${dmtime})`)
-
-        // non-existing files have the same mtime(-2
-        if (dmtime >= mtime) {
-            if (!rule) throw new Error(`no rule matched target: "${target}"`)
-            l.info('MAKE', () => this.makeDetail(target, context))
-            await rule.recipe.make(context)
-            if (rule.hasDynamicDependencies) await context.writeDependency()
-            this.emit('maked', { target, parent, graph: this.graph })
-            return IO.getMTime().setModifiedTime(fullpath)
-        }
-
-        l.info(chalk.grey('SKIP'), () => this.makeDetail(target, context))
-        this.emit('skip', { target, parent, graph: this.graph })
-
-        return mtime
-    }
-
-    private makeDetail (target: string, context: Context) {
-        const deps = [
-            ...context.dependencies,
-            ...context.dynamicDependencies.map(dep => `${dep}(dynamic)`)
-        ]
-        return hlTarget(target) + ': ' + deps.join(', ')
-    }
-
-    private emit (event: string, msg: any) {
-        this.emitter && this.emitter.emit(event, msg)
-    }
-
-    private async resolveDependencies (target: string, context: Context, rule?: Rule): Promise<TimeStamp> {
-        if (!rule) return MTIME_EMPTY_DEPENDENCY
-        const results = await rule.map(
-            context,
-            (dep: string) => this.make(dep, target)
-        )
-        l.debug('TIME', hlTarget(target), () => 'dependencies: ' +
-            context.dependencies.map((dep, i) => `${dep}(${results[i]})`)
-        )
-        return max(results) || MTIME_EMPTY_DEPENDENCY
-    }
-
-    private checkCircular (begin: string) {
-        const circle = this.graph.checkCircular(begin)
-        if (circle) {
-            throw new Error(`Circular detected: ${circle.join(' -> ')}`)
-        }
-    }
-
-    public getGraph () {
-        return this.graph
-    }
-
-    private withCache<T> (target: string, fn: () => Promise<TimeStamp>): Promise<TimeStamp> {
-        if (!this.making.has(target)) {
-            this.making.set(target, fn())
-        }
-        return this.making.get(target)!
     }
 }

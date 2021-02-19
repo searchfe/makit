@@ -10,19 +10,19 @@ describe('emitter test', function () {
         mk.addRule('a', ['b'])
         mk.addRule('b', [], () => {})
         const rs: any[] = []
-        mk.on('making', ({ target, parent }) => {
-            rs.push(['making', target, parent])
+        mk.on('making', ({ target }) => {
+            rs.push(['making', target])
         })
-        const mkFn = ({ target, parent, graph }) => {
-            rs.push(['maked', target, parent, (graph as DirectedGraph<string>).findPathToRoot(target)])
+        const mkFn = ({ target, graph }) => {
+            rs.push(['maked', target, (graph as DirectedGraph<string>).findPathToRoot(target)])
         }
         mk.on('maked', mkFn)
         await mk.make('a')
         expect(rs).toEqual([
-            ['making', 'a', undefined],
-            ['making', 'b', 'a'],
-            ['maked', 'b', 'a', ['b', 'a']],
-            ['maked', 'a', undefined, ['a']]
+            ['making', 'b'],
+            ['maked', 'b', ['b', 'a']],
+            ['making', 'a'],
+            ['maked', 'a', ['a']]
         ])
         mk.off('maked', mkFn)
         await mk.make('b')

@@ -1,5 +1,5 @@
 import { Makefile } from '../../src/index'
-import { FileSystem } from '../../src/types/fs'
+import { FileSystem } from '../../src/fs/file-system'
 import { createEnv } from '../stub/create-env'
 
 describe('rude', function () {
@@ -38,6 +38,10 @@ describe('rude', function () {
         expect(recipeFoo).toBeCalledTimes(1)
 
         fs.writeFileSync('bar', 'x')
+
+        mk = new Makefile()
+        mk.addRude('foo', [], recipeFoo)
+        mk.addRule('bar', [], recipeBar)
         await mk.make('foo')
         expect(recipeFoo).toBeCalledTimes(2)
     })

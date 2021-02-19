@@ -1,5 +1,4 @@
-import { Context } from '../context'
-import { TargetHandler, Prerequisites } from './prerequisites'
+import { Prerequisites } from './prerequisites'
 import { Target } from './target'
 import { Recipe } from './recipe'
 import debugFactory from 'debug'
@@ -12,7 +11,6 @@ export class Rule {
     public target: Target
     public prerequisites: Prerequisites
     public hasDynamicDependencies = false
-    public isDependencyTarget = false
 
     constructor (
         target: Target,
@@ -22,13 +20,6 @@ export class Rule {
         this.target = target
         this.prerequisites = prerequisites
         this.recipe = recipe
-    }
-
-    public async map<T> (ctx: Context, maker: TargetHandler<T>) {
-        return this.prerequisites.map(ctx, (target: string) => {
-            ctx.dependencies.push(target)
-            return maker(target)
-        })
     }
 
     public match (targetFile: string) {

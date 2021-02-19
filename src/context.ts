@@ -1,8 +1,6 @@
 import { resolve, dirname } from 'path'
 import { MakeDirectoryOptions } from 'fs'
 import { Logger, hlTarget } from './utils/logger'
-import { IO } from './io'
-import { getDependencyFromTarget } from './models/rude'
 import { FileSystem } from './fs/file-system'
 import { TimeStamp } from './fs/time-stamp'
 
@@ -12,7 +10,6 @@ interface ContextOptions {
     target: string
     match: RegExpExecArray | null
     root: string
-    dependencies?: string[]
     fs: FileSystem
     make: (target: string) => Promise<TimeStamp>
 }
@@ -20,18 +17,17 @@ interface ContextOptions {
 export class Context implements FileSystem {
     public readonly target: string
     public readonly match: RegExpExecArray | null
-    public dependencies: string[]
+    public dependencies: string[] = []
     public dynamicDependencies: string[] = []
 
     private readonly makeImpl: ContextOptions['make']
     private readonly fs: FileSystem
     private readonly root: string
 
-    constructor ({ target, match, root, dependencies = [], fs, make }: ContextOptions) {
+    constructor ({ target, match, root, fs, make }: ContextOptions) {
         this.root = root
         this.match = match
         this.target = target
-        this.dependencies = dependencies
         this.fs = fs
         this.makeImpl = make
     }
@@ -39,15 +35,7 @@ export class Context implements FileSystem {
     public async make (target: string) {
         logger.debug('RUDE', 'context.make called with', hlTarget(target), 'while making', hlTarget(this.target))
         this.dynamicDependencies.push(target)
-        const ret = await this.makeImpl(target)
-        return ret
-    }
-
-    public async writeDependency () {
-        const filepath = getDependencyFromTarget(this.target)
-        logger.debug('RUDE', 'writing', filepath, 'with', this.dynamicDependencies)
-        await this.outputFile(filepath, JSON.stringify(this.dynamicDependencies))
-        await IO.getMTime().setModifiedTime(this.toFullPath(filepath))
+        return this.makeImpl(target)
     }
 
     async outputFile (filepath: string, content: string | Buffer) {

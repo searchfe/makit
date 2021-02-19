@@ -2,7 +2,7 @@ export function fromCallback<T> (fn: (cb: Callback<T>) => void): Promise<T> {
     return new Promise((resolve, reject) => {
         fn(function (err: null | Error, result?: T) {
             if (err) reject(err)
-            else resolve(result)
+            else resolve(result!)
         })
     })
 }
@@ -10,7 +10,7 @@ export function fromCallback<T> (fn: (cb: Callback<T>) => void): Promise<T> {
 export function delay (milliSeconds: number) {
     return new Promise(resolve => {
         setTimeout(function () {
-            resolve()
+            resolve(milliSeconds)
         }, milliSeconds)
     })
 }

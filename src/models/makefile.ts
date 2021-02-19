@@ -2,16 +2,18 @@ import { Rule } from './rule'
 import { Make } from '../make'
 import { Logger } from '../utils/logger'
 import { Prerequisites, PrerequisitesDeclaration } from './prerequisites'
-import { dependencyRecipe, rudeExtname, dynamicPrerequisites } from './rude'
+import { getDependencyFromTarget, clearDynamicDependencies, rudeExtname, dynamicPrerequisites } from './rude'
 import { Target, TargetDeclaration } from './target'
 import { cwd } from 'process'
-import { series } from '../schedule'
 import { Recipe, RecipeDeclaration } from './recipe'
 import { EventEmitter } from 'events'
 
 const defaultRecipe = () => void (0)
 const logger = Logger.getOrCreate()
 
+/**
+ * 给最终使用者的 makefile.js 中暴露的全局变量 makit 即为 Makefile 实例
+ */
 export class Makefile {
     public root: string
     public emitter = new EventEmitter()
@@ -62,11 +64,10 @@ export class Makefile {
         recipeDecl: RecipeDeclaration = defaultRecipe
     ) {
         if (targetDecl instanceof RegExp) throw new Error('rude() for RegExp not supported yet')
-        const rule = this.addRule(targetDecl, series(prerequisitesDecl, dynamicPrerequisites()), recipeDecl)
+        const rule = this.addRule(targetDecl, [prerequisitesDecl, '$0' + rudeExtname], recipeDecl)
         rule.hasDynamicDependencies = true
 
-        const rude = this.addRule(targetDecl + rudeExtname, prerequisitesDecl, dependencyRecipe)
-        rude.isDependencyTarget = true
+        this.addRule(getDependencyFromTarget(targetDecl), dynamicPrerequisites, clearDynamicDependencies)
     }
 
     public updateRule (
@@ -101,9 +102,9 @@ export class Makefile {
         try {
             await make.make(target)
         } catch (err) {
-            logger.suspend()
+            // logger.suspend()
             if (err.target) {
-                const chain = make.getGraph().findPathToRoot(err.target)
+                const chain = make.dependencyGraph.findPathToRoot(err.target)
                 const target = chain.shift()
                 err.message = `${err.message} while making "${target}"`
                 for (const dep of chain) err.message += `\n    required by "${dep}"`

@@ -59,7 +59,9 @@ async function main () {
     IO.getOrCreateDataBase(conf.database)
 
     Logger.getOrCreate().info(chalk['cyan']('CONF'), conf.makefile)
-    for (const specifier of conf.require) require(specifier)
+    for (const specifier of conf.require || []) {
+        require(require.resolve(specifier, { paths: [process.cwd()] }))
+    }
     require(conf.makefile)
 
     const makit = global['makit']
@@ -67,7 +69,7 @@ async function main () {
     const tasks: Make[] = await Promise.all(targets.length ? targets.map((target: string) => makit.make(target)) : [makit.make()])
     if (conf.graph) {
         console.log(chalk['cyan']('TREE'))
-        tasks.forEach(make => console.log(make.getGraph().toString()))
+        tasks.forEach(make => console.log(make.dependencyGraph.toString()))
     }
 }
 

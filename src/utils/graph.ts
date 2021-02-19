@@ -1,4 +1,5 @@
 import { asTree } from 'treeify'
+import assert from 'assert'
 
 const inspect = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
 
@@ -65,20 +66,37 @@ export class DirectedGraph<T> {
         return this.edges.get(fr)!.has(to)
     }
 
+    * getChildren (u: T) {
+        for (let v of this.edges.get(u) || []) yield v
+    }
+
+    * getParents (u: T) {
+        for (let v of this.redges.get(u) || []) yield v
+    }
+
+    getOutDegree (u: T) {
+        return this.edges.has(u) ? this.edges.get(u)!.size : 0
+    }
+
     /**
      * 是否存在环状结构
      *
      * @return 如果存在返回一个 circuit，否则返回 null
      */
-    checkCircular (begin: T): T[] | null {
-        let circularPath: T[] | null = null
+    checkCircular (u: T, path: Set<T> = new Set(), visited: Set<T> = new Set()) {
+        if (path.has(u)) {
+            let patharr = [...path]
+            patharr = [...patharr.slice(patharr.indexOf(u)), u]
+            throw new Error(`Circular detected: ${patharr.join(' -> ')}`)
+        }
+        if (visited.has(u)) return
+        else visited.add(u)
 
-        this.preOrder(begin, (node, path, visited) => {
-            if (visited.has(node) && !circularPath) {
-                circularPath = [...path, node]
-            }
-        })
-        return circularPath
+        path.add(u)
+        for (const v of this.getChildren(u)) {
+            this.checkCircular(v, path, visited)
+        }
+        path.delete(u)
     }
 
     /**
@@ -106,6 +124,19 @@ export class DirectedGraph<T> {
         return this.toString()
     }
 
+    getAncestors (target: T) {
+        const dependants = new Set<T>()
+        const queue = [target]
+        for (const node of queue) {
+            if (dependants.has(node)) continue
+            dependants.add(node)
+            for (const parent of this.redges.get(node) || []) {
+                queue.push(parent)
+            }
+        }
+        return dependants
+    }
+
     /**
      * 以第一个点为根的树的文本表示
      *
@@ -126,39 +157,23 @@ export class DirectedGraph<T> {
      *
      * @return 转为 Plain Object 的树状结构
      */
-    private toTree () {
+    private toTree (root = this.root) {
         const tree: Tree = {}
-        const nodes = new Map([[this.root, tree]])
-
-        this.preOrder(this.root, (vertex, stack, visited) => {
-            const parentVertex = stack[stack.length - 1]
-            const parentNode = nodes.get(parentVertex)
-            if (!parentNode) return
-
-            const childNode = parentNode[this.vertexToString(vertex)] = {}
-            nodes.set(vertex, childNode)
-            /**
-             * 输出树时需要禁用 visited：
-             *
-             * 输出过的节点可能同时是其他节点的子节点，
-             * 这个父子关系同样要写出来。
-             */
-            visited.clear()
-        })
+        if (!root) throw new Error('root not found')
+        for (const child of this.getChildren(root)) {
+            tree[this.vertexToString(child)] = this.toTree(child)
+        }
         return tree
     }
 
-    private preOrder (vertex: T | undefined, visitor: Visitor<T>, path: T[] = [], visited: Set<T> = new Set()): void {
-        if (!vertex) return
-        else visitor(vertex, path, visited)
-
+    * preOrder (vertex: T, visited: Set<T> = new Set()): IterableIterator<T> {
         if (visited.has(vertex)) return
         else visited.add(vertex)
 
-        path.push(vertex)
-        for (const child of this.edges.get(vertex) || []) {
-            this.preOrder(child, visitor, path, visited)
+        yield vertex
+
+        for (const child of this.getChildren(vertex)) {
+            yield * this.preOrder(child, visited)
         }
-        path.pop()
     }
 }

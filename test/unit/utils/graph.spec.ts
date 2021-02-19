@@ -24,13 +24,13 @@ describe('DirectedGraph', function () {
     describe('.checkCircular()', function () {
         it('should return false for empty graph', function () {
             const g = new DirectedGraph()
-            expect(g.checkCircular('a')).toBeFalsy()
+            expect(() => g.checkCircular('a')).not.toThrow()
         })
 
         it('should return false if no circular', function () {
             const g = new DirectedGraph()
             g.addEdge('a', 'b')
-            expect(g.checkCircular('a')).toBeFalsy()
+            expect(() => g.checkCircular('a')).not.toThrow()
         })
 
         it('should return true if it\'s circular', function () {
@@ -38,13 +38,13 @@ describe('DirectedGraph', function () {
             g.addEdge('a', 'b')
             g.addEdge('b', 'c')
             g.addEdge('c', 'a')
-            expect(g.checkCircular('a')).toEqual(['a', 'b', 'c', 'a'])
+            expect(() => g.checkCircular('a')).toThrow('a -> b -> c -> a')
         })
 
         it('should return true if there\'s self-circle', function () {
             const g = new DirectedGraph()
             g.addEdge('a', 'a')
-            expect(g.checkCircular('a')).toBeTruthy()
+            expect(() => g.checkCircular('a')).toThrow('a -> a')
         })
     })
 

@@ -24,21 +24,4 @@ describe('global make', function () {
         await mk.make('call.c.out')
         expect(fs.readFileSync('call.c.out', 'utf8')).toEqual('B')
     })
-
-    it('should support call another make inside prerequisites', async function () {
-        const mk = new Makefile()
-        fs.writeFileSync('a.js', 'a')
-
-        mk.addRule('call.b.out', 'a.js', ctx => ctx.writeTarget('B'))
-        mk.addRule(
-            'call.c.out',
-            async () => { await mk.make('call.b.out'); return [] },
-            async ctx => {
-                await ctx.writeTarget(await ctx.readFile('call.b.out'))
-            }
-        )
-
-        await mk.make('call.c.out')
-        expect(fs.readFileSync('call.c.out', 'utf8')).toEqual('B')
-    })
 })

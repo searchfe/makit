@@ -1,4 +1,3 @@
-import { series } from '../schedule/sequential-schedule'
 import { Context } from '../context'
 import { Logger } from '../utils/logger'
 
@@ -12,30 +11,32 @@ export function getDependencyFromTarget (dependencyFile: string) {
     return dependencyFile + rudeExtname
 }
 
-export function dynamicPrerequisites () {
-    return series('$0' + rudeExtname, async ctx => {
-        const depTarget = ctx.targetFullPath() + rudeExtname
-
-        let fileContent = ''
-        try {
-            fileContent = await ctx.readFile(depTarget, 'utf8')
-        } catch (err) {
-            if (err.code === 'ENOENT') return []
-            Logger.getOrCreate().verbose('dynamic deps', 'while reading', depTarget, err)
-            throw err
-        }
-        let json = []
-        try {
-            json = JSON.parse(fileContent)
-        } catch (err) {
-            Logger.getOrCreate().warning('dynamic deps', 'corrupted', depTarget, err.message, 'removing...')
-            await ctx.unlink(depTarget)
-        }
-        return json
-    })
+export function isRudeDependencyFile (target: string) {
+    return target.slice(-rudeExtname.length) === rudeExtname
 }
 
-export async function dependencyRecipe (ctx: Context) {
+export function dynamicPrerequisites (ctx: Context): string[] {
+    const file = ctx.targetFullPath()
+
+    let fileContent = ''
+    try {
+        fileContent = ctx.readFileSync(file, 'utf8')
+    } catch (err) {
+        if (err.code === 'ENOENT') return []
+        Logger.getOrCreate().verbose('dynamic deps', 'while reading', file, err)
+        throw err
+    }
+    let json = []
+    try {
+        json = JSON.parse(fileContent)
+    } catch (err) {
+        Logger.getOrCreate().warning('dynamic deps', 'corrupted', file, err.message, 'removing...')
+        ctx.unlinkSync(file)
+    }
+    return json
+}
+
+export async function clearDynamicDependencies (ctx: Context) {
     try {
         await ctx.unlink(ctx.targetFullPath())
     } catch (err) {

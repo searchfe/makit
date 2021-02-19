@@ -5,8 +5,8 @@ import { DataBase } from './db'
 
 export class IO {
     static fs: FileSystem
-    static db: DataBase
-    static mtime: MTime
+    static db?: DataBase
+    static mtime?: MTime
 
     static getFileSystem (): FileSystem {
         if (!this.fs) this.fs = new NodeFileSystem()

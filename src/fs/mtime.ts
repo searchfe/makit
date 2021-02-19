@@ -56,8 +56,8 @@ export class MTime {
      * @param fullpath  文件全路径
      * @param time  时间戳
      */
-    async setModifiedTime (fullpath: string, time: TimeStamp = this.now()): Promise<TimeStamp> {
-        const mtimeMs = await this.getModifiedTimeFromFileSystem(fullpath)
+    setModifiedTime (fullpath: string, time: TimeStamp = this.now()): TimeStamp {
+        const mtimeMs = this.getModifiedTimeFromFileSystem(fullpath)
         if (mtimeMs === MTIME_NOT_EXIST) return mtimeMs
 
         this.db.write('mtime', fullpath, { mtimeMs, time })
@@ -71,9 +71,9 @@ export class MTime {
      * @param fullpath 文件全路径
      * @return 时间戳的 Promise
      */
-    async getModifiedTime (fullpath: string): Promise<TimeStamp> {
-        const mtimeMs = await this.getModifiedTimeFromFileSystem(fullpath)
-        if (mtimeMs === MTIME_NOT_EXIST) return mtimeMs
+    getModifiedTime (fullpath: string): TimeStamp {
+        const mtimeMs = this.getModifiedTimeFromFileSystem(fullpath)
+        if (mtimeMs === MTIME_NOT_EXIST) return MTIME_NOT_EXIST
 
         let entry = this.queryAndValidate(fullpath, mtimeMs)
         if (!entry) {
@@ -83,9 +83,9 @@ export class MTime {
         return entry.time
     }
 
-    private async getModifiedTimeFromFileSystem (fullpath: string): Promise<TimeStamp> {
+    private getModifiedTimeFromFileSystem (fullpath: string): TimeStamp {
         try {
-            const { mtimeMs } = await this.fs.stat(fullpath)
+            const { mtimeMs } = this.fs.statSync(fullpath)
             return mtimeMs
         } catch (error) {
             if (error.code === 'ENOENT') {
