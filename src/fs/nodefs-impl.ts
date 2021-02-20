@@ -1,10 +1,9 @@
 import { FileSystem } from './file-system'
 import * as fs from 'fs'
-import { fromCallback } from '../utils/promise'
 
 export class NodeFileSystem implements FileSystem {
-    stat (path: string, options?: fs.BigIntOptions): Promise<fs.Stats> {
-        return fromCallback(cb => options ? fs.stat(path, options, cb) : fs.stat(path, cb))
+    stat (path: string): Promise<fs.Stats> {
+        return fs.promises.stat(path)
     }
     statSync (path: string): fs.Stats {
         return fs.statSync(path)
@@ -12,7 +11,7 @@ export class NodeFileSystem implements FileSystem {
 
     readFile (path: string, encoding?: BufferEncoding): Promise<string>
     readFile (path: string, encoding?: string): Promise<string | Buffer> {
-        return fromCallback(cb => fs.readFile(path, encoding, cb))
+        return fs.promises.readFile(path, encoding)
     }
 
     readFileSync (path: string, encoding: BufferEncoding): string;
@@ -21,21 +20,21 @@ export class NodeFileSystem implements FileSystem {
     }
 
     writeFile (path: string, data: string): Promise<void> {
-        return fromCallback(cb => fs.writeFile(path, data, cb))
+        return fs.promises.writeFile(path, data)
     }
     writeFileSync (path: string, data: string): void {
         return fs.writeFileSync(path, data)
     }
 
     mkdir (path: string, options?: number | string | fs.MakeDirectoryOptions | null): Promise<void> {
-        return fromCallback(cb => fs.mkdir(path, options, cb))
+        return fs.promises.mkdir(path, options)
     }
     mkdirSync (path: string, options?: number | string | fs.MakeDirectoryOptions | null): void {
         return fs.mkdirSync(path, options)
     }
 
     unlink (path: string): Promise<void> {
-        return fromCallback(cb => fs.unlink(path, cb))
+        return fs.promises.unlink(path)
     }
     unlinkSync (path: string) {
         return fs.unlinkSync(path)
@@ -55,7 +54,7 @@ export class NodeFileSystem implements FileSystem {
     }
 
     utimes (path: string, atime: number, mtime: number): Promise<void> {
-        return fromCallback(cb => fs.utimes(path, atime, mtime, cb))
+        return fs.promises.utimes(path, atime, mtime)
     }
     utimesSync (path: string, atime: number, mtime: number) {
         return fs.utimesSync(path, atime, mtime)
