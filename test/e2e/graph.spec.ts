@@ -10,16 +10,16 @@ describe('graph', function () {
 
     it('should print single target', async function () {
         mk.addRule('a.js', [], () => void (0))
-        const make = await mk.make('a.js')
-        expect(make.dependencyGraph.toString()).toEqual('a.js\n')
+        await mk.make('a.js')
+        expect(mk.dependencyGraphString()).toEqual('a.js\n')
     })
 
     it('should print a single dependency', async function () {
         mk.addRule('a.min.js', ['a.js'], () => void (0))
         mk.addRule('a.js', [], () => void (0))
 
-        const make = await mk.make('a.min.js')
-        expect(make.dependencyGraph.toString()).toEqual(`a.min.js
+        await mk.make('a.min.js')
+        expect(mk.dependencyGraphString()).toEqual(`a.min.js
 └─ a.js
 `
         )
@@ -30,8 +30,8 @@ describe('graph', function () {
         mk.addRule('a.js', [], () => void (0))
         mk.addRule('b.js', [], () => void (0))
 
-        const make = await mk.make('a.min.js')
-        expect(make.dependencyGraph.toString()).toEqual(`a.min.js
+        await mk.make('a.min.js')
+        expect(mk.dependencyGraphString()).toEqual(`a.min.js
 ├─ a.js
 └─ b.js
 `
@@ -43,8 +43,8 @@ describe('graph', function () {
         mk.addRule('a.js', ['b.js'], () => void (0))
         mk.addRule('b.js', [], () => void (0))
 
-        const make = await mk.make('a.min.js')
-        expect(make.dependencyGraph.toString()).toEqual(`a.min.js
+        await mk.make('a.min.js')
+        expect(mk.dependencyGraphString()).toEqual(`a.min.js
 └─ a.js
    └─ b.js
 `
@@ -59,8 +59,8 @@ describe('graph', function () {
         mk.addRule('bottom1', [], () => void (0))
         mk.addRule('bottom2', [], () => void (0))
 
-        const make = await mk.make('top')
-        expect(make.dependencyGraph.toString()).toEqual(`top
+        await mk.make('top')
+        expect(mk.dependencyGraphString()).toEqual(`top
 ├─ left
 │  └─ bottom
 │     ├─ bottom1

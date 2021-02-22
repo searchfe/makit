@@ -1,5 +1,6 @@
 import { Rule } from './rule'
 import { Make } from '../make'
+import { TimeStamp } from '../fs/time-stamp'
 import { Logger } from '../utils/logger'
 import { Prerequisites, PrerequisitesDeclaration } from './prerequisites'
 import { getDependencyFromTarget, clearDynamicDependencies, rudeExtname, dynamicPrerequisites } from './rude'
@@ -23,10 +24,17 @@ export class Makefile {
     private fileTargetRules: Map<string, Rule> = new Map()
     private matchingRules: Rule[] = []
     private reporter: Reporter
+    private makeImpl: Make
 
     constructor (root = cwd(), reporter: Reporter = new DotReporter()) {
         this.root = root
         this.reporter = reporter
+        this.makeImpl = new Make({
+            root: this.root,
+            reporter: this.reporter,
+            matchRule: target => this.matchRule(target),
+            disableCheckCircular: this.disableCheckCircular
+        })
     }
 
     public updateOrAddRule (
@@ -90,30 +98,27 @@ export class Makefile {
      *
      * 命令行调用 makit <target> 由本方法处理，具体的依赖递归解决由 Make 对象处理。
      */
-    public async make (target?: string): Promise<Make> {
+    public async make (target?: string): Promise<TimeStamp> {
         logger.resume()
         if (!target) {
             target = this.findFirstTargetOrThrow()
         }
-        const make = new Make({
-            root: this.root,
-            reporter: this.reporter,
-            matchRule: target => this.matchRule(target),
-            disableCheckCircular: this.disableCheckCircular
-        })
         try {
-            await make.make(target)
+            return await this.makeImpl.make(target)
         } catch (err) {
             // logger.suspend()
             if (err.target) {
-                const chain = make.dependencyGraph.findPathToRoot(err.target)
+                const chain = this.makeImpl.dependencyGraph.findPathToRoot(err.target)
                 const target = chain.shift()
                 err.message = `${err.message} while making "${target}"`
                 for (const dep of chain) err.message += `\n    required by "${dep}"`
             }
             throw err
         }
-        return make
+    }
+
+    public dependencyGraphString (): string {
+        return this.makeImpl.dependencyGraph.toString()
     }
 
     private matchRule (target: string): [Rule, RegExpExecArray] | null {

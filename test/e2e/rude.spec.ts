@@ -55,11 +55,13 @@ describe('rude', function () {
 
         mk.addRude('foo', [], recipeFoo)
         mk.addRule('bar', [], recipeBar)
-
         await mk.make('foo')
         expect(recipeFoo).toBeCalledTimes(1)
         expect(recipeBar).toBeCalledTimes(1)
 
+        mk = new Makefile()
+        mk.addRude('foo', [], recipeFoo)
+        mk.addRule('bar', [], recipeBar)
         await mk.make('foo')
         expect(recipeFoo).toBeCalledTimes(1)
         expect(recipeBar).toBeCalledTimes(1)
@@ -75,11 +77,15 @@ describe('rude', function () {
         mk.addRude('foo', ['coo'], recipeFoo)
         mk.addRule('bar', [], recipeBar)
         mk.addRule('coo', [], ctx => ctx.writeTarget('coo'))
-
         await mk.make('foo')
         expect(recipeFoo).toBeCalledTimes(1)
 
         fs.writeFileSync('coo', 'COO')
+
+        mk = new Makefile()
+        mk.addRude('foo', ['coo'], recipeFoo)
+        mk.addRule('bar', [], recipeBar)
+        mk.addRule('coo', [], ctx => ctx.writeTarget('coo'))
         await mk.make('foo')
         expect(recipeFoo).toBeCalledTimes(2)
     })

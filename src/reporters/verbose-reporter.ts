@@ -12,7 +12,7 @@ export class VerboseReporter {
     ) {}
 
     public make (task: Task) {
-        this.l.info(normalLabel, hlTarget(task.target))
+        this.l.verbose(normalLabel, hlTarget(task.target))
     }
 
     public skip (task: Task) {

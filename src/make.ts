@@ -50,7 +50,7 @@ export class Make {
         for (const node of this.dependencyGraph.preOrder(target)) {
             if (this.tasks.get(node)!.isReady()) this.targetQueue.push(node)
         }
-        l.verbose('GRAF', `0-indegree ${this.targetQueue}`)
+        l.verbose('GRAF', '0-indegree:', this.targetQueue)
         return new Promise((resolve, reject) => {
             const task = this.tasks.get(target)!
             task.addPromise(resolve, reject)
@@ -65,7 +65,10 @@ export class Make {
         while (this.targetQueue.length) {
             const target = this.targetQueue.shift()!
             this.doMake(target)
-                .then(() => this.tasks.get(target)!.resolve())
+                .then(() => {
+                    this.tasks.get(target)!.resolve()
+                    this.notifyDependants(target)
+                })
                 .catch((err) => {
                     // 让 target 以及依赖 target 的目标对应的 make promise 失败
                     const dependants = this.dependencyGraph.getAncestors(target)
@@ -83,7 +86,9 @@ export class Make {
         this.dependencyGraph.addVertex(node)
         if (parent && !this.dependencyGraph.hasEdge(parent, node)) {
             this.dependencyGraph.addEdge(parent, node)
-            this.tasks.get(parent)!.pendingDependencyCount++
+            if (!this.tasks.has(node) || !this.tasks.get(node)!.isFinished()) {
+                this.tasks.get(parent)!.pendingDependencyCount++
+            }
         }
         if (!this.disableCheckCircular) this.dependencyGraph.checkCircular(node)
         if (this.tasks.has(node)) return
@@ -119,6 +124,9 @@ export class Make {
             await task.updateMtime()
             this.reporter.made(task)
         }
+    }
+
+    private notifyDependants (target: string) {
         for (const dependant of this.dependencyGraph.getParents(target)) {
             const dependantTask = this.tasks.get(dependant)!
             --dependantTask.pendingDependencyCount

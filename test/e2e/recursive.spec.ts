@@ -1,5 +1,5 @@
 import { Makefile } from '../../src/index'
-import { FileSystem } from '../../src/types/fs'
+import { FileSystem } from '../../src/fs/file-system'
 import { createEnv } from '../stub/create-env'
 
 describe('recursive', function () {
@@ -43,13 +43,16 @@ describe('recursive', function () {
     it('should remake if dependency file not exists', async function () {
         const recipeA = jest.fn()
         const recipeB = jest.fn()
+
         mk.addRule('a', ['b'], recipeA)
         mk.addRule('b', [], recipeB)
-
         await mk.make('a')
         expect(recipeA).toBeCalledTimes(1)
         expect(recipeB).toBeCalledTimes(1)
 
+        mk = new Makefile()
+        mk.addRule('a', ['b'], recipeA)
+        mk.addRule('b', [], recipeB)
         await mk.make('a')
         expect(recipeA).toBeCalledTimes(2)
         expect(recipeB).toBeCalledTimes(2)
@@ -63,12 +66,15 @@ describe('recursive', function () {
         mk.addRule('a', ['b'], recipeA)
         mk.addRule('b', ['c'], recipeB)
         mk.addRule('c', [], recipeC)
-
         await mk.make('a')
         expect(recipeA).toBeCalledTimes(1)
         expect(recipeB).toBeCalledTimes(1)
         expect(recipeC).toBeCalledTimes(1)
 
+        mk = new Makefile()
+        mk.addRule('a', ['b'], recipeA)
+        mk.addRule('b', ['c'], recipeB)
+        mk.addRule('c', [], recipeC)
         await mk.make('a')
         expect(recipeA).toBeCalledTimes(2)
         expect(recipeB).toBeCalledTimes(2)
@@ -83,6 +89,9 @@ describe('recursive', function () {
         await mk.make('foo')
         expect(recipe).toBeCalledTimes(1)
 
+        mk = new Makefile()
+        mk.addRule('foo', ['bar'], recipe)
+        mk.addRule('bar', [], ctx => ctx.writeTarget('_'))
         await mk.make('foo')
         expect(recipe).toBeCalledTimes(1)
     })
@@ -91,11 +100,14 @@ describe('recursive', function () {
         const recipe = jest.fn(ctx => ctx.writeTarget('_'))
         mk.addRule('foo', ['bar'], recipe)
         mk.addRule('bar', [], ctx => ctx.writeTarget('_'))
-
         await mk.make('foo')
         expect(recipe).toBeCalledTimes(1)
 
         fs.writeFileSync('bar', 'x')
+
+        mk = new Makefile()
+        mk.addRule('foo', ['bar'], recipe)
+        mk.addRule('bar', [], ctx => ctx.writeTarget('_'))
         await mk.make('foo')
         expect(recipe).toBeCalledTimes(2)
     })
@@ -122,12 +134,15 @@ describe('recursive', function () {
         mk.addRule('foo', ['bar'], recipeFoo)
         mk.addRule('bar', ['coo'], recipeBar)
         mk.addRule('coo', [], recipeCoo)
-
         await mk.make('foo')
         expect(recipeFoo).toBeCalledTimes(1)
 
         fs.writeFileSync('coo', 'x')
 
+        mk = new Makefile()
+        mk.addRule('foo', ['bar'], recipeFoo)
+        mk.addRule('bar', ['coo'], recipeBar)
+        mk.addRule('coo', [], recipeCoo)
         await mk.make('foo')
         expect(recipeFoo).toBeCalledTimes(2)
     })

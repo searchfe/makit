@@ -5,7 +5,6 @@ import yargs from 'yargs'
 import { Makefile } from '../models/makefile'
 import { existsSync } from 'fs'
 import { join } from 'path'
-import { Make } from '../make'
 import { Logger } from '../utils/logger'
 import { IO } from '../io'
 import { parse } from '../config'
@@ -74,10 +73,10 @@ async function main () {
     require(conf.makefile)
 
     const targets = argv._
-    const tasks: Make[] = await Promise.all(targets.length ? targets.map((target: string) => makefile.make(target)) : [makefile.make()])
+    await Promise.all(targets.length ? targets.map((target: string) => makefile.make(target)) : [makefile.make()])
     if (conf.graph) {
         console.log(chalk['cyan']('TREE'))
-        tasks.forEach(make => console.log(make.dependencyGraph.toString()))
+        console.log(makefile.dependencyGraphString())
     }
 }
 

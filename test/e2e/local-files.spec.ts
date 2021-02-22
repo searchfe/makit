@@ -35,19 +35,22 @@ describe('local files', function () {
 
     it('should remake if dependency changed', async () => {
         writeFileSync(input1, Math.random())
-        const mk = new Makefile()
+        let mk = new Makefile()
         let recipeTimes = 0
-
-        mk.addRule(output1, input1, ctx => {
+        const recipe = ctx => {
             writeFileSync(ctx.targetFullPath(), statSync(ctx.dependencyFullPath()).mtimeMs)
             recipeTimes++
-        })
+        }
+
+        mk.addRule(output1, input1, recipe)
         await mk.make(output1)
 
         // say, we touched that file manually before next make
         await delay(50)
         writeFileSync(input1, Math.random())
 
+        mk = new Makefile()
+        mk.addRule(output1, input1, recipe)
         await mk.make(output1)
         expect(recipeTimes).toEqual(2)
     })
