@@ -6,7 +6,8 @@ import { getDependencyFromTarget, clearDynamicDependencies, rudeExtname, dynamic
 import { Target, TargetDeclaration } from './target'
 import { cwd } from 'process'
 import { Recipe, RecipeDeclaration } from './recipe'
-import { EventEmitter } from 'events'
+import { Reporter } from '../reporters/reporter'
+import { DotReporter } from '../reporters/dot-reporter'
 
 const defaultRecipe = () => void (0)
 const logger = Logger.getOrCreate()
@@ -16,15 +17,16 @@ const logger = Logger.getOrCreate()
  */
 export class Makefile {
     public root: string
-    public emitter = new EventEmitter()
     public disableCheckCircular = false
 
     private ruleMap: Map<TargetDeclaration, Rule> = new Map()
     private fileTargetRules: Map<string, Rule> = new Map()
     private matchingRules: Rule[] = []
+    private reporter: Reporter
 
-    constructor (root = cwd()) {
+    constructor (root = cwd(), reporter: Reporter = new DotReporter()) {
         this.root = root
+        this.reporter = reporter
     }
 
     public updateOrAddRule (
@@ -95,7 +97,7 @@ export class Makefile {
         }
         const make = new Make({
             root: this.root,
-            emitter: this.emitter,
+            reporter: this.reporter,
             matchRule: target => this.matchRule(target),
             disableCheckCircular: this.disableCheckCircular
         })
@@ -112,13 +114,6 @@ export class Makefile {
             throw err
         }
         return make
-    }
-
-    public on (event: string, fn: (...args: any[]) => void) {
-        this.emitter.on(event, fn)
-    }
-    public off (event: string, fn: (...args: any[]) => void) {
-        this.emitter.removeListener(event, fn)
     }
 
     private matchRule (target: string): [Rule, RegExpExecArray] | null {

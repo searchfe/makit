@@ -82,8 +82,8 @@ export class Task {
         return this.state === TaskState.RESOLVED || this.state === TaskState.REJECTED
     }
 
-    public async updateMtime () {
-        this.mtime = await IO.getMTime().setModifiedTime(this.ctx.targetFullPath())
+    public updateMtime () {
+        this.mtime = IO.getMTime().setModifiedTime(this.ctx.targetFullPath())
     }
 
     public static create ({ target, rule, match, root, fs, make }: TaskOptions) {

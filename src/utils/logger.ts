@@ -43,6 +43,10 @@ export class Logger {
         this.logLevel = level
     }
 
+    public getLevel () {
+        return this.logLevel
+    }
+
     public error (title: string, ...args: LogMessage[]) {
         if (this.suspended || this.logLevel < LogLevel.error) return
         this.doLog(chalk.red(title), args)
@@ -56,6 +60,11 @@ export class Logger {
     public info (title: string, ...args: LogMessage[]) {
         if (this.suspended || this.logLevel < LogLevel.info) return
         this.doLog(chalk.cyan(title), args)
+    }
+
+    public infoStr (str: string) {
+        if (this.suspended || this.logLevel < LogLevel.info) return
+        process.stdout.write(str)
     }
 
     public verbose (title: string, ...args: LogMessage[]) {

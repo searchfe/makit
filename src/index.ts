@@ -4,8 +4,6 @@ import { RecipeDeclaration } from './models/recipe'
 import { IO } from './io'
 import { PrerequisitesDeclaration } from './models/prerequisites'
 
-const makefile = global['makit'] = new Makefile()
-
 export function setVerbose (val: boolean = true) {
     Logger.getOrCreate().setLevel(val ? LogLevel.verbose : LogLevel.default)
 }
@@ -19,39 +17,31 @@ export function setLoglevel (val: LogLevel) {
 }
 
 export function setRoot (val: string) {
-    makefile.root = val
+    global['makit'].root = val
 }
 
 export function rule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration) {
-    return makefile.addRule(target, prerequisites, recipe)
+    return global['makit'].addRule(target, prerequisites, recipe)
 }
 
 export function rude (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration) {
-    return makefile.addRude(target, prerequisites, recipe)
+    return global['makit'].addRude(target, prerequisites, recipe)
 }
 
 export function updateRule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration) {
-    return makefile.updateRule(target, prerequisites, recipe)
+    return global['makit'].updateRule(target, prerequisites, recipe)
 }
 
 export function updateOrAddRule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration) {
-    return makefile.updateOrAddRule(target, prerequisites, recipe)
+    return global['makit'].updateOrAddRule(target, prerequisites, recipe)
 }
 
 export function make (target: string) {
-    return makefile.make(target)
-}
-
-export function on (event: string, listener: (...args: any[]) => void) {
-    return makefile.on(event, listener)
-}
-
-export function off (event: string, listener: (...args: any[]) => void) {
-    return makefile.off(event, listener)
+    return global['makit'].make(target)
 }
 
 export function disableCheckCircular () {
-    makefile.disableCheckCircular = true
+    global['makit'].disableCheckCircular = true
 }
 
 export { Makefile } from './models/makefile'

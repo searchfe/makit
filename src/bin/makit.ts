@@ -2,6 +2,7 @@
 
 import chalk from 'chalk'
 import yargs from 'yargs'
+import { Makefile } from '../models/makefile'
 import { existsSync } from 'fs'
 import { join } from 'path'
 import { Make } from '../make'
@@ -27,6 +28,12 @@ const argv = yargs.usage('$0 [OPTION] <TARGET>...')
         type: 'array',
         string: true,
         description: 'require a module before loading makefile.js or makefile.ts'
+    })
+    .option('reporter', {
+        type: 'string',
+        choices: ['dot', 'verbose'],
+        default: 'dot',
+        description: '"dot", "verbose"'
     })
     .option('verbose', {
         alias: 'v',
@@ -62,11 +69,12 @@ async function main () {
     for (const specifier of conf.require || []) {
         require(require.resolve(specifier, { paths: [process.cwd()] }))
     }
+
+    const makefile = global['makit'] = new Makefile(process.cwd(), conf.reporter)
     require(conf.makefile)
 
-    const makit = global['makit']
     const targets = argv._
-    const tasks: Make[] = await Promise.all(targets.length ? targets.map((target: string) => makit.make(target)) : [makit.make()])
+    const tasks: Make[] = await Promise.all(targets.length ? targets.map((target: string) => makefile.make(target)) : [makefile.make()])
     if (conf.graph) {
         console.log(chalk['cyan']('TREE'))
         tasks.forEach(make => console.log(make.dependencyGraph.toString()))

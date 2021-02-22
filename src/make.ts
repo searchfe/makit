@@ -5,16 +5,15 @@ import { MTIME_EMPTY_DEPENDENCY } from './fs/mtime'
 import { TimeStamp } from './fs/time-stamp'
 import { Rule } from './models/rule'
 import { isRudeDependencyFile } from './models/rude'
-import chalk from 'chalk'
 import { DirectedGraph } from './utils/graph'
-import { Logger, hlTarget } from './utils/logger'
-import { EventEmitter } from 'events'
+import { LogLevel, Logger, hlTarget } from './utils/logger'
+import { Reporter } from './reporters/reporter'
 
 const l = Logger.getOrCreate()
 
 export interface MakeOptions {
     root?: string
-    emitter: EventEmitter
+    reporter: Reporter
     disableCheckCircular?: boolean
     matchRule: (target: string) => [Rule, RegExpExecArray] | null
 }
@@ -29,7 +28,7 @@ export class Make {
     private tasks: Map<string, Task> = new Map()
     private root: string
     private matchRule: (target: string) => [Rule, RegExpExecArray] | null
-    private emitter: EventEmitter
+    private reporter: Reporter
     private disableCheckCircular: boolean
     private isMaking = false
     private targetQueue: string[] = []
@@ -37,12 +36,12 @@ export class Make {
     constructor ({
         root = process.cwd(),
         matchRule,
-        emitter = new EventEmitter(),
-        disableCheckCircular
+        disableCheckCircular,
+        reporter
     }: MakeOptions) {
         this.root = root
         this.matchRule = matchRule
-        this.emitter = emitter
+        this.reporter = reporter
         this.disableCheckCircular = disableCheckCircular || false
     }
 
@@ -102,9 +101,7 @@ export class Make {
     private async doMake (target: string) {
         const task = this.tasks.get(target)!
         task.start()
-
-        this.emitter.emit('making', { target, graph: this.dependencyGraph })
-        l.verbose('PREP', hlTarget(target))
+        this.reporter.make(task)
 
         let dmtime = MTIME_EMPTY_DEPENDENCY
         for (const dep of this.dependencyGraph.getChildren(target)) {
@@ -114,15 +111,13 @@ export class Make {
         l.debug('TIME', hlTarget(target), () => `mtime(${task.mtime}) ${relation(task.mtime, dmtime)} dmtime(${dmtime})`)
 
         if (dmtime < task.mtime) {
-            l.info(chalk.grey('SKIP'), task)
-            this.emitter.emit('skip', { target, graph: this.dependencyGraph })
+            this.reporter.skip(task)
         } else {
-            l.info('MAKE', task)
             if (!task.rule) throw new Error(`no rule matched target: "${target}"`)
             await task.rule.recipe.make(task.ctx)
             if (task.rule.hasDynamicDependencies) await task.writeDependency()
-            this.emitter.emit('maked', { target, graph: this.dependencyGraph })
             await task.updateMtime()
+            this.reporter.made(task)
         }
         for (const dependant of this.dependencyGraph.getParents(target)) {
             const dependantTask = this.tasks.get(dependant)!

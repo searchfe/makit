@@ -1,6 +1,9 @@
 import { LogLevel } from './utils/logger'
 import { resolve } from 'path'
 import { existsSync } from 'fs'
+import { DotReporter } from './reporters/dot-reporter'
+import { Reporter } from './reporters/reporter'
+import { VerboseReporter } from './reporters/verbose-reporter'
 
 type rawConfig = Partial<{
     graph: boolean
@@ -9,6 +12,7 @@ type rawConfig = Partial<{
     require: string[]
     loglevel: number
     verbose: boolean
+    reporter: string
     debug: boolean
 }>
 
@@ -17,7 +21,13 @@ export interface Config {
     database: string
     graph: boolean
     makefile: string
+    reporter: Reporter
     require: string[]
+}
+
+const reporters = {
+    dot: () => new DotReporter(),
+    verbose: () => new VerboseReporter()
 }
 
 export function parse (args: rawConfig, pkg: { makit?: rawConfig }): Config {
@@ -33,8 +43,9 @@ export function parse (args: rawConfig, pkg: { makit?: rawConfig }): Config {
     const graph = raw.graph as boolean
     const require = raw.require as string[]
     const makefile = lookupMakefile(Array.isArray(raw.makefile) ? raw.makefile : [raw.makefile])
+    const reporter = reporters[raw.reporter!]()
 
-    return { loglevel, database, graph, require, makefile }
+    return { loglevel, database, graph, require, makefile, reporter }
 }
 
 function lookupMakefile (makefiles: string[]) {
