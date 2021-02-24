@@ -1,6 +1,6 @@
 import { Logger, hlTarget } from '../utils/logger'
 import chalk from 'chalk'
-import { Task } from '../task'
+import { Target } from '../target'
 
 const skipLabel = chalk.gray('SKIP')
 const normalLabel = chalk.gray('MAKE')
@@ -11,15 +11,15 @@ export class VerboseReporter {
         private l: Logger = Logger.getOrCreate()
     ) {}
 
-    public make (task: Task) {
-        this.l.verbose(normalLabel, hlTarget(task.target))
+    public make (target: Target) {
+        this.l.verbose(normalLabel, hlTarget(target.name))
     }
 
-    public skip (task: Task) {
-        this.l.info(skipLabel, hlTarget(task.target))
+    public skip (target: Target) {
+        this.l.info(skipLabel, hlTarget(target.name))
     }
 
-    public made (task: Task) {
-        this.l.info(madeLabel, hlTarget(task.target))
+    public made (target: Target) {
+        this.l.info(madeLabel, hlTarget(target.name))
     }
 }

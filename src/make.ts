@@ -1,4 +1,4 @@
-import { Task } from './task'
+import { Target } from './target'
 import { relation } from './utils/number'
 import { IO } from './io'
 import { MTIME_EMPTY_DEPENDENCY } from './fs/mtime'
@@ -25,7 +25,7 @@ export interface MakeOptions {
 export class Make {
     public dependencyGraph: DirectedGraph<string> = new DirectedGraph()
 
-    private tasks: Map<string, Task> = new Map()
+    private targets: Map<string, Target> = new Map()
     private root: string
     private matchRule: (target: string) => [Rule, RegExpExecArray] | null
     private reporter: Reporter
@@ -46,15 +46,15 @@ export class Make {
         this.disableCheckCircular = disableCheckCircular || false
     }
 
-    public async make (target: string, parent?: string): Promise<TimeStamp> {
-        this.buildDependencyGraph(target, parent)
-        for (const node of this.dependencyGraph.preOrder(target)) {
-            if (this.tasks.get(node)!.isReady()) this.targetQueue.add(node)
+    public async make (targetName: string, parent?: string): Promise<TimeStamp> {
+        this.buildDependencyGraph(targetName, parent)
+        for (const node of this.dependencyGraph.preOrder(targetName)) {
+            if (this.targets.get(node)!.isReady()) this.targetQueue.add(node)
         }
         l.verbose('GRAF', '0-indegree:', this.targetQueue)
         return new Promise((resolve, reject) => {
-            const task = this.tasks.get(target)!
-            task.addPromise(resolve, reject)
+            const target = this.targets.get(targetName)!
+            target.addPromise(resolve, reject)
             this.startMake()
         })
     }
@@ -66,7 +66,7 @@ export class Make {
         for (const target of this.targetQueue) {
             this.doMake(target)
                 .then(() => {
-                    this.tasks.get(target)!.resolve()
+                    this.targets.get(target)!.resolve()
                     this.notifyDependants(target)
                 })
                 .catch((err) => {
@@ -74,7 +74,7 @@ export class Make {
                     const dependants = this.dependencyGraph.getAncestors(target)
                     err['target'] = target
                     for (const dependant of dependants) {
-                        this.tasks.get(dependant)!.reject(err)
+                        this.targets.get(dependant)!.reject(err)
                     }
                 })
         }
@@ -82,25 +82,25 @@ export class Make {
         this.isMaking = false
     }
 
-    public invalidate(target: string) {
-        const targetTask = this.tasks.get(target)
+    public invalidate(targetName: string) {
+        const target = this.targets.get(targetName)
 
         // 还没编译到这个文件，或者这个文件根本不在依赖树里
-        if (!targetTask) return
+        if (!target) return
 
         // 更新它的时间（用严格递增的虚拟时间来替代文件系统时间）
-        targetTask.updateMtime()
+        target.updateMtime()
 
-        const queue = new Set<Task>([targetTask])
+        const queue = new Set<Target>([target])
         for (const node of queue) {
             node.reset()
-            for (const parent of this.dependencyGraph.getParents(node.target)) {
-                const ptask = this.tasks.get(parent)!
-                ptask.pendingDependencyCount++
-                queue.add(ptask)
+            for (const parent of this.dependencyGraph.getParents(node.name)) {
+                const ptarget = this.targets.get(parent)!
+                ptarget.pendingDependencyCount++
+                queue.add(ptarget)
             }
         }
-        this.targetQueue.add(target)
+        this.targetQueue.add(targetName)
         this.startMake()
     }
 
@@ -109,59 +109,59 @@ export class Make {
         this.dependencyGraph.addVertex(node)
         if (parent && !this.dependencyGraph.hasEdge(parent, node)) {
             this.dependencyGraph.addEdge(parent, node)
-            if (!this.tasks.has(node) || !this.tasks.get(node)!.isFinished()) {
-                this.tasks.get(parent)!.pendingDependencyCount++
+            if (!this.targets.has(node) || !this.targets.get(node)!.isFinished()) {
+                this.targets.get(parent)!.pendingDependencyCount++
             }
         }
         if (!this.disableCheckCircular) this.dependencyGraph.checkCircular(node)
-        if (this.tasks.has(node)) return
+        if (this.targets.has(node)) return
 
         const result = this.matchRule(node)
         const [rule, match] = result || [undefined, null]
 
-        const task = this.createTask({ target: node, match, rule })
-        this.tasks.set(node, task)
+        const target = this.createTarget({ target: node, match, rule })
+        this.targets.set(node, target)
 
-        l.debug('DEPS', hlTarget(node), task.getDependencies())
-        for (const dep of task.getDependencies()) this.buildDependencyGraph(dep, node)
+        l.debug('DEPS', hlTarget(node), target.getDependencies())
+        for (const dep of target.getDependencies()) this.buildDependencyGraph(dep, node)
     }
 
-    private async doMake (target: string) {
-        const task = this.tasks.get(target)!
-        task.start()
-        this.reporter.make(task)
+    private async doMake (targetName: string) {
+        const target = this.targets.get(targetName)!
+        target.start()
+        this.reporter.make(target)
 
         let dmtime = MTIME_EMPTY_DEPENDENCY
-        for (const dep of this.dependencyGraph.getChildren(target)) {
-            dmtime = Math.max(dmtime, this.tasks.get(dep)!.mtime!)
+        for (const dep of this.dependencyGraph.getChildren(targetName)) {
+            dmtime = Math.max(dmtime, this.targets.get(dep)!.mtime!)
         }
 
-        l.debug('TIME', hlTarget(target), () => `mtime(${task.mtime}) ${relation(task.mtime, dmtime)} dmtime(${dmtime})`)
+        l.debug('TIME', hlTarget(targetName), () => `mtime(${target.mtime}) ${relation(target.mtime, dmtime)} dmtime(${dmtime})`)
 
-        if (dmtime < task.mtime) {
-            this.reporter.skip(task)
+        if (dmtime < target.mtime) {
+            this.reporter.skip(target)
         } else {
-            if (!task.rule) throw new Error(`no rule matched target: "${target}"`)
-            await task.rule.recipe.make(task.ctx)
-            if (task.rule.hasDynamicDependencies) await task.writeDependency()
-            await task.updateMtime()
-            this.reporter.made(task)
+            if (!target.rule) throw new Error(`no rule matched target: "${targetName}"`)
+            await target.rule.recipe.make(target.ctx)
+            if (target.rule.hasDynamicDependencies) await target.writeDependency()
+            await target.updateMtime()
+            this.reporter.made(target)
         }
     }
 
-    private notifyDependants (target: string) {
-        for (const dependant of this.dependencyGraph.getParents(target)) {
-            const dependantTask = this.tasks.get(dependant)!
-            --dependantTask.pendingDependencyCount
-            if (dependantTask.isReady()) {
+    private notifyDependants (targetName: string) {
+        for (const dependant of this.dependencyGraph.getParents(targetName)) {
+            const dependantTarget = this.targets.get(dependant)!
+            --dependantTarget.pendingDependencyCount
+            if (dependantTarget.isReady()) {
                 this.targetQueue.add(dependant)
                 this.startMake()
             }
         }
     }
 
-    private createTask ({ target, match, rule }: { target: string, match: RegExpExecArray | null, rule?: Rule}) {
-        return Task.create({
+    private createTarget ({ target, match, rule }: { target: string, match: RegExpExecArray | null, rule?: Rule}) {
+        return Target.create({
             target,
             match,
             fs: IO.getFileSystem(),
