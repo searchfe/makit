@@ -31,7 +31,8 @@ export class Make {
     private reporter: Reporter
     private disableCheckCircular: boolean
     private isMaking = false
-    private targetQueue: string[] = []
+    // ES Set 是有序集合（按照 add 顺序），在此用作队列顺便帮助去重
+    private targetQueue: Set<string> = new Set()
 
     constructor ({
         root = process.cwd(),
@@ -46,9 +47,9 @@ export class Make {
     }
 
     public async make (target: string, parent?: string): Promise<TimeStamp> {
-        await this.buildDependencyGraph(target, parent)
+        this.buildDependencyGraph(target, parent)
         for (const node of this.dependencyGraph.preOrder(target)) {
-            if (this.tasks.get(node)!.isReady()) this.targetQueue.push(node)
+            if (this.tasks.get(node)!.isReady()) this.targetQueue.add(node)
         }
         l.verbose('GRAF', '0-indegree:', this.targetQueue)
         return new Promise((resolve, reject) => {
@@ -62,8 +63,7 @@ export class Make {
         if (this.isMaking) return
         this.isMaking = true
 
-        while (this.targetQueue.length) {
-            const target = this.targetQueue.shift()!
+        for (const target of this.targetQueue) {
             this.doMake(target)
                 .then(() => {
                     this.tasks.get(target)!.resolve()
@@ -78,7 +78,30 @@ export class Make {
                     }
                 })
         }
+        this.targetQueue = new Set()
         this.isMaking = false
+    }
+
+    public invalidate(target: string) {
+        const targetTask = this.tasks.get(target)
+
+        // 还没编译到这个文件，或者这个文件根本不在依赖树里
+        if (!targetTask) return
+
+        // 更新它的时间（用严格递增的虚拟时间来替代文件系统时间）
+        targetTask.updateMtime()
+
+        const queue = new Set<Task>([targetTask])
+        for (const node of queue) {
+            node.reset()
+            for (const parent of this.dependencyGraph.getParents(node.target)) {
+                const ptask = this.tasks.get(parent)!
+                ptask.pendingDependencyCount++
+                queue.add(ptask)
+            }
+        }
+        this.targetQueue.add(target)
+        this.startMake()
     }
 
     private buildDependencyGraph (node: string, parent?: string) {
@@ -131,7 +154,7 @@ export class Make {
             const dependantTask = this.tasks.get(dependant)!
             --dependantTask.pendingDependencyCount
             if (dependantTask.isReady()) {
-                this.targetQueue.push(dependant)
+                this.targetQueue.add(dependant)
                 this.startMake()
             }
         }

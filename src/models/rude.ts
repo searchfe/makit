@@ -31,16 +31,17 @@ export function dynamicPrerequisites (ctx: Context): string[] {
         json = JSON.parse(fileContent)
     } catch (err) {
         Logger.getOrCreate().warning('dynamic deps', 'corrupted', file, err.message, 'removing...')
+        // remove corrupted dep file
         ctx.unlinkSync(file)
     }
     return json
 }
 
 export async function clearDynamicDependencies (ctx: Context) {
-    try {
-        await ctx.unlink(ctx.targetFullPath())
-    } catch (err) {
-        if (err.code === 'ENOENT') return
-        throw err
-    }
+    // try {
+        // // await ctx.unlink(ctx.targetFullPath())
+    // } catch (err) {
+        // if (err.code === 'ENOENT') return
+        // throw err
+    // }
 }

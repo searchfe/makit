@@ -70,6 +70,7 @@ export class DirectedGraph<T> {
         for (let v of this.edges.get(u) || []) yield v
     }
 
+    // TODO rename these parent/child related names
     * getParents (u: T) {
         for (let v of this.redges.get(u) || []) yield v
     }

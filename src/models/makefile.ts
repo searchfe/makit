@@ -117,6 +117,10 @@ export class Makefile {
         }
     }
 
+    public invalidate (target: string) {
+        this.makeImpl.invalidate(target)
+    }
+
     public dependencyGraphString (): string {
         return this.makeImpl.dependencyGraph.toString()
     }

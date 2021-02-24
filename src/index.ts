@@ -1,4 +1,3 @@
-import { Makefile } from './models/makefile'
 import { Logger, LogLevel } from './utils/logger'
 import { RecipeDeclaration } from './models/recipe'
 import { IO } from './io'
@@ -18,6 +17,10 @@ export function setLoglevel (val: LogLevel) {
 
 export function setRoot (val: string) {
     global['makit'].root = val
+}
+
+export function invalidate (target: string) {
+    global['makit'].invalidate(target)
 }
 
 export function rule (target: string, prerequisites: PrerequisitesDeclaration, recipe?: RecipeDeclaration) {

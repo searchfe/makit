@@ -26,6 +26,7 @@ enum TaskState {
     REJECTED = 3
 }
 
+// TODO rename to Target
 export class Task {
     target: string
     ctx: Context
@@ -68,6 +69,10 @@ export class Task {
 
     public start () {
         this.state = TaskState.STARTED
+    }
+
+    public reset () {
+        this.state = TaskState.INIT
     }
 
     public isStarted () {

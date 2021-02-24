@@ -3,6 +3,7 @@ import { IO } from '../../src/io'
 import { Logger, LogLevel } from '../../src/utils/logger'
 import { MemoryFileSystem } from '../../src/fs/memfs-impl'
 import { FileSystem } from '../../src/fs/file-system'
+import { VerboseReporter } from '../../src/reporters/verbose-reporter'
 
 export function createEnv ({
     fs = new MemoryFileSystem(),
@@ -12,7 +13,7 @@ export function createEnv ({
     logLevel?: LogLevel
 }) {
     const { db } = IO.resetFileSystem(fs)
-    const mk = new Makefile()
+    const mk = new Makefile(undefined, new VerboseReporter())
 
     if (!fs.existsSync(process.cwd())) {
         fs.mkdirSync(process.cwd(), { recursive: true })
