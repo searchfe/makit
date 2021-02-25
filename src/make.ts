@@ -71,7 +71,7 @@ export class Make {
                 })
                 .catch((err) => {
                     // 让 target 以及依赖 target 的目标对应的 make promise 失败
-                    const dependants = this.dependencyGraph.getAncestors(target)
+                    const dependants = this.dependencyGraph.getInVerticesRecursively(target)
                     err['target'] = target
                     for (const dependant of dependants) {
                         this.targets.get(dependant)!.reject(err)
@@ -94,7 +94,7 @@ export class Make {
         const queue = new Set<Target>([target])
         for (const node of queue) {
             node.reset()
-            for (const parent of this.dependencyGraph.getParents(node.name)) {
+            for (const parent of this.dependencyGraph.getInVertices(node.name)) {
                 const ptarget = this.targets.get(parent)!
                 ptarget.pendingDependencyCount++
                 queue.add(ptarget)
@@ -132,7 +132,7 @@ export class Make {
         this.reporter.make(target)
 
         let dmtime = MTIME_EMPTY_DEPENDENCY
-        for (const dep of this.dependencyGraph.getChildren(targetName)) {
+        for (const dep of this.dependencyGraph.getOutVerticies(targetName)) {
             dmtime = Math.max(dmtime, this.targets.get(dep)!.mtime!)
         }
 
@@ -150,7 +150,7 @@ export class Make {
     }
 
     private notifyDependants (targetName: string) {
-        for (const dependant of this.dependencyGraph.getParents(targetName)) {
+        for (const dependant of this.dependencyGraph.getInVertices(targetName)) {
             const dependantTarget = this.targets.get(dependant)!
             --dependantTarget.pendingDependencyCount
             if (dependantTarget.isReady()) {

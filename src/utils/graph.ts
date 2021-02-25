@@ -1,5 +1,4 @@
 import { asTree } from 'treeify'
-import assert from 'assert'
 
 const inspect = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
 
@@ -66,12 +65,11 @@ export class DirectedGraph<T> {
         return this.edges.get(fr)!.has(to)
     }
 
-    * getChildren (u: T) {
+    * getOutVerticies (u: T) {
         for (let v of this.edges.get(u) || []) yield v
     }
 
-    // TODO rename these parent/child related names
-    * getParents (u: T) {
+    * getInVertices (u: T) {
         for (let v of this.redges.get(u) || []) yield v
     }
 
@@ -94,7 +92,7 @@ export class DirectedGraph<T> {
         else visited.add(u)
 
         path.add(u)
-        for (const v of this.getChildren(u)) {
+        for (const v of this.getOutVerticies(u)) {
             this.checkCircular(v, path, visited)
         }
         path.delete(u)
@@ -125,7 +123,7 @@ export class DirectedGraph<T> {
         return this.toString()
     }
 
-    getAncestors (target: T) {
+    getInVerticesRecursively (target: T) {
         const dependants = new Set<T>()
         const queue = [target]
         for (const node of queue) {
@@ -161,7 +159,7 @@ export class DirectedGraph<T> {
     private toTree (root = this.root) {
         const tree: Tree = {}
         if (!root) throw new Error('root not found')
-        for (const child of this.getChildren(root)) {
+        for (const child of this.getOutVerticies(root)) {
             tree[this.vertexToString(child)] = this.toTree(child)
         }
         return tree
@@ -173,7 +171,7 @@ export class DirectedGraph<T> {
 
         yield vertex
 
-        for (const child of this.getChildren(vertex)) {
+        for (const child of this.getOutVerticies(vertex)) {
             yield * this.preOrder(child, visited)
         }
     }
