@@ -5,6 +5,8 @@ import { MTIME_EMPTY_DEPENDENCY } from './fs/mtime'
 import { TimeStamp } from './fs/time-stamp'
 import { Rule } from './makefile/rule'
 import { isRudeDependencyFile } from './makefile/rude'
+import { Queue } from './utils/queue'
+import { Task } from './task'
 import { DirectedGraph } from './utils/graph'
 import { LogLevel, Logger, hlTarget } from './utils/logger'
 import { Reporter } from './reporters/reporter'
@@ -32,7 +34,7 @@ export class Make {
     private disableCheckCircular: boolean
     private isMaking = false
     // ES Set 是有序集合（按照 add 顺序），在此用作队列顺便帮助去重
-    private targetQueue: Set<string> = new Set()
+    private targetQueue: Queue<Task> = new Queue()
 
     constructor ({
         root = process.cwd(),
@@ -49,7 +51,8 @@ export class Make {
     public async make (targetName: string, parent?: string): Promise<TimeStamp> {
         this.buildDependencyGraph(targetName, parent)
         for (const node of this.dependencyGraph.preOrder(targetName)) {
-            if (this.targets.get(node)!.isReady()) this.targetQueue.add(node)
+            const target = this.targets.get(node)!
+            if (target.isReady()) this.targetQueue.push(new Task(target))
         }
         l.verbose('GRAF', '0-indegree:', this.targetQueue)
         return new Promise((resolve, reject) => {
@@ -63,22 +66,22 @@ export class Make {
         if (this.isMaking) return
         this.isMaking = true
 
-        for (const target of this.targetQueue) {
-            this.doMake(target)
+        while (this.targetQueue.size) {
+            const task = this.targetQueue.pop()!
+            this.doMake(task.target)
                 .then(() => {
-                    this.targets.get(target)!.resolve()
-                    this.notifyDependants(target)
+                    task.target.resolve()
+                    this.notifyDependants(task.target.name)
                 })
                 .catch((err) => {
                     // 让 target 以及依赖 target 的目标对应的 make promise 失败
-                    const dependants = this.dependencyGraph.getInVerticesRecursively(target)
-                    err['target'] = target
+                    const dependants = this.dependencyGraph.getInVerticesRecursively(task.target.name)
+                    err['target'] = task.target.name
                     for (const dependant of dependants) {
                         this.targets.get(dependant)!.reject(err)
                     }
                 })
         }
-        this.targetQueue = new Set()
         this.isMaking = false
     }
 
@@ -100,7 +103,7 @@ export class Make {
                 queue.add(ptarget)
             }
         }
-        this.targetQueue.add(targetName)
+        this.targetQueue.push(new Task(target))
         this.startMake()
     }
 
@@ -126,22 +129,21 @@ export class Make {
         for (const dep of target.getDependencies()) this.buildDependencyGraph(dep, node)
     }
 
-    private async doMake (targetName: string) {
-        const target = this.targets.get(targetName)!
+    private async doMake (target: Target) {
         target.start()
         this.reporter.make(target)
 
         let dmtime = MTIME_EMPTY_DEPENDENCY
-        for (const dep of this.dependencyGraph.getOutVerticies(targetName)) {
+        for (const dep of this.dependencyGraph.getOutVerticies(target.name)) {
             dmtime = Math.max(dmtime, this.targets.get(dep)!.mtime!)
         }
 
-        l.debug('TIME', hlTarget(targetName), () => `mtime(${target.mtime}) ${relation(target.mtime, dmtime)} dmtime(${dmtime})`)
+        l.debug('TIME', hlTarget(target.name), () => `mtime(${target.mtime}) ${relation(target.mtime, dmtime)} dmtime(${dmtime})`)
 
         if (dmtime < target.mtime) {
             this.reporter.skip(target)
         } else {
-            if (!target.rule) throw new Error(`no rule matched target: "${targetName}"`)
+            if (!target.rule) throw new Error(`no rule matched target: "${target.name}"`)
             await target.rule.recipe.make(target.ctx)
             if (target.rule.hasDynamicDependencies) await target.writeDependency()
             await target.updateMtime()
@@ -154,7 +156,7 @@ export class Make {
             const dependantTarget = this.targets.get(dependant)!
             --dependantTarget.pendingDependencyCount
             if (dependantTarget.isReady()) {
-                this.targetQueue.add(dependant)
+                this.targetQueue.push(new Task(dependantTarget))
                 this.startMake()
             }
         }
