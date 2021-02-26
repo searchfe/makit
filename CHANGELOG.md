@@ -1,3 +1,23 @@
+# [1.17.0](https://github.com/searchfe/makit/compare/v1.16.1...v1.17.0) (2021-02-26)
+
+
+### Bug Fixes
+
+* robust invalidate ([5610ff4](https://github.com/searchfe/makit/commit/5610ff443084d62c43856dbc754bd9f992ee6723))
+
+
+### Features
+
+* expose ctx.logger ([1c48d41](https://github.com/searchfe/makit/commit/1c48d41df506b1d7c206df185f63b97152f98ab8))
+* invalidate task/files ([273af4d](https://github.com/searchfe/makit/commit/273af4ddc1a100fa0567fc30e9e3698679b37b22))
+* reporter ([e5f250a](https://github.com/searchfe/makit/commit/e5f250a5a75c7da59d40b8a11d351a844f580d40))
+
+
+### Performance Improvements
+
+* make 出错时不再每层都 catch，最终统一从依赖图里查找 ([869458f](https://github.com/searchfe/makit/commit/869458f621465a5a3a60152f3cec7a53c0aea0b5))
+* remove promise hierarchy by topological resolving ([f08345c](https://github.com/searchfe/makit/commit/f08345cd40711160f79fb2aed58f6588fd9eacfb))
+
 ## [1.16.1](https://github.com/searchfe/makit/compare/v1.16.0...v1.16.1) (2020-08-10)
 
 

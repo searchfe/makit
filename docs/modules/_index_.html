@@ -70,19 +70,12 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Variables</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_index_.html#makefile" class="tsd-kind-icon">makefile</a></li>
-							</ul>
-						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#disablecheckcircular" class="tsd-kind-icon">disable<wbr>Check<wbr>Circular</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#invalidate" class="tsd-kind-icon">invalidate</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#make" class="tsd-kind-icon">make</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#off" class="tsd-kind-icon">off</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#on" class="tsd-kind-icon">on</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#rude" class="tsd-kind-icon">rude</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#rule" class="tsd-kind-icon">rule</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#setdebug" class="tsd-kind-icon">set<wbr>Debug</a></li>
@@ -94,19 +87,6 @@
 							</ul>
 						</section>
 					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="makefile" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> makefile</h3>
-					<div class="tsd-signature tsd-kind-icon">makefile<span class="tsd-signature-symbol">:</span> <a href="../classes/_models_makefile_.makefile.html" class="tsd-signature-type">Makefile</a><span class="tsd-signature-symbol"> =&nbsp;global[&#x27;makit&#x27;] &#x3D; new Makefile()</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/index.ts#L7">index.ts:7</a></li>
-						</ul>
-					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -121,9 +101,32 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/index.ts#L55">index.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/index.ts#L46">index.ts:46</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="invalidate" class="tsd-anchor"></a>
+					<h3>invalidate</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">invalidate<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/index.ts#L22">index.ts:22</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -132,13 +135,13 @@
 					<a name="make" class="tsd-anchor"></a>
 					<h3>make</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">make<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_make_.make.html" class="tsd-signature-type">Make</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">make<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/index.ts#L43">index.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/index.ts#L42">index.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -147,95 +150,7 @@
 									<h5>target: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_make_.make.html" class="tsd-signature-type">Make</a><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="off" class="tsd-anchor"></a>
-					<h3>off</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">off<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listener<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/index.ts#L51">index.ts:51</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>event: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>listener: <span class="tsd-signature-type">function</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-siganture">
-											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="on" class="tsd-anchor"></a>
-					<h3>on</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listener<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/index.ts#L47">index.ts:47</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>event: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>listener: <span class="tsd-signature-type">function</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-siganture">
-											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -243,13 +158,13 @@
 					<a name="rude" class="tsd-anchor"></a>
 					<h3>rude</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">rude<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, prerequisites<span class="tsd-signature-symbol">: </span><a href="_models_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a>, recipe<span class="tsd-signature-symbol">?: </span><a href="_models_recipe_.html#recipedeclaration" class="tsd-signature-type">RecipeDeclaration</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">rude<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, prerequisites<span class="tsd-signature-symbol">: </span><a href="_makefile_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a>, recipe<span class="tsd-signature-symbol">: </span><a href="_makefile_recipe_.html#recipedeclaration" class="tsd-signature-type">RecipeDeclaration</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/index.ts#L31">index.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/index.ts#L30">index.ts:30</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -258,13 +173,13 @@
 									<h5>target: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>prerequisites: <a href="_models_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a></h5>
+									<h5>prerequisites: <a href="_makefile_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> recipe: <a href="_models_recipe_.html#recipedeclaration" class="tsd-signature-type">RecipeDeclaration</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> recipe: <a href="_makefile_recipe_.html#recipedeclaration" class="tsd-signature-type">RecipeDeclaration</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -272,13 +187,13 @@
 					<a name="rule" class="tsd-anchor"></a>
 					<h3>rule</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">rule<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, prerequisites<span class="tsd-signature-symbol">: </span><a href="_models_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a>, recipe<span class="tsd-signature-symbol">?: </span><a href="_models_recipe_.html#recipedeclaration" class="tsd-signature-type">RecipeDeclaration</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_models_rule_.rule.html" class="tsd-signature-type">Rule</a></li>
+						<li class="tsd-signature tsd-kind-icon">rule<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, prerequisites<span class="tsd-signature-symbol">: </span><a href="_makefile_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a>, recipe<span class="tsd-signature-symbol">: </span><a href="_makefile_recipe_.html#recipedeclaration" class="tsd-signature-type">RecipeDeclaration</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/index.ts#L27">index.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/index.ts#L26">index.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -287,13 +202,13 @@
 									<h5>target: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>prerequisites: <a href="_models_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a></h5>
+									<h5>prerequisites: <a href="_makefile_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> recipe: <a href="_models_recipe_.html#recipedeclaration" class="tsd-signature-type">RecipeDeclaration</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> recipe: <a href="_makefile_recipe_.html#recipedeclaration" class="tsd-signature-type">RecipeDeclaration</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../classes/_models_rule_.rule.html" class="tsd-signature-type">Rule</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -307,7 +222,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/index.ts#L13">index.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/index.ts#L10">index.ts:10</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -330,7 +245,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/index.ts#L17">index.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/index.ts#L14">index.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -353,7 +268,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/index.ts#L21">index.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/index.ts#L18">index.ts:18</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -376,7 +291,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/index.ts#L9">index.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/index.ts#L6">index.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -393,13 +308,13 @@
 					<a name="updateoraddrule" class="tsd-anchor"></a>
 					<h3>update<wbr>OrAdd<wbr>Rule</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">update<wbr>OrAdd<wbr>Rule<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, prerequisites<span class="tsd-signature-symbol">: </span><a href="_models_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a>, recipe<span class="tsd-signature-symbol">?: </span><a href="_models_recipe_.html#recipedeclaration" class="tsd-signature-type">RecipeDeclaration</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">update<wbr>OrAdd<wbr>Rule<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, prerequisites<span class="tsd-signature-symbol">: </span><a href="_makefile_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a>, recipe<span class="tsd-signature-symbol">: </span><a href="_makefile_recipe_.html#recipedeclaration" class="tsd-signature-type">RecipeDeclaration</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/index.ts#L39">index.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/index.ts#L38">index.ts:38</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -408,13 +323,13 @@
 									<h5>target: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>prerequisites: <a href="_models_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a></h5>
+									<h5>prerequisites: <a href="_makefile_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> recipe: <a href="_models_recipe_.html#recipedeclaration" class="tsd-signature-type">RecipeDeclaration</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> recipe: <a href="_makefile_recipe_.html#recipedeclaration" class="tsd-signature-type">RecipeDeclaration</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -422,13 +337,13 @@
 					<a name="updaterule" class="tsd-anchor"></a>
 					<h3>update<wbr>Rule</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">update<wbr>Rule<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, prerequisites<span class="tsd-signature-symbol">: </span><a href="_models_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a>, recipe<span class="tsd-signature-symbol">?: </span><a href="_models_recipe_.html#recipedeclaration" class="tsd-signature-type">RecipeDeclaration</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">update<wbr>Rule<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, prerequisites<span class="tsd-signature-symbol">: </span><a href="_makefile_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a>, recipe<span class="tsd-signature-symbol">: </span><a href="_makefile_recipe_.html#recipedeclaration" class="tsd-signature-type">RecipeDeclaration</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/index.ts#L35">index.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/index.ts#L34">index.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -437,13 +352,13 @@
 									<h5>target: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>prerequisites: <a href="_models_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a></h5>
+									<h5>prerequisites: <a href="_makefile_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> recipe: <a href="_models_recipe_.html#recipedeclaration" class="tsd-signature-type">RecipeDeclaration</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> recipe: <a href="_makefile_recipe_.html#recipedeclaration" class="tsd-signature-type">RecipeDeclaration</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -462,20 +377,14 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_index_.html#makefile" class="tsd-kind-icon">makefile</a>
-					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_index_.html#disablecheckcircular" class="tsd-kind-icon">disable<wbr>Check<wbr>Circular</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_index_.html#invalidate" class="tsd-kind-icon">invalidate</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_index_.html#make" class="tsd-kind-icon">make</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_index_.html#off" class="tsd-kind-icon">off</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_index_.html#on" class="tsd-kind-icon">on</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_index_.html#rude" class="tsd-kind-icon">rude</a>

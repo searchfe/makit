@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>SingleSchedule | makit</title>
+	<title>Rule | makit</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_schedule_single_schedule_.html">&quot;schedule/single-schedule&quot;</a>
+					<a href="../modules/_makefile_rule_.html">&quot;makefile/rule&quot;</a>
 				</li>
 				<li>
-					<a href="_schedule_single_schedule_.singleschedule.html">SingleSchedule</a>
+					<a href="_makefile_rule_.rule.html">Rule</a>
 				</li>
 			</ul>
-			<h1>Class SingleSchedule</h1>
+			<h1>Class Rule</h1>
 		</div>
 	</div>
 </header>
@@ -73,14 +73,8 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">SingleSchedule</span>
+						<span class="target">Rule</span>
 					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel">
-				<h3>Implements</h3>
-				<ul class="tsd-hierarchy">
-					<li><a href="../interfaces/_schedule_schedule_.schedule.html" class="tsd-signature-type">Schedule</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -90,19 +84,23 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_schedule_single_schedule_.singleschedule.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_makefile_rule_.rule.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_schedule_single_schedule_.singleschedule.html#task" class="tsd-kind-icon">task</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_makefile_rule_.rule.html#hasdynamicdependencies" class="tsd-kind-icon">has<wbr>Dynamic<wbr>Dependencies</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_makefile_rule_.rule.html#prerequisites" class="tsd-kind-icon">prerequisites</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_makefile_rule_.rule.html#recipe" class="tsd-kind-icon">recipe</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_makefile_rule_.rule.html#target" class="tsd-kind-icon">target</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_schedule_single_schedule_.singleschedule.html#map" class="tsd-kind-icon">map</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_makefile_rule_.rule.html#__computed" class="tsd-kind-icon">__computed</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_makefile_rule_.rule.html#match" class="tsd-kind-icon">match</a></li>
 							</ul>
 						</section>
 					</div>
@@ -114,71 +112,117 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Single<wbr>Schedule<span class="tsd-signature-symbol">(</span>task<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../modules/_models_prerequisites_.html#resolver" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_schedule_single_schedule_.singleschedule.html" class="tsd-signature-type">SingleSchedule</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Rule<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="_makefile_target_.target.html" class="tsd-signature-type">Target</a>, prerequisites<span class="tsd-signature-symbol">: </span><a href="_makefile_prerequisites_.prerequisites.html" class="tsd-signature-type">Prerequisites</a>, recipe<span class="tsd-signature-symbol">: </span><a href="_makefile_recipe_.recipe.html" class="tsd-signature-type">Recipe</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_makefile_rule_.rule.html" class="tsd-signature-type">Rule</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/schedule/single-schedule.ts#L7">schedule/single-schedule.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/rule.ts#L13">makefile/rule.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>task: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../modules/_models_prerequisites_.html#resolver" class="tsd-signature-type">Resolver</a></h5>
+									<h5>target: <a href="_makefile_target_.target.html" class="tsd-signature-type">Target</a></h5>
+								</li>
+								<li>
+									<h5>prerequisites: <a href="_makefile_prerequisites_.prerequisites.html" class="tsd-signature-type">Prerequisites</a></h5>
+								</li>
+								<li>
+									<h5>recipe: <a href="_makefile_recipe_.recipe.html" class="tsd-signature-type">Recipe</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_schedule_single_schedule_.singleschedule.html" class="tsd-signature-type">SingleSchedule</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_makefile_rule_.rule.html" class="tsd-signature-type">Rule</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="task" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> task</h3>
-					<div class="tsd-signature tsd-kind-icon">task<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../modules/_models_prerequisites_.html#resolver" class="tsd-signature-type">Resolver</a></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="hasdynamicdependencies" class="tsd-anchor"></a>
+					<h3>has<wbr>Dynamic<wbr>Dependencies</h3>
+					<div class="tsd-signature tsd-kind-icon">has<wbr>Dynamic<wbr>Dependencies<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/schedule/single-schedule.ts#L8">schedule/single-schedule.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/rule.ts#L13">makefile/rule.ts:13</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="prerequisites" class="tsd-anchor"></a>
+					<h3>prerequisites</h3>
+					<div class="tsd-signature tsd-kind-icon">prerequisites<span class="tsd-signature-symbol">:</span> <a href="_makefile_prerequisites_.prerequisites.html" class="tsd-signature-type">Prerequisites</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/rule.ts#L12">makefile/rule.ts:12</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="recipe" class="tsd-anchor"></a>
+					<h3>recipe</h3>
+					<div class="tsd-signature tsd-kind-icon">recipe<span class="tsd-signature-symbol">:</span> <a href="_makefile_recipe_.recipe.html" class="tsd-signature-type">Recipe</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/rule.ts#L10">makefile/rule.ts:10</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="target" class="tsd-anchor"></a>
+					<h3>target</h3>
+					<div class="tsd-signature tsd-kind-icon">target<span class="tsd-signature-symbol">:</span> <a href="_makefile_target_.target.html" class="tsd-signature-type">Target</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/rule.ts#L11">makefile/rule.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a name="map" class="tsd-anchor"></a>
-					<h3>map</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">map&lt;T&gt;<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="_context_.context.html" class="tsd-signature-type">Context</a>, fn<span class="tsd-signature-symbol">: </span><a href="../modules/_schedule_schedule_.html#targethandler" class="tsd-signature-type">TargetHandler</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="__computed" class="tsd-anchor"></a>
+					<h3>__computed</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">__computed<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Implementation of <a href="../interfaces/_schedule_schedule_.schedule.html">Schedule</a>.<a href="../interfaces/_schedule_schedule_.schedule.html#map">map</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/schedule/single-schedule.ts#L10">schedule/single-schedule.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/rule.ts#L29">makefile/rule.ts:29</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-type-parameters-title">Type parameters</h4>
-							<ul class="tsd-type-parameters">
-								<li>
-									<h4>T</h4>
-								</li>
-							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="match" class="tsd-anchor"></a>
+					<h3>match</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">match<span class="tsd-signature-symbol">(</span>targetFile<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RegExpExecArray</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/rule.ts#L25">makefile/rule.ts:25</a></li>
+								</ul>
+							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>ctx: <a href="_context_.context.html" class="tsd-signature-type">Context</a></h5>
-								</li>
-								<li>
-									<h5>fn: <a href="../modules/_schedule_schedule_.html#targethandler" class="tsd-signature-type">TargetHandler</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>targetFile: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">null</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">RegExpExecArray</span>
+							</h4>
 						</li>
 					</ul>
 				</section>
@@ -191,7 +235,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_schedule_single_schedule_.html">"schedule/single-<wbr>schedule"</a>
+						<a href="../modules/_makefile_rule_.html">"makefile/rule"</a>
 					</li>
 				</ul>
 			</nav>
@@ -200,21 +244,39 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_schedule_single_schedule_.singleschedule.html" class="tsd-kind-icon">Single<wbr>Schedule</a>
+						<a href="_makefile_rule_.rule.html" class="tsd-kind-icon">Rule</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="_schedule_single_schedule_.singleschedule.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="_makefile_rule_.rule.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_schedule_single_schedule_.singleschedule.html#task" class="tsd-kind-icon">task</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_makefile_rule_.rule.html#hasdynamicdependencies" class="tsd-kind-icon">has<wbr>Dynamic<wbr>Dependencies</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_schedule_single_schedule_.singleschedule.html#map" class="tsd-kind-icon">map</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_makefile_rule_.rule.html#prerequisites" class="tsd-kind-icon">prerequisites</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_makefile_rule_.rule.html#recipe" class="tsd-kind-icon">recipe</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_makefile_rule_.rule.html#target" class="tsd-kind-icon">target</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_makefile_rule_.rule.html#__computed" class="tsd-kind-icon">__computed</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_makefile_rule_.rule.html#match" class="tsd-kind-icon">match</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_makefile_rule_.html#debug" class="tsd-kind-icon">debug</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_makefile_rule_.html#inspect" class="tsd-kind-icon">inspect</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

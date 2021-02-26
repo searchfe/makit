@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;models/prerequisites&quot; | makit</title>
+	<title>&quot;makefile/recipe&quot; | makit</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_models_prerequisites_.html">&quot;models/prerequisites&quot;</a>
+					<a href="_makefile_recipe_.html">&quot;makefile/recipe&quot;</a>
 				</li>
 			</ul>
-			<h1>External module &quot;models/prerequisites&quot;</h1>
+			<h1>External module &quot;makefile/recipe&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -73,28 +73,19 @@
 						<section class="tsd-index-section ">
 							<h3>Classes</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_models_prerequisites_.prerequisites.html" class="tsd-kind-icon">Prerequisites</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Interfaces</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_models_prerequisites_.prerequisitearray.html" class="tsd-kind-icon">Prerequisite<wbr>Array</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_makefile_recipe_.recipe.html" class="tsd-kind-icon">Recipe</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_models_prerequisites_.html#prerequisiteitem" class="tsd-kind-icon">Prerequisite<wbr>Item</a></li>
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_models_prerequisites_.html#prerequisitesdeclaration" class="tsd-kind-icon">Prerequisites<wbr>Declaration</a></li>
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_models_prerequisites_.html#resolver" class="tsd-kind-icon">Resolver</a></li>
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_models_prerequisites_.html#targethandler" class="tsd-kind-icon">Target<wbr>Handler</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_makefile_recipe_.html#recipedeclaration" class="tsd-kind-icon">Recipe<wbr>Declaration</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_models_prerequisites_.html#inspectsymbol" class="tsd-kind-icon">inspect<wbr>Symbol</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_makefile_recipe_.html#inspectsymbol" class="tsd-kind-icon">inspect<wbr>Symbol</a></li>
 							</ul>
 						</section>
 					</div>
@@ -103,32 +94,12 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Type aliases</h2>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
-					<a name="prerequisiteitem" class="tsd-anchor"></a>
-					<h3>Prerequisite<wbr>Item</h3>
-					<div class="tsd-signature tsd-kind-icon">Prerequisite<wbr>Item<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="_models_prerequisites_.html#resolver" class="tsd-signature-type">Resolver</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_schedule_sequential_schedule_.sequentialschedule.html" class="tsd-signature-type">SequentialSchedule</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_models_prerequisites_.prerequisitearray.html" class="tsd-signature-type">PrerequisiteArray</a></div>
+					<a name="recipedeclaration" class="tsd-anchor"></a>
+					<h3>Recipe<wbr>Declaration</h3>
+					<div class="tsd-signature tsd-kind-icon">Recipe<wbr>Declaration<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/models/prerequisites.ts#L11">models/prerequisites.ts:11</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
-					<a name="prerequisitesdeclaration" class="tsd-anchor"></a>
-					<h3>Prerequisites<wbr>Declaration</h3>
-					<div class="tsd-signature tsd-kind-icon">Prerequisites<wbr>Declaration<span class="tsd-signature-symbol">:</span> <a href="_models_prerequisites_.html#prerequisiteitem" class="tsd-signature-type">PrerequisiteItem</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_models_prerequisites_.prerequisitearray.html" class="tsd-signature-type">PrerequisiteArray</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/models/prerequisites.ts#L13">models/prerequisites.ts:13</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
-					<a name="resolver" class="tsd-anchor"></a>
-					<h3>Resolver</h3>
-					<div class="tsd-signature tsd-kind-icon">Resolver<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/models/prerequisites.ts#L10">models/prerequisites.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/recipe.ts#L7">makefile/recipe.ts:7</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -136,59 +107,23 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><a href="../classes/_context_.context.html" class="tsd-signature-type">Context</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="../classes/_context_.context.html" class="tsd-signature-type">Context</a>, ctx<span class="tsd-signature-symbol">: </span><a href="../classes/_context_.context.html" class="tsd-signature-type">Context</a>, done<span class="tsd-signature-symbol">: </span><a href="_utils_promise_.html#callback" class="tsd-signature-type">Callback</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>context: <a href="../classes/_context_.context.html" class="tsd-signature-type">Context</a></h5>
+												<h5>this: <a href="../classes/_context_.context.html" class="tsd-signature-type">Context</a></h5>
 											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span>
-											<span class="tsd-signature-symbol"> | </span>
-											<span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>
-											<span class="tsd-signature-symbol"> | </span>
-											<span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span>
-										</h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-					<a name="targethandler" class="tsd-anchor"></a>
-					<h3>Target<wbr>Handler</h3>
-					<div class="tsd-signature tsd-kind-icon">Target<wbr>Handler&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/models/prerequisites.ts#L9">models/prerequisites.ts:9</a></li>
-						</ul>
-					</aside>
-					<h4 class="tsd-type-parameters-title">Type parameters</h4>
-					<ul class="tsd-type-parameters">
-						<li>
-							<h4>T</h4>
-						</li>
-					</ul>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
 											<li>
-												<h5>target: <span class="tsd-signature-type">string</span></h5>
+												<h5>ctx: <a href="../classes/_context_.context.html" class="tsd-signature-type">Context</a></h5>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> done: <a href="_utils_promise_.html#callback" class="tsd-signature-type">Callback</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
 											</li>
 										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 									</li>
 								</ul>
 							</li>
@@ -204,7 +139,7 @@
 					<div class="tsd-signature tsd-kind-icon">inspect<wbr>Symbol<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol"> =&nbsp;Symbol.for(&#x27;nodejs.util.inspect.custom&#x27;) || &#x27;inspect&#x27;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/models/prerequisites.ts#L7">models/prerequisites.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/recipe.ts#L5">makefile/recipe.ts:5</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -217,32 +152,20 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_models_prerequisites_.html">"models/prerequisites"</a>
+						<a href="_makefile_recipe_.html">"makefile/recipe"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_models_prerequisites_.prerequisites.html" class="tsd-kind-icon">Prerequisites</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_models_prerequisites_.prerequisitearray.html" class="tsd-kind-icon">Prerequisite<wbr>Array</a>
+						<a href="../classes/_makefile_recipe_.recipe.html" class="tsd-kind-icon">Recipe</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="_models_prerequisites_.html#prerequisiteitem" class="tsd-kind-icon">Prerequisite<wbr>Item</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="_models_prerequisites_.html#prerequisitesdeclaration" class="tsd-kind-icon">Prerequisites<wbr>Declaration</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="_models_prerequisites_.html#resolver" class="tsd-kind-icon">Resolver</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_models_prerequisites_.html#targethandler" class="tsd-kind-icon">Target<wbr>Handler</a>
+						<a href="_makefile_recipe_.html#recipedeclaration" class="tsd-kind-icon">Recipe<wbr>Declaration</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_models_prerequisites_.html#inspectsymbol" class="tsd-kind-icon">inspect<wbr>Symbol</a>
+						<a href="_makefile_recipe_.html#inspectsymbol" class="tsd-kind-icon">inspect<wbr>Symbol</a>
 					</li>
 				</ul>
 			</nav>

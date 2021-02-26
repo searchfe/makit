@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;schedule/sequential-schedule&quot; | makit</title>
+	<title>&quot;reporters/text-reporter&quot; | makit</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_schedule_sequential_schedule_.html">&quot;schedule/sequential-schedule&quot;</a>
+					<a href="_reporters_text_reporter_.html">&quot;reporters/text-reporter&quot;</a>
 				</li>
 			</ul>
-			<h1>External module &quot;schedule/sequential-schedule&quot;</h1>
+			<h1>External module &quot;reporters/text-reporter&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -73,19 +73,15 @@
 						<section class="tsd-index-section ">
 							<h3>Classes</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_schedule_sequential_schedule_.sequentialschedule.html" class="tsd-kind-icon">Sequential<wbr>Schedule</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_reporters_text_reporter_.textreporter.html" class="tsd-kind-icon">Text<wbr>Reporter</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_schedule_sequential_schedule_.html#inspectsymbol" class="tsd-kind-icon">inspect<wbr>Symbol</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Functions</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_schedule_sequential_schedule_.html#series" class="tsd-kind-icon">series</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_reporters_text_reporter_.html#madelabel" class="tsd-kind-icon">made<wbr>Label</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_reporters_text_reporter_.html#normallabel" class="tsd-kind-icon">normal<wbr>Label</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_reporters_text_reporter_.html#skiplabel" class="tsd-kind-icon">skip<wbr>Label</a></li>
 							</ul>
 						</section>
 					</div>
@@ -94,40 +90,34 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Variables</h2>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="inspectsymbol" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> inspect<wbr>Symbol</h3>
-					<div class="tsd-signature tsd-kind-icon">inspect<wbr>Symbol<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol"> =&nbsp;Symbol.for(&#x27;nodejs.util.inspect.custom&#x27;) || &#x27;inspect&#x27;</span></div>
+					<a name="madelabel" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> made<wbr>Label</h3>
+					<div class="tsd-signature tsd-kind-icon">made<wbr>Label<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;chalk.green(&#x27;MADE&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/schedule/sequential-schedule.ts#L8">schedule/sequential-schedule.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/reporters/text-reporter.ts#L7">reporters/text-reporter.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="series" class="tsd-anchor"></a>
-					<h3>series</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">series<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><a href="../interfaces/_models_prerequisites_.prerequisitearray.html" class="tsd-signature-type">PrerequisiteArray</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_schedule_sequential_schedule_.sequentialschedule.html" class="tsd-signature-type">SequentialSchedule</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/schedule/sequential-schedule.ts#L37">schedule/sequential-schedule.ts:37</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <a href="../interfaces/_models_prerequisites_.prerequisitearray.html" class="tsd-signature-type">PrerequisiteArray</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../classes/_schedule_sequential_schedule_.sequentialschedule.html" class="tsd-signature-type">SequentialSchedule</a></h4>
-						</li>
-					</ul>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="normallabel" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> normal<wbr>Label</h3>
+					<div class="tsd-signature tsd-kind-icon">normal<wbr>Label<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;chalk.gray(&#x27;MAKE&#x27;)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/reporters/text-reporter.ts#L6">reporters/text-reporter.ts:6</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="skiplabel" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> skip<wbr>Label</h3>
+					<div class="tsd-signature tsd-kind-icon">skip<wbr>Label<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;chalk.gray(&#x27;SKIP&#x27;)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/reporters/text-reporter.ts#L5">reporters/text-reporter.ts:5</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -138,20 +128,23 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_schedule_sequential_schedule_.html">"schedule/sequential-<wbr>schedule"</a>
+						<a href="_reporters_text_reporter_.html">"reporters/text-<wbr>reporter"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_schedule_sequential_schedule_.sequentialschedule.html" class="tsd-kind-icon">Sequential<wbr>Schedule</a>
+						<a href="../classes/_reporters_text_reporter_.textreporter.html" class="tsd-kind-icon">Text<wbr>Reporter</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_schedule_sequential_schedule_.html#inspectsymbol" class="tsd-kind-icon">inspect<wbr>Symbol</a>
+						<a href="_reporters_text_reporter_.html#madelabel" class="tsd-kind-icon">made<wbr>Label</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_schedule_sequential_schedule_.html#series" class="tsd-kind-icon">series</a>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_reporters_text_reporter_.html#normallabel" class="tsd-kind-icon">normal<wbr>Label</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_reporters_text_reporter_.html#skiplabel" class="tsd-kind-icon">skip<wbr>Label</a>
 					</li>
 				</ul>
 			</nav>

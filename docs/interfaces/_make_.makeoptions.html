@@ -85,8 +85,8 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_make_.makeoptions.html#disablecheckcircular" class="tsd-kind-icon">disable<wbr>Check<wbr>Circular</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_make_.makeoptions.html#emitter" class="tsd-kind-icon">emitter</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_make_.makeoptions.html#matchrule" class="tsd-kind-icon">match<wbr>Rule</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_make_.makeoptions.html#reporter" class="tsd-kind-icon">reporter</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_make_.makeoptions.html#root" class="tsd-kind-icon">root</a></li>
 							</ul>
 						</section>
@@ -101,17 +101,7 @@
 					<div class="tsd-signature tsd-kind-icon">disable<wbr>Check<wbr>Circular<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L19">make.ts:19</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="emitter" class="tsd-anchor"></a>
-					<h3>emitter</h3>
-					<div class="tsd-signature tsd-kind-icon">emitter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L18">make.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L19">make.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -121,7 +111,7 @@
 					<div class="tsd-signature tsd-kind-icon">match<wbr>Rule<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L20">make.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L20">make.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -129,7 +119,7 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><a href="../classes/_models_rule_.rule.html" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">RegExpExecArray</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><a href="../classes/_makefile_rule_.rule.html" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">RegExpExecArray</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
@@ -139,7 +129,7 @@
 												<h5>target: <span class="tsd-signature-type">string</span></h5>
 											</li>
 										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><a href="../classes/_models_rule_.rule.html" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">RegExpExecArray</span><span class="tsd-signature-symbol">]</span>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><a href="../classes/_makefile_rule_.rule.html" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">RegExpExecArray</span><span class="tsd-signature-symbol">]</span>
 											<span class="tsd-signature-symbol"> | </span>
 											<span class="tsd-signature-type">null</span>
 										</h4>
@@ -150,12 +140,22 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="reporter" class="tsd-anchor"></a>
+					<h3>reporter</h3>
+					<div class="tsd-signature tsd-kind-icon">reporter<span class="tsd-signature-symbol">:</span> <a href="_reporters_reporter_.reporter.html" class="tsd-signature-type">Reporter</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L18">make.ts:18</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="root" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> root</h3>
 					<div class="tsd-signature tsd-kind-icon">root<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L17">make.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L17">make.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -186,10 +186,10 @@
 								<a href="_make_.makeoptions.html#disablecheckcircular" class="tsd-kind-icon">disable<wbr>Check<wbr>Circular</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_make_.makeoptions.html#emitter" class="tsd-kind-icon">emitter</a>
+								<a href="_make_.makeoptions.html#matchrule" class="tsd-kind-icon">match<wbr>Rule</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_make_.makeoptions.html#matchrule" class="tsd-kind-icon">match<wbr>Rule</a>
+								<a href="_make_.makeoptions.html#reporter" class="tsd-kind-icon">reporter</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_make_.makeoptions.html#root" class="tsd-kind-icon">root</a>

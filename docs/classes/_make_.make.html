@@ -87,30 +87,32 @@
 								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_make_.make.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_make_.make.html#dependencygraph" class="tsd-kind-icon">dependency<wbr>Graph</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#disablecheckcircular" class="tsd-kind-icon">disable<wbr>Check<wbr>Circular</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#emitter" class="tsd-kind-icon">emitter</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#graph" class="tsd-kind-icon">graph</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#making" class="tsd-kind-icon">making</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#ismaking" class="tsd-kind-icon">is<wbr>Making</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#matchrule" class="tsd-kind-icon">match<wbr>Rule</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#reporter" class="tsd-kind-icon">reporter</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#root" class="tsd-kind-icon">root</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#targetqueue" class="tsd-kind-icon">target<wbr>Queue</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#targets" class="tsd-kind-icon">targets</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#tasks" class="tsd-kind-icon">tasks</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#checkcircular" class="tsd-kind-icon">check<wbr>Circular</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_make_.make.html#createcontext" class="tsd-kind-icon">create<wbr>Context</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#builddependencygraph" class="tsd-kind-icon">build<wbr>Dependency<wbr>Graph</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#createtarget" class="tsd-kind-icon">create<wbr>Target</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#domake" class="tsd-kind-icon">do<wbr>Make</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#emit" class="tsd-kind-icon">emit</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_make_.make.html#getgraph" class="tsd-kind-icon">get<wbr>Graph</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_make_.make.html#invalidate" class="tsd-kind-icon">invalidate</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#isresolved" class="tsd-kind-icon">is<wbr>Resolved</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_make_.make.html#make" class="tsd-kind-icon">make</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#makedetail" class="tsd-kind-icon">make<wbr>Detail</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#resolvedependencies" class="tsd-kind-icon">resolve<wbr>Dependencies</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#updategraph" class="tsd-kind-icon">update<wbr>Graph</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#withcache" class="tsd-kind-icon">with<wbr>Cache</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#notifydependants" class="tsd-kind-icon">notify<wbr>Dependants</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#scheduletask" class="tsd-kind-icon">schedule<wbr>Task</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_make_.make.html#startmake" class="tsd-kind-icon">start<wbr>Make</a></li>
 							</ul>
 						</section>
 					</div>
@@ -128,7 +130,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L29">make.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L38">make.ts:38</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -140,14 +142,11 @@
 											<h5>disable<wbr>Check<wbr>Circular<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
 										</li>
 										<li class="tsd-parameter">
-											<h5>emitter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter</span></h5>
-										</li>
-										<li class="tsd-parameter">
 											<h5>match<wbr>Rule<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></h5>
 											<ul class="tsd-parameters">
 												<li class="tsd-parameter-siganture">
 													<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-variable tsd-is-not-exported">
-														<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><a href="_models_rule_.rule.html" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">RegExpExecArray</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+														<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><a href="_makefile_rule_.rule.html" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">RegExpExecArray</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 													</ul>
 													<ul class="tsd-descriptions">
 														<li class="tsd-description">
@@ -157,7 +156,7 @@
 																	<h5>target: <span class="tsd-signature-type">string</span></h5>
 																</li>
 															</ul>
-															<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><a href="_models_rule_.rule.html" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">RegExpExecArray</span><span class="tsd-signature-symbol">]</span>
+															<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><a href="_makefile_rule_.rule.html" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">RegExpExecArray</span><span class="tsd-signature-symbol">]</span>
 																<span class="tsd-signature-symbol"> | </span>
 																<span class="tsd-signature-type">null</span>
 															</h4>
@@ -165,6 +164,9 @@
 													</ul>
 												</li>
 											</ul>
+										</li>
+										<li class="tsd-parameter">
+											<h5>reporter<span class="tsd-signature-symbol">: </span><a href="../interfaces/_reporters_reporter_.reporter.html" class="tsd-signature-type">Reporter</a></h5>
 										</li>
 										<li class="tsd-parameter">
 											<h5>root<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
@@ -177,45 +179,35 @@
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="dependencygraph" class="tsd-anchor"></a>
+					<h3>dependency<wbr>Graph</h3>
+					<div class="tsd-signature tsd-kind-icon">dependency<wbr>Graph<span class="tsd-signature-symbol">:</span> <a href="_utils_graph_.directedgraph.html" class="tsd-signature-type">DirectedGraph</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new DirectedGraph()</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L28">make.ts:28</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="disablecheckcircular" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> disable<wbr>Check<wbr>Circular</h3>
 					<div class="tsd-signature tsd-kind-icon">disable<wbr>Check<wbr>Circular<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L29">make.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L35">make.ts:35</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="emitter" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> emitter</h3>
-					<div class="tsd-signature tsd-kind-icon">emitter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span></div>
+					<a name="ismaking" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> is<wbr>Making</h3>
+					<div class="tsd-signature tsd-kind-icon">is<wbr>Making<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L28">make.ts:28</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="graph" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> graph</h3>
-					<div class="tsd-signature tsd-kind-icon">graph<span class="tsd-signature-symbol">:</span> <a href="_utils_graph_.directedgraph.html" class="tsd-signature-type">DirectedGraph</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new DirectedGraph()</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L25">make.ts:25</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="making" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> making</h3>
-					<div class="tsd-signature tsd-kind-icon">making<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Map()</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L24">make.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L36">make.ts:36</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -225,7 +217,7 @@
 					<div class="tsd-signature tsd-kind-icon">match<wbr>Rule<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L27">make.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L33">make.ts:33</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -233,7 +225,7 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><a href="_models_rule_.rule.html" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">RegExpExecArray</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><a href="_makefile_rule_.rule.html" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">RegExpExecArray</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
@@ -243,7 +235,7 @@
 												<h5>target: <span class="tsd-signature-type">string</span></h5>
 											</li>
 										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><a href="_models_rule_.rule.html" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">RegExpExecArray</span><span class="tsd-signature-symbol">]</span>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><a href="_makefile_rule_.rule.html" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">RegExpExecArray</span><span class="tsd-signature-symbol">]</span>
 											<span class="tsd-signature-symbol"> | </span>
 											<span class="tsd-signature-type">null</span>
 										</h4>
@@ -254,12 +246,52 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="reporter" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> reporter</h3>
+					<div class="tsd-signature tsd-kind-icon">reporter<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_reporters_reporter_.reporter.html" class="tsd-signature-type">Reporter</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L34">make.ts:34</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="root" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> root</h3>
 					<div class="tsd-signature tsd-kind-icon">root<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L26">make.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L32">make.ts:32</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="targetqueue" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> target<wbr>Queue</h3>
+					<div class="tsd-signature tsd-kind-icon">target<wbr>Queue<span class="tsd-signature-symbol">:</span> <a href="_utils_queue_.queue.html" class="tsd-signature-type">Queue</a><span class="tsd-signature-symbol">&lt;</span><a href="_task_.task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Queue()</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L38">make.ts:38</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="targets" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> targets</h3>
+					<div class="tsd-signature tsd-kind-icon">targets<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="_target_.target.html" class="tsd-signature-type">Target</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Map()</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L30">make.ts:30</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="tasks" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> tasks</h3>
+					<div class="tsd-signature tsd-kind-icon">tasks<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="_task_.task.html" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Map()</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L31">make.ts:31</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -267,39 +299,42 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="checkcircular" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> check<wbr>Circular</h3>
+					<a name="builddependencygraph" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> build<wbr>Dependency<wbr>Graph</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">check<wbr>Circular<span class="tsd-signature-symbol">(</span>begin<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">build<wbr>Dependency<wbr>Graph<span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, parent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L137">make.ts:137</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L117">make.ts:117</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>begin: <span class="tsd-signature-type">string</span></h5>
+									<h5>node: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> parent: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="createcontext" class="tsd-anchor"></a>
-					<h3>create<wbr>Context</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Context<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_context_.context.html" class="tsd-signature-type">Context</a></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="createtarget" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> create<wbr>Target</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Target<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_target_.target.html" class="tsd-signature-type">Target</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L43">make.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L188">make.ts:188</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -311,7 +346,7 @@
 											<h5>match<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RegExpExecArray</span></h5>
 										</li>
 										<li class="tsd-parameter">
-											<h5>rule<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="_models_rule_.rule.html" class="tsd-signature-type">Rule</a></h5>
+											<h5>rule<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="_makefile_rule_.rule.html" class="tsd-signature-type">Rule</a></h5>
 										</li>
 										<li class="tsd-parameter">
 											<h5>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
@@ -319,7 +354,7 @@
 									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_context_.context.html" class="tsd-signature-type">Context</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_target_.target.html" class="tsd-signature-type">Target</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -327,68 +362,73 @@
 					<a name="domake" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> do<wbr>Make</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">do<wbr>Make<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, parent<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">do<wbr>Make<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="_target_.target.html" class="tsd-signature-type">Target</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L73">make.ts:73</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L146">make.ts:146</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>target: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> parent: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<h5>target: <a href="_target_.target.html" class="tsd-signature-type">Target</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="emit" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> emit</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">emit<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, msg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="invalidate" class="tsd-anchor"></a>
+					<h3>invalidate</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">invalidate<span class="tsd-signature-symbol">(</span>targetName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L116">make.ts:116</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L93">make.ts:93</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>event: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>msg: <span class="tsd-signature-type">any</span></h5>
+									<h5>targetName: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getgraph" class="tsd-anchor"></a>
-					<h3>get<wbr>Graph</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Graph<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="isresolved" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> is<wbr>Resolved</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Resolved<span class="tsd-signature-symbol">(</span>targetName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L147">make.ts:147</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L141">make.ts:141</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>targetName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">false</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">true</span>
+							</h4>
 						</li>
 					</ul>
 				</section>
@@ -396,19 +436,19 @@
 					<a name="make" class="tsd-anchor"></a>
 					<h3>make</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">make<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, parent<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">make<span class="tsd-signature-symbol">(</span>targetName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, parent<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L57">make.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L52">make.ts:52</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>target: <span class="tsd-signature-type">string</span></h5>
+									<h5>targetName: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> parent: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
@@ -419,80 +459,22 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="makedetail" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> make<wbr>Detail</h3>
+					<a name="notifydependants" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> notify<wbr>Dependants</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">make<wbr>Detail<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, context<span class="tsd-signature-symbol">: </span><a href="_context_.context.html" class="tsd-signature-type">Context</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">notify<wbr>Dependants<span class="tsd-signature-symbol">(</span>targetName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L108">make.ts:108</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L168">make.ts:168</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>target: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>context: <a href="_context_.context.html" class="tsd-signature-type">Context</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="resolvedependencies" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> resolve<wbr>Dependencies</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">resolve<wbr>Dependencies<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, context<span class="tsd-signature-symbol">: </span><a href="_context_.context.html" class="tsd-signature-type">Context</a>, rule<span class="tsd-signature-symbol">?: </span><a href="_models_rule_.rule.html" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L120">make.ts:120</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>target: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>context: <a href="_context_.context.html" class="tsd-signature-type">Context</a></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> rule: <a href="_models_rule_.rule.html" class="tsd-signature-type">Rule</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="updategraph" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> update<wbr>Graph</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">update<wbr>Graph<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, parent<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L132">make.ts:132</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>target: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> parent: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<h5>targetName: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -500,46 +482,42 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="withcache" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> with<wbr>Cache</h3>
+					<a name="scheduletask" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> schedule<wbr>Task</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">with<wbr>Cache<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">schedule<wbr>Task<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="_target_.target.html" class="tsd-signature-type">Target</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/make.ts#L151">make.ts:151</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L179">make.ts:179</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>target: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>fn: <span class="tsd-signature-type">function</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-siganture">
-											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-parameters-title">Parameters</h4>
-													<ul class="tsd-parameters">
-														<li>
-															<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
-														</li>
-													</ul>
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
+									<h5>target: <a href="_target_.target.html" class="tsd-signature-type">Target</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="startmake" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> start<wbr>Make</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">start<wbr>Make<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/make.ts#L66">make.ts:66</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -566,53 +544,59 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="_make_.make.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_make_.make.html#dependencygraph" class="tsd-kind-icon">dependency<wbr>Graph</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_make_.make.html#disablecheckcircular" class="tsd-kind-icon">disable<wbr>Check<wbr>Circular</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_make_.make.html#emitter" class="tsd-kind-icon">emitter</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_make_.make.html#graph" class="tsd-kind-icon">graph</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_make_.make.html#making" class="tsd-kind-icon">making</a>
+								<a href="_make_.make.html#ismaking" class="tsd-kind-icon">is<wbr>Making</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_make_.make.html#matchrule" class="tsd-kind-icon">match<wbr>Rule</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_make_.make.html#reporter" class="tsd-kind-icon">reporter</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_make_.make.html#root" class="tsd-kind-icon">root</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_make_.make.html#checkcircular" class="tsd-kind-icon">check<wbr>Circular</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_make_.make.html#targetqueue" class="tsd-kind-icon">target<wbr>Queue</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_make_.make.html#createcontext" class="tsd-kind-icon">create<wbr>Context</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_make_.make.html#targets" class="tsd-kind-icon">targets</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_make_.make.html#tasks" class="tsd-kind-icon">tasks</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_make_.make.html#builddependencygraph" class="tsd-kind-icon">build<wbr>Dependency<wbr>Graph</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_make_.make.html#createtarget" class="tsd-kind-icon">create<wbr>Target</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="_make_.make.html#domake" class="tsd-kind-icon">do<wbr>Make</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_make_.make.html#emit" class="tsd-kind-icon">emit</a>
-							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_make_.make.html#getgraph" class="tsd-kind-icon">get<wbr>Graph</a>
+								<a href="_make_.make.html#invalidate" class="tsd-kind-icon">invalidate</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_make_.make.html#isresolved" class="tsd-kind-icon">is<wbr>Resolved</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_make_.make.html#make" class="tsd-kind-icon">make</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_make_.make.html#makedetail" class="tsd-kind-icon">make<wbr>Detail</a>
+								<a href="_make_.make.html#notifydependants" class="tsd-kind-icon">notify<wbr>Dependants</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_make_.make.html#resolvedependencies" class="tsd-kind-icon">resolve<wbr>Dependencies</a>
+								<a href="_make_.make.html#scheduletask" class="tsd-kind-icon">schedule<wbr>Task</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_make_.make.html#updategraph" class="tsd-kind-icon">update<wbr>Graph</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_make_.make.html#withcache" class="tsd-kind-icon">with<wbr>Cache</a>
+								<a href="_make_.make.html#startmake" class="tsd-kind-icon">start<wbr>Make</a>
 							</li>
 						</ul>
 					</li>

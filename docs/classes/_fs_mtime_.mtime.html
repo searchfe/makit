@@ -69,22 +69,6 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>文件 mtime 的抽象</p>
-					</div>
-					<p>由于文件系统时间和 Node.js 的 Date API 不一致，
-						会影响判断一个 target 是否 stale。
-						GNU Make 的 recipe 是独立进程而 makit 中是本地过程调用因此问题严重。
-					一些实现细节：</p>
-					<ul>
-						<li>mtime 使用正整数实现，特殊值取负数和 Infinity。</li>
-						<li>按 makit 第一次获知文件的顺序初始化 mtime。</li>
-						<li>同时提供 mtime 和严格递增的 now()，确保 now 和 mtime 一致。</li>
-					</ul>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -136,7 +120,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/fs/mtime.ts#L38">fs/mtime.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/fs/mtime.ts#L38">fs/mtime.ts:38</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -161,7 +145,7 @@
 					<div class="tsd-signature tsd-kind-icon">db<span class="tsd-signature-symbol">:</span> <a href="_db_data_base_.database.html" class="tsd-signature-type">DataBase</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/fs/mtime.ts#L40">fs/mtime.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/fs/mtime.ts#L40">fs/mtime.ts:40</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -171,7 +155,7 @@
 					<div class="tsd-signature tsd-kind-icon">fs<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_fs_file_system_.filesystem.html" class="tsd-signature-type">FileSystem</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/fs/mtime.ts#L40">fs/mtime.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/fs/mtime.ts#L40">fs/mtime.ts:40</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -181,7 +165,7 @@
 					<div class="tsd-signature tsd-kind-icon">instance<span class="tsd-signature-symbol">:</span> <a href="_fs_mtime_.mtime.html" class="tsd-signature-type">MTime</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/fs/mtime.ts#L38">fs/mtime.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/fs/mtime.ts#L38">fs/mtime.ts:38</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -192,30 +176,22 @@
 					<a name="getmodifiedtime" class="tsd-anchor"></a>
 					<h3>get<wbr>Modified<wbr>Time</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Modified<wbr>Time<span class="tsd-signature-symbol">(</span>fullpath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Modified<wbr>Time<span class="tsd-signature-symbol">(</span>fullpath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/fs/mtime.ts#L74">fs/mtime.ts:74</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/fs/mtime.ts#L74">fs/mtime.ts:74</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>获取文件修改时间</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>fullpath: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>文件全路径</p>
-									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a></h4>
 							<p>时间戳的 Promise</p>
 						</li>
 					</ul>
@@ -224,13 +200,13 @@
 					<a name="getmodifiedtimefromfilesystem" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Modified<wbr>Time<wbr>From<wbr>File<wbr>System</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Modified<wbr>Time<wbr>From<wbr>File<wbr>System<span class="tsd-signature-symbol">(</span>fullpath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Modified<wbr>Time<wbr>From<wbr>File<wbr>System<span class="tsd-signature-symbol">(</span>fullpath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/fs/mtime.ts#L86">fs/mtime.ts:86</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/fs/mtime.ts#L86">fs/mtime.ts:86</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -239,7 +215,7 @@
 									<h5>fullpath: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -253,14 +229,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/fs/mtime.ts#L47">fs/mtime.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/fs/mtime.ts#L47">fs/mtime.ts:47</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>获取严格递增的当前时间戳</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a></h4>
 							<p>严格递增的当前时间戳</p>
 						</li>
@@ -276,14 +247,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/fs/mtime.ts#L101">fs/mtime.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/fs/mtime.ts#L101">fs/mtime.ts:101</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>简单的校验，就可以不依赖数据库的并发一致性。</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -301,36 +267,25 @@
 					<a name="setmodifiedtime" class="tsd-anchor"></a>
 					<h3>set<wbr>Modified<wbr>Time</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Modified<wbr>Time<span class="tsd-signature-symbol">(</span>fullpath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, time<span class="tsd-signature-symbol">?: </span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Modified<wbr>Time<span class="tsd-signature-symbol">(</span>fullpath<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, time<span class="tsd-signature-symbol">?: </span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/fs/mtime.ts#L59">fs/mtime.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/fs/mtime.ts#L59">fs/mtime.ts:59</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>设置文件修改时间，不传则设置为现在</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>fullpath: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>文件全路径</p>
-									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> time: <a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol"> =&nbsp;this.now()</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>时间戳</p>
-									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../modules/_fs_time_stamp_.html#timestamp" class="tsd-signature-type">TimeStamp</a></h4>
 						</li>
 					</ul>
 				</section>

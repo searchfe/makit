@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Prerequisites | makit</title>
+	<title>Target | makit</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_models_prerequisites_.html">&quot;models/prerequisites&quot;</a>
+					<a href="../modules/_makefile_target_.html">&quot;makefile/target&quot;</a>
 				</li>
 				<li>
-					<a href="_models_prerequisites_.prerequisites.html">Prerequisites</a>
+					<a href="_makefile_target_.target.html">Target</a>
 				</li>
 			</ul>
-			<h1>Class Prerequisites</h1>
+			<h1>Class Target</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +73,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Prerequisites</span>
+						<span class="target">Target</span>
 					</li>
 				</ul>
 			</section>
@@ -84,22 +84,31 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_models_prerequisites_.prerequisites.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_makefile_target_.target.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_models_prerequisites_.prerequisites.html#_decl" class="tsd-kind-icon">_decl</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_models_prerequisites_.prerequisites.html#dynamicdependencies" class="tsd-kind-icon">dynamic<wbr>Dependencies</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_models_prerequisites_.prerequisites.html#schedule" class="tsd-kind-icon">schedule</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_makefile_target_.target.html#_decl" class="tsd-kind-icon">_decl</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_makefile_target_.target.html#glob" class="tsd-kind-icon">glob</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_makefile_target_.target.html#rtarget" class="tsd-kind-icon">r<wbr>Target</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_makefile_target_.target.html#targettype" class="tsd-kind-icon">target<wbr>Type</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_makefile_target_.target.html#decl" class="tsd-kind-icon">decl</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_models_prerequisites_.prerequisites.html#__computed" class="tsd-kind-icon">__computed</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="_models_prerequisites_.prerequisites.html#map" class="tsd-kind-icon">map</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_makefile_target_.target.html#__computed" class="tsd-kind-icon">__computed</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_makefile_target_.target.html#exec" class="tsd-kind-icon">exec</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_makefile_target_.target.html#isfilepath" class="tsd-kind-icon">is<wbr>File<wbr>Path</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-static"><a href="_makefile_target_.target.html#execarrayfromstring" class="tsd-kind-icon">exec<wbr>Array<wbr>From<wbr>String</a></li>
 							</ul>
 						</section>
 					</div>
@@ -111,22 +120,22 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Prerequisites<span class="tsd-signature-symbol">(</span>decl<span class="tsd-signature-symbol">: </span><a href="../modules/_models_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_models_prerequisites_.prerequisites.html" class="tsd-signature-type">Prerequisites</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Target<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="../modules/_makefile_target_.html#targetdeclaration" class="tsd-signature-type">TargetDeclaration</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_makefile_target_.target.html" class="tsd-signature-type">Target</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/models/prerequisites.ts#L18">models/prerequisites.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/target.ts#L19">makefile/target.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>decl: <a href="../modules/_models_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a></h5>
+									<h5>target: <a href="../modules/_makefile_target_.html#targetdeclaration" class="tsd-signature-type">TargetDeclaration</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_models_prerequisites_.prerequisites.html" class="tsd-signature-type">Prerequisites</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="_makefile_target_.target.html" class="tsd-signature-type">Target</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -136,30 +145,53 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_decl" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _decl</h3>
-					<div class="tsd-signature tsd-kind-icon">_decl<span class="tsd-signature-symbol">:</span> <a href="../modules/_models_prerequisites_.html#prerequisitesdeclaration" class="tsd-signature-type">PrerequisitesDeclaration</a></div>
+					<div class="tsd-signature tsd-kind-icon">_decl<span class="tsd-signature-symbol">:</span> <a href="../modules/_makefile_target_.html#targetdeclaration" class="tsd-signature-type">TargetDeclaration</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/models/prerequisites.ts#L18">models/prerequisites.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/target.ts#L17">makefile/target.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="dynamicdependencies" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> dynamic<wbr>Dependencies</h3>
-					<div class="tsd-signature tsd-kind-icon">dynamic<wbr>Dependencies<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Set</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Map()</span></div>
+					<a name="glob" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagOptional">Optional</span> glob</h3>
+					<div class="tsd-signature tsd-kind-icon">glob<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/models/prerequisites.ts#L16">models/prerequisites.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/target.ts#L19">makefile/target.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="schedule" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> schedule</h3>
-					<div class="tsd-signature tsd-kind-icon">schedule<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_schedule_schedule_.schedule.html" class="tsd-signature-type">Schedule</a></div>
+					<a name="rtarget" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagOptional">Optional</span> r<wbr>Target</h3>
+					<div class="tsd-signature tsd-kind-icon">r<wbr>Target<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/models/prerequisites.ts#L17">models/prerequisites.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/target.ts#L18">makefile/target.ts:18</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="targettype" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> target<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">target<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../enums/_makefile_target_.targettype.html" class="tsd-signature-type">TargetType</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/target.ts#L16">makefile/target.ts:16</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="decl" class="tsd-anchor"></a>
+					<h3>decl</h3>
+					<div class="tsd-signature tsd-kind-icon">decl<span class="tsd-signature-symbol">:</span> </div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/target.ts#L40">makefile/target.ts:40</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -176,42 +208,76 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/models/prerequisites.ts#L29">models/prerequisites.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/target.ts#L53">makefile/target.ts:53</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a name="map" class="tsd-anchor"></a>
-					<h3>map</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">map&lt;T&gt;<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="_context_.context.html" class="tsd-signature-type">Context</a>, fn<span class="tsd-signature-symbol">: </span><a href="../modules/_models_prerequisites_.html#targethandler" class="tsd-signature-type">TargetHandler</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="exec" class="tsd-anchor"></a>
+					<h3>exec</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">exec<span class="tsd-signature-symbol">(</span>targetFile<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RegExpExecArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef05b48/src/models/prerequisites.ts#L25">models/prerequisites.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/target.ts#L48">makefile/target.ts:48</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-type-parameters-title">Type parameters</h4>
-							<ul class="tsd-type-parameters">
-								<li>
-									<h4>T</h4>
-								</li>
-							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>ctx: <a href="_context_.context.html" class="tsd-signature-type">Context</a></h5>
-								</li>
-								<li>
-									<h5>fn: <a href="../modules/_models_prerequisites_.html#targethandler" class="tsd-signature-type">TargetHandler</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>targetFile: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">RegExpExecArray</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">null</span>
+							</h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="isfilepath" class="tsd-anchor"></a>
+					<h3>is<wbr>File<wbr>Path</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>File<wbr>Path<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/target.ts#L44">makefile/target.ts:44</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-static">
+					<a name="execarrayfromstring" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagPrivate">Private</span> exec<wbr>Array<wbr>From<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">exec<wbr>Array<wbr>From<wbr>String<span class="tsd-signature-symbol">(</span>str<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">RegExpExecArray</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/searchfe/makit/blob/ef8ac36/src/makefile/target.ts#L57">makefile/target.ts:57</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>str: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">RegExpExecArray</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -224,56 +290,65 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_models_prerequisites_.html">"models/prerequisites"</a>
+						<a href="../modules/_makefile_target_.html">"makefile/target"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_makefile_target_.targettype.html" class="tsd-kind-icon">Target<wbr>Type</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_models_prerequisites_.prerequisites.html" class="tsd-kind-icon">Prerequisites</a>
+						<a href="_makefile_target_.target.html" class="tsd-kind-icon">Target</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="_models_prerequisites_.prerequisites.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="_makefile_target_.target.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_models_prerequisites_.prerequisites.html#_decl" class="tsd-kind-icon">_decl</a>
+								<a href="_makefile_target_.target.html#_decl" class="tsd-kind-icon">_decl</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_models_prerequisites_.prerequisites.html#dynamicdependencies" class="tsd-kind-icon">dynamic<wbr>Dependencies</a>
+								<a href="_makefile_target_.target.html#glob" class="tsd-kind-icon">glob</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_models_prerequisites_.prerequisites.html#schedule" class="tsd-kind-icon">schedule</a>
+								<a href="_makefile_target_.target.html#rtarget" class="tsd-kind-icon">r<wbr>Target</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_makefile_target_.target.html#targettype" class="tsd-kind-icon">target<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_makefile_target_.target.html#decl" class="tsd-kind-icon">decl</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_models_prerequisites_.prerequisites.html#__computed" class="tsd-kind-icon">__computed</a>
+								<a href="_makefile_target_.target.html#__computed" class="tsd-kind-icon">__computed</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="_models_prerequisites_.prerequisites.html#map" class="tsd-kind-icon">map</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_makefile_target_.target.html#exec" class="tsd-kind-icon">exec</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_makefile_target_.target.html#isfilepath" class="tsd-kind-icon">is<wbr>File<wbr>Path</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private tsd-is-static">
+								<a href="_makefile_target_.target.html#execarrayfromstring" class="tsd-kind-icon">exec<wbr>Array<wbr>From<wbr>String</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_models_prerequisites_.prerequisitearray.html" class="tsd-kind-icon">Prerequisite<wbr>Array</a>
-					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_models_prerequisites_.html#prerequisiteitem" class="tsd-kind-icon">Prerequisite<wbr>Item</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_models_prerequisites_.html#prerequisitesdeclaration" class="tsd-kind-icon">Prerequisites<wbr>Declaration</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_models_prerequisites_.html#resolver" class="tsd-kind-icon">Resolver</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_models_prerequisites_.html#targethandler" class="tsd-kind-icon">Target<wbr>Handler</a>
+						<a href="../modules/_makefile_target_.html#targetdeclaration" class="tsd-kind-icon">Target<wbr>Declaration</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_models_prerequisites_.html#inspectsymbol" class="tsd-kind-icon">inspect<wbr>Symbol</a>
+						<a href="../modules/_makefile_target_.html#extglob" class="tsd-kind-icon">extglob</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_makefile_target_.html#inspectsymbol" class="tsd-kind-icon">inspect<wbr>Symbol</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_makefile_target_.html#isglob" class="tsd-kind-icon">is<wbr>Glob</a>
 					</li>
 				</ul>
 			</nav>
