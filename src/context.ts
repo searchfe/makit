@@ -4,8 +4,6 @@ import { Logger, hlTarget } from './utils/logger'
 import { FileSystem } from './fs/file-system'
 import { TimeStamp } from './fs/time-stamp'
 
-const logger = Logger.getOrCreate()
-
 interface ContextOptions {
     target: string
     match: RegExpExecArray | null
@@ -19,6 +17,7 @@ export class Context implements FileSystem {
     public readonly match: RegExpExecArray | null
     public dependencies: string[] = []
     public dynamicDependencies: string[] = []
+    public logger = Logger.getOrCreate()
 
     private readonly makeImpl: ContextOptions['make']
     private readonly fs: FileSystem
@@ -33,7 +32,7 @@ export class Context implements FileSystem {
     }
 
     public async make (target: string) {
-        logger.debug('RUDE', 'context.make called with', hlTarget(target), 'while making', hlTarget(this.target))
+        this.logger.debug('RUDE', 'context.make called with', hlTarget(target), 'while making', hlTarget(this.target))
         this.dynamicDependencies.push(target)
         return this.makeImpl(target)
     }
