@@ -2,8 +2,7 @@ import { Makefile } from '../../src/index'
 import { MemoryFileSystem } from '../../src/fs/memfs-impl'
 import { IO } from '../../src/io'
 import { Logger, LogLevel } from '../../src/utils/logger'
-
-const md5 = require('md5')
+import md5 from 'md5'
 
 describe('glob', function () {
     let fs

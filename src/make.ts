@@ -14,10 +14,10 @@ import { Reporter } from './reporters/reporter'
 const l = Logger.getOrCreate()
 
 export interface MakeOptions {
-    root?: string
-    reporter: Reporter
-    disableCheckCircular?: boolean
-    matchRule: (target: string) => [Rule, RegExpExecArray] | null
+    root?: string;
+    reporter: Reporter;
+    disableCheckCircular?: boolean;
+    matchRule: (target: string) => [Rule, RegExpExecArray] | null;
 }
 
 /**
@@ -90,7 +90,7 @@ export class Make {
         this.isMaking = false
     }
 
-    public invalidate(targetName: string) {
+    public invalidate (targetName: string) {
         const target = this.targets.get(targetName)
 
         // 还没编译到这个文件，或者这个文件根本不在依赖树里
@@ -185,7 +185,7 @@ export class Make {
         this.targetQueue.push(task)
     }
 
-    private createTarget ({ target, match, rule }: { target: string, match: RegExpExecArray | null, rule?: Rule}) {
+    private createTarget ({ target, match, rule }: { target: string; match: RegExpExecArray | null; rule?: Rule}) {
         return Target.create({
             target,
             match,

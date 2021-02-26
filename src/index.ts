@@ -3,11 +3,11 @@ import { RecipeDeclaration } from './makefile/recipe'
 import { IO } from './io'
 import { PrerequisitesDeclaration } from './makefile/prerequisites'
 
-export function setVerbose (val: boolean = true) {
+export function setVerbose (val = true) {
     Logger.getOrCreate().setLevel(val ? LogLevel.verbose : LogLevel.default)
 }
 
-export function setDebug (val: boolean = true) {
+export function setDebug (val = true) {
     Logger.getOrCreate().setLevel(val ? LogLevel.debug : LogLevel.default)
 }
 

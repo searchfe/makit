@@ -21,7 +21,7 @@ export class IO {
         return this.mtime
     }
 
-    static getOrCreateDataBase (filepath: string = '.makit.db', fs: FileSystem = this.getFileSystem()) {
+    static getOrCreateDataBase (filepath = '.makit.db', fs: FileSystem = this.getFileSystem()) {
         if (!this.db) this.db = new DataBase(filepath, fs)
         return this.db
     }

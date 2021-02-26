@@ -5,11 +5,11 @@ import { FileSystem } from './fs/file-system'
 import { TimeStamp } from './fs/time-stamp'
 
 interface ContextOptions {
-    target: string
-    match: RegExpExecArray | null
-    root: string
-    fs: FileSystem
-    make: (target: string) => Promise<TimeStamp>
+    target: string;
+    match: RegExpExecArray | null;
+    root: string;
+    fs: FileSystem;
+    make: (target: string) => Promise<TimeStamp>;
 }
 
 export class Context implements FileSystem {
@@ -61,12 +61,12 @@ export class Context implements FileSystem {
         }
     }
 
-    async readDependency (i: number = 0): Promise<string> {
+    async readDependency (i = 0): Promise<string> {
         if (i >= this.dependencies.length) throw new Error(`cannot get ${i}th dependency,dependencieshis.deps.length} dependencies in total`)
         return this.readFile(this.dependencyFullPath(i))
     }
 
-    readDependencySync (i: number = 0): string {
+    readDependencySync (i = 0): string {
         if (i >= this.dependencies.length) throw new Error(`cannot get ${i}th dependency,dependencieshis.deps.length} dependencies in total`)
         return this.readFileSync(this.dependencyFullPath(i), 'utf8')
     }
@@ -79,11 +79,11 @@ export class Context implements FileSystem {
         return this.target
     }
 
-    dependencyFullPath (i: number = 0): string {
+    dependencyFullPath (i = 0): string {
         return this.toFullPath(this.dependencies[i])
     }
 
-    dependencyPath (i: number = 0): string {
+    dependencyPath (i = 0): string {
         return this.dependencies[i]
     }
 
@@ -118,12 +118,12 @@ export class Context implements FileSystem {
         return this.fs.writeFileSync(this.toFullPath(filepath), content)
     }
 
-    async readFile (filepath: string, encoding?: BufferEncoding): Promise<string>
+    async readFile (filepath: string, encoding?: string): Promise<string>
     async readFile (filepath: string, encoding = 'utf8'): Promise<string | Buffer> {
         return this.fs.readFile(this.toFullPath(filepath), encoding)
     }
 
-    readFileSync (filepath: string, encoding: BufferEncoding): string
+    readFileSync (filepath: string, encoding: string): string
     readFileSync (filepath: string, encoding = 'utf8'): string | Buffer {
         return this.fs.readFileSync(this.toFullPath(filepath), encoding)
     }

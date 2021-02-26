@@ -9,12 +9,12 @@ export class NodeFileSystem implements FileSystem {
         return fs.statSync(path)
     }
 
-    readFile (path: string, encoding?: BufferEncoding): Promise<string>
+    readFile (path: string, encoding?: string): Promise<string>
     readFile (path: string, encoding?: string): Promise<string | Buffer> {
         return fs.promises.readFile(path, encoding)
     }
 
-    readFileSync (path: string, encoding: BufferEncoding): string;
+    readFileSync (path: string, encoding: string): string;
     readFileSync (path: string, encoding?: string): string | Buffer {
         return fs.readFileSync(path, encoding)
     }

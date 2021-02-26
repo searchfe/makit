@@ -6,23 +6,23 @@ import { Reporter } from './reporters/reporter'
 import { TextReporter } from './reporters/text-reporter'
 
 type rawConfig = Partial<{
-    graph: boolean
-    makefile: string
-    database: string
-    require: string[]
-    loglevel: number
-    verbose: boolean
-    reporter: string
-    debug: boolean
+    graph: boolean;
+    makefile: string;
+    database: string;
+    require: string[];
+    loglevel: number;
+    verbose: boolean;
+    reporter: string;
+    debug: boolean;
 }>
 
 export interface Config {
-    loglevel: LogLevel
-    database: string
-    graph: boolean
-    makefile: string
-    reporter: Reporter
-    require: string[]
+    loglevel: LogLevel;
+    database: string;
+    graph: boolean;
+    makefile: string;
+    reporter: Reporter;
+    require: string[];
 }
 
 const reporters = {

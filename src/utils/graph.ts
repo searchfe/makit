@@ -66,11 +66,11 @@ export class DirectedGraph<T> {
     }
 
     * getOutVerticies (u: T) {
-        for (let v of this.edges.get(u) || []) yield v
+        for (const v of this.edges.get(u) || []) yield v
     }
 
     * getInVertices (u: T) {
-        for (let v of this.redges.get(u) || []) yield v
+        for (const v of this.redges.get(u) || []) yield v
     }
 
     getOutDegree (u: T) {

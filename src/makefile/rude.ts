@@ -39,9 +39,9 @@ export function dynamicPrerequisites (ctx: Context): string[] {
 
 export async function clearDynamicDependencies (ctx: Context) {
     // try {
-        // // await ctx.unlink(ctx.targetFullPath())
+    // // await ctx.unlink(ctx.targetFullPath())
     // } catch (err) {
-        // if (err.code === 'ENOENT') return
-        // throw err
+    // if (err.code === 'ENOENT') return
+    // throw err
     // }
 }

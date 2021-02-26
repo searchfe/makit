@@ -11,12 +11,12 @@ const inspectKey = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
 const logger = Logger.getOrCreate()
 
 interface TargetOptions {
-    target: string
-    match: RegExpExecArray | null
-    root: string
-    fs: FileSystem
-    rule?: Rule,
-    make: (target: string) => Promise<TimeStamp>
+    target: string;
+    match: RegExpExecArray | null;
+    root: string;
+    fs: FileSystem;
+    rule?: Rule;
+    make: (target: string) => Promise<TimeStamp>;
 }
 
 enum TargetState {

@@ -9,8 +9,8 @@ export function createEnv ({
     fs = new MemoryFileSystem(),
     logLevel
 }: {
-    fs?: FileSystem,
-    logLevel?: LogLevel
+    fs?: FileSystem;
+    logLevel?: LogLevel;
 }) {
     const { db } = IO.resetFileSystem(fs)
     const mk = new Makefile(undefined, new TextReporter())
