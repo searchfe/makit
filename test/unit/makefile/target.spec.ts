@@ -1,4 +1,4 @@
-import { Target } from '../../../src/models/target'
+import { Target } from '../../../src/makefile/target'
 
 describe('Target', function () {
     it('should support exact match', function () {

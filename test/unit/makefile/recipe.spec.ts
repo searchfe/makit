@@ -1,4 +1,4 @@
-import { Recipe } from '../../../src/models/recipe'
+import { Recipe } from '../../../src/makefile/recipe'
 
 describe('Recipe', function () {
     const fakeContext: any = {

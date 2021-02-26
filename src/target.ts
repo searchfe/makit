@@ -4,8 +4,8 @@ import { FileSystem } from './fs/file-system'
 import { TimeStamp } from './fs/time-stamp'
 import { Logger, hlTarget } from './utils/logger'
 import { IO } from './io'
-import { isRudeDependencyFile, getDependencyFromTarget } from './models/rude'
-import { Rule } from './models/rule'
+import { isRudeDependencyFile, getDependencyFromTarget } from './makefile/rude'
+import { Rule } from './makefile/rule'
 
 const inspectKey = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
 const logger = Logger.getOrCreate()

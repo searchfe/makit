@@ -1,7 +1,7 @@
 import { Logger, LogLevel } from './utils/logger'
-import { RecipeDeclaration } from './models/recipe'
+import { RecipeDeclaration } from './makefile/recipe'
 import { IO } from './io'
-import { PrerequisitesDeclaration } from './models/prerequisites'
+import { PrerequisitesDeclaration } from './makefile/prerequisites'
 
 export function setVerbose (val: boolean = true) {
     Logger.getOrCreate().setLevel(val ? LogLevel.verbose : LogLevel.default)
@@ -47,13 +47,13 @@ export function disableCheckCircular () {
     global['makit'].disableCheckCircular = true
 }
 
-export { Makefile } from './models/makefile'
+export { Makefile } from './makefile/makefile'
 
 export { Context } from './context'
 
 export { DirectedGraph } from './utils/graph'
 
-export { RecipeDeclaration } from './models/recipe'
+export { RecipeDeclaration } from './makefile/recipe'
 
 // Sync DB disk for normal exit
 process.on('exit', () => IO.getOrCreateDataBase().syncToDisk())

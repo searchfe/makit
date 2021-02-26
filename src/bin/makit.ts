@@ -2,7 +2,7 @@
 
 import chalk from 'chalk'
 import yargs from 'yargs'
-import { Makefile } from '../models/makefile'
+import { Makefile } from '../makefile/makefile'
 import { existsSync } from 'fs'
 import { join } from 'path'
 import { Logger } from '../utils/logger'
