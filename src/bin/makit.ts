@@ -30,9 +30,9 @@ const argv = yargs.usage('$0 [OPTION] <TARGET>...')
     })
     .option('reporter', {
         type: 'string',
-        choices: ['dot', 'verbose'],
+        choices: ['dot', 'text'],
         default: 'dot',
-        description: '"dot", "verbose"'
+        description: '"dot", "text"'
     })
     .option('verbose', {
         alias: 'v',

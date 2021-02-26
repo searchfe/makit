@@ -3,7 +3,7 @@ import { resolve } from 'path'
 import { existsSync } from 'fs'
 import { DotReporter } from './reporters/dot-reporter'
 import { Reporter } from './reporters/reporter'
-import { VerboseReporter } from './reporters/verbose-reporter'
+import { TextReporter } from './reporters/text-reporter'
 
 type rawConfig = Partial<{
     graph: boolean
@@ -27,7 +27,7 @@ export interface Config {
 
 const reporters = {
     dot: () => new DotReporter(),
-    verbose: () => new VerboseReporter()
+    text: () => new TextReporter()
 }
 
 export function parse (args: rawConfig, pkg: { makit?: rawConfig }): Config {

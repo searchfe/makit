@@ -6,7 +6,7 @@ const skipLabel = chalk.gray('SKIP')
 const normalLabel = chalk.gray('MAKE')
 const madeLabel = chalk.green('MADE')
 
-export class VerboseReporter {
+export class TextReporter {
     constructor (
         private l: Logger = Logger.getOrCreate()
     ) {}

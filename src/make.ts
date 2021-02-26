@@ -28,6 +28,7 @@ export class Make {
     public dependencyGraph: DirectedGraph<string> = new DirectedGraph()
 
     private targets: Map<string, Target> = new Map()
+    private tasks: Map<string, Task> = new Map()
     private root: string
     private matchRule: (target: string) => [Rule, RegExpExecArray] | null
     private reporter: Reporter
@@ -52,7 +53,7 @@ export class Make {
         this.buildDependencyGraph(targetName, parent)
         for (const node of this.dependencyGraph.preOrder(targetName)) {
             const target = this.targets.get(node)!
-            if (target.isReady()) this.targetQueue.push(new Task(target))
+            if (target.isReady()) this.scheduleTask(target)
         }
         l.verbose('GRAF', '0-indegree:', this.targetQueue)
         return new Promise((resolve, reject) => {
@@ -68,12 +69,16 @@ export class Make {
 
         while (this.targetQueue.size) {
             const task = this.targetQueue.pop()!
+            if (task.isCanceled()) continue
+
             this.doMake(task.target)
                 .then(() => {
+                    if (task.isCanceled()) return
                     task.target.resolve()
                     this.notifyDependants(task.target.name)
                 })
                 .catch((err) => {
+                    if (task.isCanceled()) return
                     // 让 target 以及依赖 target 的目标对应的 make promise 失败
                     const dependants = this.dependencyGraph.getInVerticesRecursively(task.target.name)
                     err['target'] = task.target.name
@@ -96,23 +101,27 @@ export class Make {
 
         const queue = new Set<Target>([target])
         for (const node of queue) {
-            node.reset()
             for (const parent of this.dependencyGraph.getInVertices(node.name)) {
                 const ptarget = this.targets.get(parent)!
-                ptarget.pendingDependencyCount++
+                // 已经成功 make，意味着 parent 对 node 的依赖已经移除
+                // 注意：不可用 isFinished，因为 isRejected() 的情况依赖并未移除
+                if (node.isResolved()) ptarget.pendingDependencyCount++
                 queue.add(ptarget)
             }
+            node.reset()
         }
-        this.targetQueue.push(new Task(target))
+        this.scheduleTask(target)
         this.startMake()
     }
 
     private buildDependencyGraph (node: string, parent?: string) {
         l.verbose('GRAF', 'node:', node, 'parent:', parent)
         this.dependencyGraph.addVertex(node)
+
+        // 边 (parent, node) 不存在时才添加
         if (parent && !this.dependencyGraph.hasEdge(parent, node)) {
             this.dependencyGraph.addEdge(parent, node)
-            if (!this.targets.has(node) || !this.targets.get(node)!.isFinished()) {
+            if (!this.isResolved(node)) {
                 this.targets.get(parent)!.pendingDependencyCount++
             }
         }
@@ -127,6 +136,11 @@ export class Make {
 
         l.debug('DEPS', hlTarget(node), target.getDependencies())
         for (const dep of target.getDependencies()) this.buildDependencyGraph(dep, node)
+    }
+
+    private isResolved (targetName: string) {
+        const target = this.targets.get(targetName)
+        return target && target.isResolved()
     }
 
     private async doMake (target: Target) {
@@ -156,10 +170,19 @@ export class Make {
             const dependantTarget = this.targets.get(dependant)!
             --dependantTarget.pendingDependencyCount
             if (dependantTarget.isReady()) {
-                this.targetQueue.push(new Task(dependantTarget))
+                this.scheduleTask(dependantTarget)
                 this.startMake()
             }
         }
+    }
+
+    private scheduleTask (target: Target) {
+        const task = new Task(target)
+        if (this.tasks.has(target.name)) {
+            this.tasks.get(target.name)!.cancel()
+        }
+        this.tasks.set(target.name, task)
+        this.targetQueue.push(task)
     }
 
     private createTarget ({ target, match, rule }: { target: string, match: RegExpExecArray | null, rule?: Rule}) {

@@ -59,4 +59,22 @@ describe('invalidate', function () {
         await mk.make('foo')
         expect(recipeFoo).toBeCalledTimes(2)
     })
+
+    it('should allow successive innvalidate', async function () {
+        const recipeFoo = jest.fn(ctx => ctx.writeTarget('_'))
+        const recipeBar = jest.fn(ctx => ctx.writeTarget('_'))
+        const recipeCoo = jest.fn(ctx => ctx.writeTarget('_'))
+        mk.addRule('foo', ['bar'], recipeFoo)
+        mk.addRule('bar', ['coo'], recipeBar)
+        mk.addRule('coo', [], recipeCoo)
+        await mk.make('foo')
+        expect(recipeFoo).toBeCalledTimes(1)
+
+        fs.writeFileSync('coo', 'x')
+        mk.invalidate('coo')
+        mk.invalidate('coo')
+
+        await mk.make('foo')
+        expect(recipeFoo).toBeCalledTimes(2)
+    })
 })

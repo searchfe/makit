@@ -82,6 +82,10 @@ export class Target {
         return this.state === TargetState.INIT && this.pendingDependencyCount <= 0
     }
 
+    public isResolved () {
+        return this.state === TargetState.RESOLVED
+    }
+
     public isFinished () {
         return this.state === TargetState.RESOLVED || this.state === TargetState.REJECTED
     }
