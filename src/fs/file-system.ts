@@ -24,7 +24,6 @@ export interface FileSystem {
     unlink(path: string): Promise<void>;
     unlinkSync(path: string): void;
 
-    exists(path: string): Promise<boolean>;
     existsSync(path: string): boolean;
 
     utimes(path: string, atime: number, mtime: number): Promise<void>;

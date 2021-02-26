@@ -7,7 +7,6 @@ const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
 const mkdir = promisify(fs.mkdir)
 const unlink = promisify(fs.unlink)
-const exists = promisify(fs.exists)
 const utimes = promisify(fs.utimes)
 
 export class NodeFileSystem implements FileSystem {
@@ -49,15 +48,6 @@ export class NodeFileSystem implements FileSystem {
         return fs.unlinkSync(path)
     }
 
-    async exists (path: string): Promise<boolean> {
-        try {
-            await this.stat(path)
-            return true
-        } catch (err) {
-            if (err.code === 'ENOENT') return false
-            throw err
-        }
-    }
     existsSync (path: string) {
         return fs.existsSync(path)
     }

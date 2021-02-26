@@ -1,10 +1,8 @@
 import { Prerequisites } from './prerequisites'
 import { Target } from './target'
 import { Recipe } from './recipe'
-import debugFactory from 'debug'
 
 const inspect = Symbol.for('nodejs.util.inspect.custom') || 'inspect'
-const debug = debugFactory('makit:rule')
 
 export class Rule {
     public recipe: Recipe

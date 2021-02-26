@@ -136,10 +136,6 @@ export class Context implements FileSystem {
         return this.fs.unlink(this.toFullPath(filepath))
     }
 
-    exists (filepath: string) {
-        return this.fs.exists(this.toFullPath(filepath))
-    }
-
     existsSync (filepath: string) {
         return this.fs.existsSync(this.toFullPath(filepath))
     }
