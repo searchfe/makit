@@ -1,3 +1,11 @@
+## [1.17.1](https://github.com/searchfe/makit/compare/v1.17.0...v1.17.1) (2021-02-26)
+
+
+### Bug Fixes
+
+* remove debug ([ea2bb7b](https://github.com/searchfe/makit/commit/ea2bb7bd8c4bf62d22fa191e433768d797e32811))
+* support node <= 10 ([0b524b1](https://github.com/searchfe/makit/commit/0b524b1520ac805ebd8bebec11b87d6f1996c53f))
+
 # [1.17.0](https://github.com/searchfe/makit/compare/v1.16.1...v1.17.0) (2021-02-26)
 
 
