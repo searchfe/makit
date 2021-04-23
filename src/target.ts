@@ -16,7 +16,7 @@ interface TargetOptions {
     root: string;
     fs: FileSystem;
     rule?: Rule;
-    make: (target: string) => Promise<TimeStamp>;
+    make: (target: string) => PromiseLike<TimeStamp>;
 }
 
 enum TargetState {
@@ -112,11 +112,11 @@ export class Target {
         return this.ctx.dependencies
     }
 
-    public async writeDependency () {
+    public writeDependency () {
         const filepath = getDependencyFromTarget(this.ctx.target)
         logger.debug('RUDE', 'writing', filepath, 'with', this.ctx.dynamicDependencies)
-        await this.ctx.outputFile(filepath, JSON.stringify(this.ctx.dynamicDependencies))
-        await IO.getMTime().setModifiedTime(this.ctx.toFullPath(filepath))
+        this.ctx.outputFileSync(filepath, JSON.stringify(this.ctx.dynamicDependencies))
+        IO.getMTime().setModifiedTime(this.ctx.toFullPath(filepath))
     }
 
     [inspectKey] () {

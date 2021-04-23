@@ -1,5 +1,5 @@
 import { Makefile } from '../../src/index'
-import { FileSystem } from '../../src/types/fs'
+import { FileSystem } from '../../src/fs/file-system'
 import { createEnv } from '../stub/create-env'
 
 describe('patterns', function () {

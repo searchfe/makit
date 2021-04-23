@@ -3,7 +3,7 @@ import { Make } from '../make'
 import { TimeStamp } from '../fs/time-stamp'
 import { Logger } from '../utils/logger'
 import { Prerequisites, PrerequisitesDeclaration } from './prerequisites'
-import { getDependencyFromTarget, clearDynamicDependencies, rudeExtname, dynamicPrerequisites } from './rude'
+import { getDependencyFromTarget, rudeExtname, dynamicPrerequisites } from './rude'
 import { Target, TargetDeclaration } from './target'
 import { cwd } from 'process'
 import { Recipe, RecipeDeclaration } from './recipe'
@@ -77,7 +77,7 @@ export class Makefile {
         const rule = this.addRule(targetDecl, [prerequisitesDecl, '$0' + rudeExtname], recipeDecl)
         rule.hasDynamicDependencies = true
 
-        this.addRule(getDependencyFromTarget(targetDecl), dynamicPrerequisites, clearDynamicDependencies)
+        this.addRule(getDependencyFromTarget(targetDecl), dynamicPrerequisites)
     }
 
     public updateRule (

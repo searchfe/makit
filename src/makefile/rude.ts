@@ -36,12 +36,3 @@ export function dynamicPrerequisites (ctx: Context): string[] {
     }
     return json
 }
-
-export async function clearDynamicDependencies (ctx: Context) {
-    // try {
-    // // await ctx.unlink(ctx.targetFullPath())
-    // } catch (err) {
-    // if (err.code === 'ENOENT') return
-    // throw err
-    // }
-}

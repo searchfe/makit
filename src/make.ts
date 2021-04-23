@@ -4,11 +4,11 @@ import { IO } from './io'
 import { MTIME_EMPTY_DEPENDENCY } from './fs/mtime'
 import { TimeStamp } from './fs/time-stamp'
 import { Rule } from './makefile/rule'
-import { isRudeDependencyFile } from './makefile/rude'
 import { Queue } from './utils/queue'
 import { Task } from './task'
+import { SyncablePromise, ErrorFirstCallback } from './utils/async'
 import { DirectedGraph } from './utils/graph'
-import { LogLevel, Logger, hlTarget } from './utils/logger'
+import { Logger, hlTarget } from './utils/logger'
 import { Reporter } from './reporters/reporter'
 
 const l = Logger.getOrCreate()
@@ -49,14 +49,14 @@ export class Make {
         this.disableCheckCircular = disableCheckCircular || false
     }
 
-    public async make (targetName: string, parent?: string): Promise<TimeStamp> {
+    public make (targetName: string, parent?: string): PromiseLike<TimeStamp> {
         this.buildDependencyGraph(targetName, parent)
         for (const node of this.dependencyGraph.preOrder(targetName)) {
             const target = this.targets.get(node)!
             if (target.isReady()) this.scheduleTask(target)
         }
         l.verbose('GRAF', '0-indegree:', this.targetQueue)
-        return new Promise((resolve, reject) => {
+        return new SyncablePromise((resolve, reject) => {
             const target = this.targets.get(targetName)!
             target.addPromise(resolve, reject)
             this.startMake()
@@ -71,21 +71,19 @@ export class Make {
             const task = this.targetQueue.pop()!
             if (task.isCanceled()) continue
 
-            this.doMake(task.target)
-                .then(() => {
-                    if (task.isCanceled()) return
-                    task.target.resolve()
-                    this.notifyDependants(task.target.name)
-                })
-                .catch((err) => {
+            this.doMake(task.target, (err: Error | null) => {
+                if (err) {
                     if (task.isCanceled()) return
                     // 让 target 以及依赖 target 的目标对应的 make promise 失败
                     const dependants = this.dependencyGraph.getInVerticesRecursively(task.target.name)
                     err['target'] = task.target.name
-                    for (const dependant of dependants) {
-                        this.targets.get(dependant)!.reject(err)
-                    }
-                })
+                    for (const dependant of dependants) this.targets.get(dependant)!.reject(err)
+                    return
+                }
+                if (task.isCanceled()) return
+                task.target.resolve()
+                this.notifyDependants(task.target.name)
+            })
         }
         this.isMaking = false
     }
@@ -143,7 +141,7 @@ export class Make {
         return target && target.isResolved()
     }
 
-    private async doMake (target: Target) {
+    private doMake (target: Target, cb: ErrorFirstCallback<never>) {
         target.start()
         this.reporter.make(target)
 
@@ -156,13 +154,16 @@ export class Make {
 
         if (dmtime < target.mtime) {
             this.reporter.skip(target)
-        } else {
-            if (!target.rule) throw new Error(`no rule matched target: "${target.name}"`)
-            await target.rule.recipe.make(target.ctx)
-            if (target.rule.hasDynamicDependencies) await target.writeDependency()
-            await target.updateMtime()
-            this.reporter.made(target)
+            return cb(null)
         }
+        if (!target.rule) return cb(new Error(`no rule matched target: "${target.name}"`))
+        target.rule.recipe.make(target.ctx, (err: Error | null) => {
+            if (err) return cb(err)
+            if (target.rule!.hasDynamicDependencies) target.writeDependency()
+            target.updateMtime()
+            this.reporter.made(target)
+            cb(null)
+        })
     }
 
     private notifyDependants (targetName: string) {

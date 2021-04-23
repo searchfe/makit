@@ -1,5 +1,5 @@
 import { Makefile } from '../../src/index'
-import { delay } from '../../src/utils/promise'
+import { delay } from '../../src/utils/async'
 import { NodeFileSystem } from '../../src/fs/nodefs-impl'
 import { writeFileSync, statSync } from 'fs'
 import { removeSync } from 'fs-extra'
@@ -19,12 +19,12 @@ describe('local files', function () {
     })
 
     it('should call recipe before make resolve', async () => {
-        writeFileSync(input0, Math.random())
+        writeFileSync(input0, Math.random() + '')
         const mk = new Makefile()
         let recipeTimes = 0
 
         mk.addRule(output0, input0, ctx => {
-            writeFileSync(ctx.targetFullPath(), statSync(ctx.dependencyFullPath()).mtimeMs)
+            writeFileSync(ctx.targetFullPath(), '' + statSync(ctx.dependencyFullPath()).mtimeMs)
             recipeTimes++
         })
         await mk.make(output0)
@@ -34,11 +34,11 @@ describe('local files', function () {
     })
 
     it('should remake if dependency changed', async () => {
-        writeFileSync(input1, Math.random())
+        writeFileSync(input1, '' + Math.random())
         let mk = new Makefile()
         let recipeTimes = 0
         const recipe = ctx => {
-            writeFileSync(ctx.targetFullPath(), statSync(ctx.dependencyFullPath()).mtimeMs)
+            writeFileSync(ctx.targetFullPath(), '' + statSync(ctx.dependencyFullPath()).mtimeMs)
             recipeTimes++
         }
 
@@ -47,7 +47,7 @@ describe('local files', function () {
 
         // say, we touched that file manually before next make
         await delay(50)
-        writeFileSync(input1, Math.random())
+        writeFileSync(input1, '' + Math.random())
 
         mk = new Makefile()
         mk.addRule(output1, input1, recipe)

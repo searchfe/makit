@@ -9,7 +9,7 @@ interface ContextOptions {
     match: RegExpExecArray | null;
     root: string;
     fs: FileSystem;
-    make: (target: string) => Promise<TimeStamp>;
+    make: (target: string) => PromiseLike<TimeStamp>;
 }
 
 export class Context implements FileSystem {
